@@ -2,7 +2,7 @@ import { useRecoilState } from "recoil";
 import { currentShaderIndex } from "stores/storeFiber";
 import { useEffect, useRef, useState } from "react";
 
-import styles from "./fiber.module.scss";
+import "./section-shader.scss";
 
 
 export default function PostProject(props) {
@@ -46,11 +46,11 @@ export default function PostProject(props) {
   }, [currentIndex, shaderIndex]);
 
   return (
-    <div className={styles["canvas-wrapper"]}>
-      <div className={styles["canvas-main"]} ref={refCanvas}>
+    <div className="canvas-wrapper">
+      <div className="canvas-main" ref={refCanvas}>
         {isOn && canvasComponent}
       </div>
-      <div className={styles["canvas-info"]}>
+      <div className="canvas-info">
         <div>
           <h2>{info}</h2>
         </div>

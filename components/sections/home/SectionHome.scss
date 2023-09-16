@@ -11,8 +11,8 @@
       .category {
         .url-list {
           display: grid;
-          grid-template-columns: repeat(5, calc(20vw - 10px));
-          grid-auto-rows: calc(20vw - 10px);
+          grid-template-columns: repeat(6, calc(calc(100vw / 6) - 10px));
+          grid-auto-rows: calc(calc(100vw / 6) - 10px);
           gap: 8px;
         }
       }

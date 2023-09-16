@@ -1,7 +1,7 @@
 "use client";
 import ProjectGlslPatterns from "./GlslPatterns";
 import ProjectBookOfShaders from "./BOS";
-import styles from "../../fiber/common/fiber.module.scss";
+import "../common/section-shader.scss";
 
 const stillList = [
   {
@@ -16,8 +16,8 @@ const stillList = [
 
 const SectionFragnentStill = () => {
   return (
-    <section className={styles["section-shader"]}>
-      <div className={styles["container-shader"]}>
+    <section className="section-shader">
+      <div className="container-shader">
         {stillList.map((item, index) => {
           return item.component;
         })}

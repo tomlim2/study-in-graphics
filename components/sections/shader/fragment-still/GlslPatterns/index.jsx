@@ -1,11 +1,10 @@
-
 import { useEffect, useState, useRef } from "react";
 import { shaderMap } from "./shader/shaderMap";
 import { Canvas } from "@react-three/fiber";
 import ButtonBasic from "components/buttons/buttonBasic";
 import Experience from "./Experience";
 
-import styles from "../../../fiber/common/fiber.module.scss";
+import "../../common/section-shader.scss";
 
 const ProjectGlsl = () => {
   const [shaderNumber, setShaderNumber] = useState(0);
@@ -45,8 +44,8 @@ const ProjectGlsl = () => {
   };
 
   return (
-    <div className={styles["canvas-wrapper"]}>
-      <div className={styles["canvas-main"]} ref={refCanvas}>
+    <div className="canvas-wrapper">
+      <div className="canvas-main" ref={refCanvas}>
         {isOn && (
           <Canvas onCreated={created}>
             {shaderMap.map((shader, index) => {
@@ -59,7 +58,7 @@ const ProjectGlsl = () => {
           </Canvas>
         )}
       </div>
-      <div className={styles["canvas-info"]}>
+      <div className="canvas-info">
         <div>
           <h2>Shader patterns</h2>
           <div className="buttons">

@@ -1,12 +1,12 @@
 "use client";
-import PostProject from "components/sections/fiber/common/postProject";
-import styles from "components/sections/fiber/common/fiber.module.scss";
+import PostProject from "../common/postProject";
 import { shaderManager } from "./shaderManager";
+import "../common/section-shader.scss";
 
 const SectionFragnentTime = () => {
   return (
-    <div className={styles["section-shader"]}>
-      <div className={styles["container-shader"]}>
+    <div className="section-shader">
+      <div className="container-shader">
         {shaderManager.map((item, index) => {
           return (
             <PostProject

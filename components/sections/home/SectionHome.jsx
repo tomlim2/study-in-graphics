@@ -148,7 +148,7 @@ const SectionHome = () => {
                                             <Link href={routeItem.url}>
                                                 <div className="thumbnail">
                                                     <img src=
-                                                        "/assets/images/img_uv_00.png"
+                                                        "/assets/images/img-uv-00.png"
                                                         alt="hi" />
                                                     <div className="url-name-wrapper">
                                                         <div className="url-name">
