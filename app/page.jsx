@@ -1,4 +1,4 @@
-import SectionHome from "@/components/sections/home/SectionHome";
+import SectionHome from "components/sections/home/SectionHome";
 import styles from "./page.module.scss";
 
 export const metadata = {

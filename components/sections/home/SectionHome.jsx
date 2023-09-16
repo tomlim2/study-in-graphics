@@ -1,4 +1,4 @@
-import styles from "./SectionHome.module.scss";
+import "./SectionHome.scss";
 import Link from "next/link";
 
 const SectionHome = () => {
@@ -16,12 +16,19 @@ const SectionHome = () => {
         {
             categoryName: "To do",
             urlList: [
-                { name: "URL simple db system", url: "/blender/geometry-node" },
-                { name: "In water environment", url: "/blender/ai-render" },
+                { name: "URL simple db system", url: "/" },
+                { name: "In water environment", url: "/" },
+                { name: "Toon Render", url: "/" },
             ],
         },
     ]
     const historyList = [
+        {
+            categoryName: "Shader",
+            urlList: [{ name: "Vertex-Fragnent", url: "/shader/vertex-fragnent" },
+            { name: "Fragnent-Time", url: "/shader/fragnent-time" },
+            { name: "Fragnent-Still", url: "/shader/fragnent-still" },]
+        },
         {
             categoryName: "Fiber",
             urlList: [
@@ -69,9 +76,6 @@ const SectionHome = () => {
                 { name: "Eye with maths", url: "/fiber/eye-with-maths" },
                 { name: "Gameboy Material 1", url: "/fiber/gameboy-material1" },
                 { name: "Models", url: "/fiber/models" },
-                { name: "Vertex-Fragnent", url: "/fiber/vertex-fragnent" },
-                { name: "Fragnent-Time", url: "/fiber/fragnent-time" },
-                { name: "Fragnent-Still", url: "/fiber/fragnent-still" },
                 { name: "Drei-Portal", url: "/fiber/drei-portal" },
                 { name: "Raymarch101-frag1", url: "/fiber/raymarch101-frag1" },
                 { name: "Raymarch101-frag2", url: "/fiber/raymarch101-frag2" },
@@ -109,18 +113,18 @@ const SectionHome = () => {
     ];
 
     return (
-        <section className="sectionHome">
-            <ul className={styles.categories}>
+        <section className="section-home">
+            <ul className='list in-progress'>
                 {inProgressList.map((categoryItem, categoryIndex) => {
                     return (
-                        <li className={styles.category} key={categoryIndex}>
-                            <h2 className={styles.categoryName}>
+                        <li className='category' key={categoryIndex}>
+                            <h2 className='category-name'>
                                 {categoryItem.categoryName}
                             </h2>
-                            <ul className={styles.urlList}>
+                            <ul className='url-list'>
                                 {categoryItem.urlList.map((routeItem, routeIndex) => {
                                     return (
-                                        <li key={routeIndex} className={styles.urlLink}>
+                                        <li key={routeIndex} className='url-link'>
                                             <Link href={routeItem.url}>{routeItem.name}</Link>
                                         </li>
                                     );
@@ -130,19 +134,29 @@ const SectionHome = () => {
                     );
                 })}
             </ul>
-            <br /><br />
-            <ul className={styles.categories}>
+            <ul className='list history'>
                 {historyList.map((categoryItem, categoryIndex) => {
                     return (
-                        <li className={styles.category} key={categoryIndex}>
-                            <h2 className={styles.categoryName}>
+                        <li className='category' key={categoryIndex}>
+                            <h2 className='category-name'>
                                 {categoryItem.categoryName}
                             </h2>
-                            <ul className={styles.urlList}>
+                            <ul className='url-list'>
                                 {categoryItem.urlList.map((routeItem, routeIndex) => {
                                     return (
-                                        <li key={routeIndex} className={styles.urlLink}>
-                                            <Link href={routeItem.url}>{routeItem.name}</Link>
+                                        <li key={routeIndex} className='url-link'>
+                                            <Link href={routeItem.url}>
+                                                <div className="thumbnail">
+                                                    <img src=
+                                                        "/assets/images/img_uv_00.png"
+                                                        alt="hi" />
+                                                    <div className="url-name-wrapper">
+                                                        <div className="url-name">
+                                                            {routeItem.name}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </Link>
                                         </li>
                                     );
                                 })}

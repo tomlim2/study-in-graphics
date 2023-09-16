@@ -1,17 +1,17 @@
-import Lottie from "react-lottie-player";
-import lottieJson from "../jsons/heart-animation.json";
+import "@lottiefiles/lottie-player";
 import "./SectionLottieFileBasic.scss";
 
 const SectionLottieFileBasic = () => {
   return (
     <div className={"section"}>
-      <Lottie
+      <lottie-player
+        autoplay
+        // controls
         loop
-        animationData={lottieJson}
-        play
-        // style 은 선택
-        style={{ width: 150, height: 150 }}
-      />
+        mode="normal"
+        src="/assets/lotties/heart-animation.json"
+        style={{ width: 320 + "px" }}
+      ></lottie-player>
     </div>
   );
 };

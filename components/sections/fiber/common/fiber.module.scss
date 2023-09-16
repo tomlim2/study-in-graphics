@@ -1,0 +1,74 @@
+$skeleton-color: #f9f9f9;
+
+.section-shader {
+  display: flex;
+  // flex-direction: column;
+  justify-content: center;
+}
+
+.container-shader {
+  margin-top: 48px;
+  padding-bottom: 48px;
+}
+
+.canvas-wrapper {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  padding: 24px;
+  margin-bottom: 48px;
+
+  .skeleton-canvas {
+    background-color: $skeleton-color;
+  }
+  .skeleton-info {
+    display: flex;
+    align-items: center;
+    &-title {
+      width: 180px;
+      height: 24px;
+      background-color: $skeleton-color;
+    }
+    &-button {
+      width: 400px;
+      height: 32px;
+      margin-top: 12px;
+      background-color: $skeleton-color;
+    }
+  }
+}
+
+.canvas-main {
+  position: relative;
+  max-width: 600px;
+  width: calc(100vw - 48px);
+  max-height: 600px;
+  height: calc(100vw - 48px);
+  background-color: $skeleton-color;
+}
+
+.canvas-info {
+  h2 {
+    color: #252525;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    width: 100%;
+    margin-top: 16px;
+
+    @media only screen and (max-width: 600px) {
+      align-items: start;
+
+      .buttons {
+        height: calc(100vh - 100vw - 48px);
+        width: calc(100vw - 48px);
+        overflow: auto;
+      }
+    }
+  }
+}

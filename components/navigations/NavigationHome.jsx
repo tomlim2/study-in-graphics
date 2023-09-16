@@ -2,12 +2,12 @@ import axios from "axios";
 import styles from "./NavigationHome.module.scss";
 import Link from "next/link";
 
-import { stringToHexCode, hexCodeToColor } from "@/lib/utils";
-import { currentWeather } from "@/stores/storeOpenWeather";
+import { stringToHexCode, hexCodeToColor } from "lib/utils";
+import { currentWeather } from "stores/storeOpenWeather";
 import { useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 
-const Navigation = () => {
+const NavigationHome = () => {
   const [weatherColor, setCurrentWeatherColor] = useRecoilState(currentWeather);
   const [weatherData, setWeatherData] = useState(null);
 
@@ -30,7 +30,7 @@ const Navigation = () => {
     };
 
     fetchData();
-  }, []);
+  }, );
   return (
     <>
       <header className={styles.header}>
@@ -63,4 +63,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default NavigationHome;

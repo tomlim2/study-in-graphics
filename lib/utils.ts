@@ -1,4 +1,4 @@
-export function stringToHexCode(str: string) {
+export function stringToHexCode(str) {
   let hexCode = "";
 
   for (let i = 0; i < str.length; i++) {
@@ -9,7 +9,7 @@ export function stringToHexCode(str: string) {
   return hexCode;
 }
 
-export function hexCodeToColor(hexCode: string) {
+export function hexCodeToColor(hexCode) {
   // Remove any leading "#" symbol from the hex code
   if (hexCode.startsWith("#")) {
     hexCode = hexCode.substring(1);
