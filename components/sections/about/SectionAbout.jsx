@@ -1,8 +1,8 @@
-import styles from "./SectionAbout.module.scss";
+import "./sectionAbout.scss";
 
 const SectionAbout = () => {
   return (
-    <div className={styles["section-about"]}>
+    <div className="section-about">
 
       <p>
         저는 한국 서울에서 일하고 있는 테크니컬 아티스트, 개발자이자 교육자입니다.

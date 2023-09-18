@@ -1,5 +1,5 @@
 import SectionHome from "components/sections/home/SectionHome";
-import styles from "./page.module.scss";
+import "./page.scss";
 
 export const metadata = {
   title: "Home | yslim",
@@ -8,7 +8,7 @@ export const metadata = {
 
 const PageHome = () => {
   return (
-    <main className={styles.main}>
+    <main className="page-home">
       <SectionHome />
     </main>
   );

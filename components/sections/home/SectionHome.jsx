@@ -1,4 +1,4 @@
-import "./SectionHome.scss";
+import "./sectionHome.scss";
 import Link from "next/link";
 
 const SectionHome = () => {
@@ -62,12 +62,7 @@ const SectionHome = () => {
                     name: "Journey-Postprocess",
                     url: "/fiber/journey-postprocess",
                 },
-                { name: "Animating with triangles 1", url: "/fiber/animating-tri1" },
-                { name: "Animating with triangles 2", url: "/fiber/animating-tri2" },
-                { name: "Animating with triangles 3", url: "/fiber/animating-tri3" },
                 { name: "Animating with triangles 4", url: "/fiber/animating-tri4" },
-                { name: "Animating with triangles 5", url: "/fiber/animating-tri5" },
-                { name: "Animating with triangles 6", url: "/fiber/animating-tri6" },
                 { name: "Animating with triangles 7", url: "/fiber/animating-tri7" },
                 {
                     name: "Model emoji 1",

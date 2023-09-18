@@ -1,5 +1,5 @@
 import axios from "axios";
-import styles from "./NavigationHome.module.scss";
+import "./navigationHome.scss";
 import Link from "next/link";
 
 import { stringToHexCode, hexCodeToColor } from "lib/utils";
@@ -30,11 +30,11 @@ const NavigationHome = () => {
     };
 
     fetchData();
-  }, );
+  }, []);
   return (
     <>
-      <header className={styles.header}>
-        <ul className={styles.menu}>
+      <header className="header">
+        <ul className="menu">
           <li className="menu">
             <Link href="/">
               ylim |{" "}
@@ -48,8 +48,8 @@ const NavigationHome = () => {
           </li>
         </ul>
       </header>
-      <footer className={styles.footer}>
-        <ul className={styles.menu}>
+      <footer className="footer">
+        <ul className="menu">
           <li>
             <Link href="/exps">tomandlim@gmail.com</Link>
           </li>
