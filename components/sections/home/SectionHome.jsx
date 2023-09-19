@@ -32,6 +32,10 @@ const SectionHome = () => {
         {
             categoryName: "Fiber",
             urlList: [
+
+                { name: "Animating with triangles 4", url: "/fiber/animating-tri4" },
+                { name: "Animating with triangles 7", url: "/fiber/animating-tri7" },
+                { name: "Drei-Portal", url: "/fiber/drei-portal" },
                 { name: "Journey Game 1", url: "/fiber/journey-game1" },
                 { name: "Journey Game 2", url: "/fiber/journey-game2" },
                 {
@@ -62,8 +66,6 @@ const SectionHome = () => {
                     name: "Journey-Postprocess",
                     url: "/fiber/journey-postprocess",
                 },
-                { name: "Animating with triangles 4", url: "/fiber/animating-tri4" },
-                { name: "Animating with triangles 7", url: "/fiber/animating-tri7" },
                 {
                     name: "Model emoji 1",
                     url: "/fiber/model-emoji-1",
@@ -71,7 +73,7 @@ const SectionHome = () => {
                 { name: "Eye with maths", url: "/fiber/eye-with-maths" },
                 { name: "Gameboy Material 1", url: "/fiber/gameboy-material1" },
                 { name: "Models", url: "/fiber/models" },
-                { name: "Drei-Portal", url: "/fiber/drei-portal" },
+
                 { name: "Raymarch101-frag1", url: "/fiber/raymarch101-frag1" },
                 { name: "Raymarch101-frag2", url: "/fiber/raymarch101-frag2" },
                 { name: "Raymarch101-frag3", url: "/fiber/raymarch101-frag3" },
