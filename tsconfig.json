@@ -27,7 +27,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/sections/fiber/drei-portal/index.jsx", "components/sections/fiber/drei-portal/Experience.jsx", "app/fiber/drei-portal/page.ㅓsx", "app/fiber/animating-tri4/page.jsx", "components/sections/fiber/animating-tri4/shader/index.js", "components/sections/fiber/animating-tri4/Experience.jsx", "components/sections/fiber/animating-tri4/index.jsx", "components/sections/fiber/animating-tri7/shader/index.js", "app/fiber/animating-tri7/page.jsx", "components/sections/fiber/animating-tri7/index.jsx", "components/sections/fiber/animating-tri7/Experience.jsx", "components/sections/fiber/animating-tri7/AnimatingTriMesh.jsx", "app/blender/ai-render/page.jsx", "app/blender/geometry-node/page.jsx", "components/blender/aiRender/data.js", "components/blender/aiRender/index.jsx", "components/blender/geometryNode/data.js", "components/blender/geometryNode/index.jsx"  ],
   "exclude": [
     "node_modules"
   ]

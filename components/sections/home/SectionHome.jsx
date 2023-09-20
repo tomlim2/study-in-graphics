@@ -36,8 +36,6 @@ const SectionHome = () => {
                 { name: "Animating with triangles 4", url: "/fiber/animating-tri4" },
                 { name: "Animating with triangles 7", url: "/fiber/animating-tri7" },
                 { name: "Drei-Portal", url: "/fiber/drei-portal" },
-                { name: "Journey Game 1", url: "/fiber/journey-game1" },
-                { name: "Journey Game 2", url: "/fiber/journey-game2" },
                 {
                     name: "Journey-Physics-Base",
                     url: "/fiber/journey-physics",
@@ -141,7 +139,7 @@ const SectionHome = () => {
                             <ul className='url-list'>
                                 {categoryItem.urlList.map((routeItem, routeIndex) => {
                                     return (
-                                        <li key={routeIndex} className='url-link'>
+                                        <li key={routeIndex} className='url-item'>
                                             <Link href={routeItem.url}>
                                                 <div className="thumbnail">
                                                     <img src=
