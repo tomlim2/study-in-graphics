@@ -4,6 +4,7 @@ import "./SectionLottieFileBasic.scss";
 const SectionLottieFileBasic = () => {
   return (
     <div className={"section"}>
+      hihi
       <lottie-player
         autoplay
         // controls
