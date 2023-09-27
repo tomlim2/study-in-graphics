@@ -21,7 +21,7 @@ export default function Fox() {
     const time = state.clock.elapsedTime;
     const timeOffset = .5
     const aniSpeed = .1;
-    part5Group.current.rotation.z = time * 1.5;
+    part5Group.current.rotation.z = time * -1.5;
     // part1.current.position.y = Math.sin(time * 0.5 + timeOffset) * aniSpeed;
     // part2.current.position.y = Math.sin(time * 0.5 + timeOffset * 2) * aniSpeed;
     // part3.current.position.y = Math.sin(time * 0.5 + timeOffset) * aniSpeed;
