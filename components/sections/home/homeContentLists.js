@@ -185,7 +185,7 @@ export const historyList = [
       {
         name: "Lottie-Files",
         url: "/front//lottie-file/basic",
-        thumbnail: "/assets/images/img-uv-00.png",
+        thumbnail: "/assets/images/thumbnails/lottie-file-basic-1.png",
       },
     ],
   },

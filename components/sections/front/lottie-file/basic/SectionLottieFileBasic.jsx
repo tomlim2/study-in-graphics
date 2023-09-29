@@ -1,18 +1,16 @@
-import "@lottiefiles/lottie-player";
+"use client";
 import "./SectionLottieFileBasic.scss";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 const SectionLottieFileBasic = () => {
   return (
     <div className={"section"}>
-      hihi
-      <lottie-player
+      <Player
         autoplay
-        // controls
         loop
-        mode="normal"
         src="/assets/lotties/heart-animation.json"
-        style={{ width: 320 + "px" }}
-      ></lottie-player>
+        style={{ height: "300px", width: "300px" }}
+      ></Player>
     </div>
   );
 };
