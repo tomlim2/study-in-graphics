@@ -28,9 +28,15 @@ export const inProgressList = [
         thumbnail: "/assets/images/img-uv-00.png",
       },
       {
+        name: "Fluid Simulation",
+        url: "https://kyndinfo.notion.site/Fluid-Simulation-f0516d9d12e245a08ae5c7545ac822dd",
+        url2: "https://medium.com/@martinRenou/real-time-rendering-of-water-caustics-59cda1d74aa",
+        thumbnail: "/assets/images/img-uv-00.png",
+      },
+      {
         name: "In water environment",
         url: "/",
-        thumbnail: "/assets/images/img-uv-00.png",
+        thumbnail: "https://www.shadertoy.com/view/MldfDn",
       },
       {
         name: "Toon Render",
@@ -68,12 +74,12 @@ export const historyList = [
       {
         name: "Animating with triangles 4",
         url: "/fiber/animating-tri4",
-        thumbnail: "/assets/images/img-uv-00.png",
+        thumbnail: "/assets/images/thumbnails/animating-tri4.png",
       },
       {
         name: "Animating with triangles 7",
         url: "/fiber/animating-tri7",
-        thumbnail: "/assets/images/img-uv-00.png",
+        thumbnail: "/assets/images/thumbnails/animating-tri7.png",
       },
       {
         name: "Drei-Portal",
