@@ -43,6 +43,11 @@ export const inProgressList = [
         url: "/",
         thumbnail: "/assets/images/img-uv-00.png",
       },
+      {
+        name: "Daily GLSL",
+        url: "/",
+        thumbnail: "/assets/images/img-uv-00.png",
+      },
     ],
   },
 ];

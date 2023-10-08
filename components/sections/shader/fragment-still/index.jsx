@@ -5,11 +5,11 @@ import "../common/section-shader.scss";
 
 const stillList = [
   {
-    info: "Pattern A",
+    info: "BOS",
     component: <ProjectBookOfShaders key={"s1"} />,
   },
   {
-    info: "Pattern A",
+    info: "GLSL",
     component: <ProjectGlslPatterns key={"s2"} />,
   },
 ];

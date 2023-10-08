@@ -74,8 +74,13 @@ import BOSAniBT from "./patterns/BOSAniBT";
 import BOSAniBU from "./patterns/BOSAniBU";
 import BOSAniBV from "./patterns/BOSAniBV";
 import BOSAniBW from "./patterns/BOSAniBW";
+import BOSAniBX from "./patterns/BOSAniBX";
 
 const shaderManager = [
+  {
+    info: "Pattern BX: Re",
+    component: <BOSAniBX />,
+  },
   {
     info: "Pattern BW: Raymarching Distance Field + Normals",
     component: <BOSAniBW />,
