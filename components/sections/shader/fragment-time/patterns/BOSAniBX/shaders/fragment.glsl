@@ -25,7 +25,8 @@ varying vec3 vNormal;
 
 void main() {
     vec2 uv = vUv;
-    vec2 lines = step( 0.5,uv);
+    float timeA = (sin(uTime)+1.)/2.;
+    vec2 lines = step( timeA,uv);
 
     vec3 color = vec3(lines.x);
     gl_FragColor = vec4(color, 1.);
