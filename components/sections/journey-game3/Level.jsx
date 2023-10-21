@@ -2,7 +2,7 @@ import { useFrame } from "@react-three/fiber";
 import { CuboidCollider, RigidBody } from "@react-three/rapier";
 import { useRef, useMemo, useState, JSXElementConstructor } from "react";
 import { BoxGeometry, Euler, MeshStandardMaterial, Quaternion } from "three";
-import { useGLTF } from "@react-three/drei";
+import { Float, Text, useGLTF } from '@react-three/drei'
 
 const boxGeometry = new BoxGeometry(1, 1, 1);
 const floor1Material = new MeshStandardMaterial({ color: "limegreen" });
@@ -13,6 +13,17 @@ const wallMaterial = new MeshStandardMaterial({ color: "slategrey" });
 export function BlockStart({ position = [0, 0, 0] }) {
   return (
     <group position={position}>
+      <Float floatIntensity={0.25} rotationIntensity={0.25}>
+        <Text scale={0.5}
+          maxWidth={0.25}
+          lineHeight={0.75}
+          textAlign="right"
+          position={[0.75, 0.65, 0]}
+          rotation-y={- 0.25}>
+          Marble Race
+          <meshBasicMaterial toneMapped={false} />
+        </Text>
+      </Float>
       <mesh
         geometry={boxGeometry}
         material={floor1Material}
@@ -31,6 +42,13 @@ export function BlockEnd({ position = [0, 0, 0] }) {
   });
   return (
     <group position={position}>
+      <Text
+        scale={8}
+        position={[0, 2.25, 2]}
+      >
+        FINISH
+        <meshBasicMaterial toneMapped={ false } />
+      </Text>
       <mesh
         geometry={boxGeometry}
         material={floor1Material}
@@ -59,7 +77,6 @@ export function BlockSpinner({ position = [0, 0, 0] }) {
   );
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
-    console.log(time);
     const rotation = new Quaternion();
     rotation.setFromEuler(new Euler(0, time * speed, 0));
     obstacle.current.setNextKinematicRotation(rotation);
@@ -218,6 +235,7 @@ function Bounds({ length = 1 }) {
 export function Level({
   count = 5,
   types = [BlockSpinner, BlockAxe, BlockLimbo],
+  seed = 0
 }) {
   const blocks = useMemo(() => {
     const blocks = [];
@@ -228,7 +246,7 @@ export function Level({
     }
 
     return blocks;
-  }, [count, types]);
+  }, [count, types, seed]);
   return (
     <>
       <BlockStart position={[0, 0, 0]} />
