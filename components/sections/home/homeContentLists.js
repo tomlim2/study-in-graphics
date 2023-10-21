@@ -3,11 +3,6 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
-        name: "Journey Game 3",
-        url: "/fiber/journey-game3",
-        thumbnail: "/assets/images/img-uv-00.png",
-      },
-      {
         name: "Boid in Blender",
         url: "/fiber/journey-game3",
         thumbnail: "/assets/images/img-uv-00.png",
@@ -76,6 +71,11 @@ export const historyList = [
   {
     categoryName: "Fiber",
     urlList: [
+      {
+        name: "Journey Game 3",
+        url: "/fiber/journey-game3",
+        thumbnail: "/assets/images/thumbnails/journey-game.png",
+      },
       {
         name: "Animating with triangles 4",
         url: "/fiber/animating-tri4",
