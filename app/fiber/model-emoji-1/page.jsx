@@ -6,7 +6,8 @@ export const metadata = {
   description: "My playground",
 };
 
-const JourneyEnv = () => {
+const ModelEmoji1 = () => {
+  
   return (
     <main className={styles.page}>
       <SectionModelEmoji1 />
@@ -14,4 +15,4 @@ const JourneyEnv = () => {
   );
 };
 
-export default JourneyEnv;
+export default ModelEmoji1;
