@@ -4,7 +4,7 @@ import Experience from './Experience'
 
 const SectionMaterials = () => {
     return (
-        <Canvas shadows camera={{ position: [-3, 0.5, 3] }}>
+        <Canvas shadows camera={{ position: [0, 0, 6] }}>
             <Experience />
         </Canvas>
     )
