@@ -1,17 +1,18 @@
 import { OrbitControls, Environment } from "@react-three/drei"
 import { useFrame, useLoader } from "@react-three/fiber";
 import { useRef } from "react"
-import { Group, TextureLoader } from "three";
+import { DoubleSide, Group, TextureLoader } from "three";
 const Experience = () => {
     const meshTemp = useRef()
-    const colorMap = useLoader(TextureLoader, "/assets/images/img-uv-00.png");
+    const colorMap = useLoader(TextureLoader, "/assets/images/img_uv_00.png");
+    const alphaMap = useLoader(TextureLoader, "/assets/images/img_alpha_00.png");
     const materialList = [
         <meshStandardMaterial key={1} color={"red"} />,
         <meshStandardMaterial key={2} map={colorMap} />,
-        <meshStandardMaterial key={3} color={"red"} />,
-        <meshStandardMaterial key={4} color={"red"} />,
-        <meshStandardMaterial key={5} map={colorMap} />,
-        <meshStandardMaterial key={6} color={"red"} />,
+        <meshBasicMaterial key={3} color={"red"} />,
+        <meshStandardMaterial key={4} wireframe={true} color={"blue"} />,
+        <meshStandardMaterial key={5} transparent={true} opacity={.5} map={colorMap} />,
+        <meshStandardMaterial key={6} transparent={true} alphaMap={alphaMap} color={"green"} side={DoubleSide} />,
         <meshStandardMaterial key={7} color={"red"} />,
         <meshStandardMaterial key={8} map={colorMap} />,
         <meshStandardMaterial key={9} color={"red"} />,
@@ -43,7 +44,9 @@ const Experience = () => {
     return (
         <>
             <OrbitControls makeDefault />
-            <Environment background
+            <Environment
+                background
+                rotation={[0, 0, 0]}
                 files={[
                     "/assets/images/environmentMaps/1/px.jpg",
                     "/assets/images/environmentMaps/1/nx.jpg",
