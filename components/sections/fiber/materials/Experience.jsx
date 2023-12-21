@@ -1,4 +1,4 @@
-import { GradientTexture, OrbitControls } from "@react-three/drei"
+import { GradientTexture, GradientType, OrbitControls } from "@react-three/drei"
 import { useFrame, useLoader } from "@react-three/fiber";
 import { useRef } from "react"
 import { Color, DoubleSide, NearestFilter, TextureLoader } from "three";
@@ -8,7 +8,7 @@ const Experience = () => {
     const refPointLight = useRef()
     const colorMap = useLoader(TextureLoader, "/assets/images/img_uv_default.png");
     const alphaMap = useLoader(TextureLoader, "/assets/images/img_alpha_00.png");
-    const gradientTexture = useLoader(TextureLoader, "/assets/images/toonGradientMap/024.png");
+    const gradientTexture = useLoader(TextureLoader, "/assets/images/toonGradientMap/5.jpg");
     const matcapsMapA = useLoader(TextureLoader, "/assets/images/matcaps/matcap_00007.png");
     const matcapsMapB = useLoader(TextureLoader, "/assets/images/matcaps/matcap_00337.png");
     const matcapsMapC = useLoader(TextureLoader, "/assets/images/matcaps/matcap_00102.png");
@@ -72,9 +72,20 @@ const Experience = () => {
         <meshMatcapMaterial key={28} matcap={matcapsMapR} />,
         <meshMatcapMaterial key={29} matcap={matcapsMapS} />,
         <meshMatcapMaterial key={30} matcap={matcapsMapT} />,
-        <meshMatcapMaterial key={25} matcap={matcapsMapU} />,
+        <meshToonMaterial key={25} />,
         <meshStandardMaterial key={26} color={0x00ffff} metalness={.45} roughness={.65} />,
-        <meshToonMaterial key={27} gradientMap={gradientTexture}>
+        <meshToonMaterial key={27}>
+            <GradientTexture
+                
+                stops={[0, 0.5, 1]} // As many stops as you want
+                colors={['aquamarine', 'hotpink', 'yellow']} // Colors need to match the number of stops
+                size={1024} // Size (height) is optional, default = 1024
+                width={1024} // Width of the canvas producing the texture, default = 16
+                type={GradientType.Radial} // The type of the gradient, default = GradientType.Linear
+                innerCircleRadius={0} // Optional, the radius of the inner circle of the gradient, default = 0
+                outerCircleRadius={'auto'} // Optional, the radius of the outer circle of the gradient, default = auto
+            />
+
         </meshToonMaterial>,
         <meshMatcapMaterial key={28} matcap={matcapsMapX} />,
         <meshToonMaterial key={29}>
@@ -124,8 +135,8 @@ const Experience = () => {
     return (
         <>
             <OrbitControls makeDefault />
-            <ambientLight color={0xffffff} intensity={.5} />
-            <pointLight ref={refPointLight} color={0xffffff} intensity={80} position={[2, 3, 8]} />
+            <ambientLight color={0xffffff} intensity={1} />
+            <pointLight ref={refPointLight} color={0xffffff} intensity={240} position={[2, 1, 6]} />
             <group position={[-(breakNumber + 1) * 1.2 / 2, -(materialList.length / breakNumber - 1) * 1.2 / 2, 0]}>
                 {materialList.map((itemMaterial, index) => {
                     if (index > breakNumber * countBreak - 1) {

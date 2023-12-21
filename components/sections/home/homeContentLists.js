@@ -3,11 +3,6 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
-        name: "Material Sample list",
-        url: "/fiber/materials",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
-      },
-      {
         name: "Boid in Blender",
         url: "/fiber/journey-game3",
         thumbnail: "/assets/images/img_thumbnail_default.png",
@@ -56,6 +51,11 @@ export const historyList = [
   {
     categoryName: "Shader",
     urlList: [
+      {
+        name: "Material Sample list",
+        url: "/fiber/materials",
+        thumbnail: "/assets/images/thumbnails/material-list.png",
+      },
       {
         name: "Vertex-Fragnent",
         url: "/shader/vertex-fragnent",
