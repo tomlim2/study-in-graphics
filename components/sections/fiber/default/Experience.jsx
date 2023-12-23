@@ -11,7 +11,6 @@ import { Suspense, useRef } from "react";
 import { Perf } from "r3f-perf";
 import * as THREE from "three";
 import { useControls } from "leva";
-import ModelEmoji from "./ModelEmoji";
 
 const Experience = () => {
   const cube = useRef();
@@ -52,7 +51,6 @@ const Experience = () => {
           blur={blur}
           frames={1}
         />
-        <ModelEmoji />
       </Suspense>
     </>
   );

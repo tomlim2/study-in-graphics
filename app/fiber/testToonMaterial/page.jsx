@@ -1,4 +1,4 @@
-import SectionDefault from "components/sections/fiber/default";
+import SectionTestToon from "../../../components/sections/fiber/testToon";
 import styles from "./page.module.scss";
 
 export const metadata = {
@@ -6,13 +6,13 @@ export const metadata = {
   description: "My playground",
 };
 
-const DefaultPage = () => {
+const TestToonPage = () => {
   
   return (
     <main className={styles.page}>
-      <SectionDefault />
+      <SectionTestToon />
     </main>
   );
 };
 
-export default DefaultPage;
+export default TestToonPage;
