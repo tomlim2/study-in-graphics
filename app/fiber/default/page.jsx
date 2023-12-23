@@ -2,7 +2,7 @@ import SectionDefault from "components/sections/fiber/default";
 import styles from "./page.module.scss";
 
 export const metadata = {
-  title: "Model emoji 1 | Fiber | yslim",
+  title: "Default | Fiber | yslim",
   description: "My playground",
 };
 

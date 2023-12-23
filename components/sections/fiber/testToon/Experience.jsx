@@ -1,37 +1,33 @@
 import { useFrame } from "@react-three/fiber";
 import {
-  Stage,
   useHelper,
   OrbitControls,
-  CameraControls,
-  ContactShadows,
-  Environment,
   TorusKnot,
   useTexture,
   Sphere,
 } from "@react-three/drei";
-import { Suspense, useRef } from "react";
-import { Perf } from "r3f-perf";
+import { useRef } from "react";
 import * as THREE from "three";
 import { useControls } from "leva";
 
 const Experience = () => {
-  const cube = useRef();
-  const directionalLight = useRef();
-  useHelper(directionalLight, THREE.DirectionalLightHelper, 1);
-  const { color, opacity, blur } = useControls("contact shadows", {
+  const { color, gradientMaps } = useControls("toon material", {
     color: "#1d8f75",
-    opacity: { value: 0.4, min: 0, max: 1 },
-    blur: { value: 2.8, min: 0, max: 10 },
+    gradientMaps: {
+      value: '3',
+      options: {
+        threeTone: '3',
+        fiveTone: '5',
+      }
+    }
   });
-
 
 
   return (
     <>
       <PointLight />
       <OrbitControls attach="orbitControls" />
-      <ToonTorusKnot textureName="threeTone" color="#22cefa" position={[0, 0, 0]} />
+      <ToonTorusKnot textureName={gradientMaps} color={color} position={[0, 0, 0]} />
     </>
   );
 };
@@ -61,9 +57,7 @@ const PointLight = () => {
 const ToonTorusKnot = props => {
   const { textureName, color, position } = props
   const ref = useRef(null)
-  console.log('hi');
-
-  const toneMap = useTexture(`/assets/textures/toonGradientMaps/5.jpg`)
+  const toneMap = useTexture(`/assets/textures/toonGradientMaps/${textureName}.jpg`)
   toneMap.minFilter = THREE.NearestFilter
   toneMap.magFilter = THREE.NearestFilter
 
@@ -76,7 +70,7 @@ const ToonTorusKnot = props => {
 
   return (
     <TorusKnot ref={ref} args={[0.5, 0.2, 128, 128]} position={position}>
-      <meshToonMaterial color={color} gradientMap={toneMap} />
+      <meshToonMaterial color={color} gradientMap={textureName ? toneMap : null} />
     </TorusKnot>
   )
 }

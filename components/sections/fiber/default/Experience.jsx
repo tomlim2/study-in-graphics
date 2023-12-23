@@ -1,21 +1,13 @@
-import { useFrame } from "@react-three/fiber";
 import {
-  Stage,
-  useHelper,
-  OrbitControls,
   CameraControls,
   ContactShadows,
   Environment,
 } from "@react-three/drei";
 import { Suspense, useRef } from "react";
 import { Perf } from "r3f-perf";
-import * as THREE from "three";
 import { useControls } from "leva";
 
 const Experience = () => {
-  const cube = useRef();
-  const directionalLight = useRef();
-  useHelper(directionalLight, THREE.DirectionalLightHelper, 1);
   const { color, opacity, blur } = useControls("contact shadows", {
     color: "#1d8f75",
     opacity: { value: 0.4, min: 0, max: 1 },
