@@ -1,49 +1,29 @@
 import {
   CameraControls,
-  ContactShadows,
-  Environment,
 } from "@react-three/drei";
-import { Suspense, useRef } from "react";
 import { Perf } from "r3f-perf";
 import { useControls } from "leva";
 
 const Experience = () => {
-  const { color, opacity, blur } = useControls("contact shadows", {
+  const { color, opacity } = useControls("contact shadows", {
     color: "#1d8f75",
-    opacity: { value: 0.4, min: 0, max: 1 },
-    blur: { value: 2.8, min: 0, max: 10 },
+    opacity: { value: 1, min: 0, max: 1 },
   });
 
   return (
     <>
       <Perf position="bottom-right" />
 
-      <CameraControls  makeDefault maxDistance={35} dollySpeed={0.25} />
+      <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} />
+      <pointLight position={[2, 2, 2]} intensity={30}></pointLight>
+      <ambientLight intensity={1}></ambientLight>
 
-      <Environment
-        files="/assets/images/environmentMaps/the_sky_is_on_fire_2k.hdr"
-      // resolution={32}
-      ></Environment>
+      <mesh visible userData={{ hello: 'world' }} position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <sphereGeometry args={[1, 16, 16]} />
+        <meshStandardMaterial opacity={opacity} color={color} transparent />
+      </mesh>
 
-      <Suspense
-        fallback={
-          <mesh position-y={0.5} scale={[2, 3, 2]}>
-            <boxGeometry args={[1, 1, 1, 2, 2, 2]} />
-            <meshBasicMaterial wireframe color="red" />
-          </mesh>
-        }
-      >
-        <ContactShadows
-          position={[0, -0.99, 0]}
-          scale={10}
-          resolution={512}
-          far={5}
-          color={color}
-          opacity={opacity}
-          blur={blur}
-          frames={1}
-        />
-      </Suspense>
+
     </>
   );
 };

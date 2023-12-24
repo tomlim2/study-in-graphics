@@ -3,8 +3,8 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
-        name: "Test Toon Material",
-        url: "/fiber/testToonMaterial",
+        name: "Default",
+        url: "/fiber/default",
         thumbnail: "/assets/images/img_thumbnail_default.png",
       },
       {
@@ -56,6 +56,11 @@ export const historyList = [
   {
     categoryName: "Shader",
     urlList: [
+      {
+        name: "Toon Material Gradient Map",
+        url: "/fiber/testToonMaterial",
+        thumbnail: "/assets/images/thumbnails/testToonMaterialGradientMap.png",
+      },
       {
         name: "Material Sample list",
         url: "/fiber/materials",

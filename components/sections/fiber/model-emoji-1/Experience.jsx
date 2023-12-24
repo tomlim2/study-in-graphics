@@ -27,12 +27,10 @@ const Experience = () => {
     <>
       <Perf position="bottom-right" />
 
-      <CameraControls  makeDefault maxDistance={35} dollySpeed={0.25} />
+      <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} />
 
-      <Environment
-        files="/assets/images/environmentMaps/the_sky_is_on_fire_2k.hdr"
-      // resolution={32}
-      ></Environment>
+      <ambientLight intensity={1} />
+      <pointLight intensity={30} position={[2, 2, 2]} />
 
       <Suspense
         fallback={
