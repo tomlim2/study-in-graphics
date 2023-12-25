@@ -3,7 +3,7 @@ import "./navigationHome.scss";
 import Link from "next/link";
 
 import { stringToHexCode, hexCodeToColor } from "lib/utils";
-import { currentWeather } from "stores/storeOpenWeather";
+import { currentWeather } from "stores/storeOpenWeather.js";
 import { useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 
@@ -23,6 +23,7 @@ const NavigationHome = () => {
         let weatherDescription = response.data.weather[0].description;
         let weatherToHexCode = stringToHexCode(weatherDescription);
         let HexCodeToColor = hexCodeToColor(weatherToHexCode);
+
         setCurrentWeatherColor(HexCodeToColor);
       } catch (error) {
         console.error("Error fetching weather data:", error);

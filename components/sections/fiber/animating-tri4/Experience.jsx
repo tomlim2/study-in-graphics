@@ -16,7 +16,7 @@ import { useControls } from "leva";
 const Experience = () => {
   const meshRef = useRef(null);
   const { nodes } = useGLTF("/assets/models/aobox-transformed.glb");
-  const colorMap = useLoader(TextureLoader, "/assets/images/img-uv-00.png");
+  const colorMap = useLoader(TextureLoader, "/assets/textures/img_uv_default.png");
   const materialRef = useRef(null);
   const intiValue = {
     progress: 0,

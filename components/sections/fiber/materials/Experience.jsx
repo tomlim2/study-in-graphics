@@ -8,7 +8,7 @@ import { DataTextureBuilt } from "./Materials";
 const Experience = () => {
     const meshTemp = useRef()
     const refPointLight = useRef()
-    const colorMap = useLoader(TextureLoader, "/assets/images/img_uv_default.png");
+    const colorMap = useLoader(TextureLoader, "/assets/textures/img_uv_default.png");
     const alphaMap = useLoader(TextureLoader, "/assets/images/img_alpha_00.png");
     const matcapsMapA = useLoader(TextureLoader, "/assets/images/matcaps/matcap_00007.png");
     const matcapsMapB = useLoader(TextureLoader, "/assets/images/matcaps/matcap_00337.png");

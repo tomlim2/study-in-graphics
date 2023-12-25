@@ -20,7 +20,7 @@ const AnimatingTriMesh = () => {
   );
   const meshRef = useRef(null);
   const materialRef = useRef(null);
-  const colorMap = useLoader(TextureLoader, "/assets/images/img-uv-00.png");
+  const colorMap = useLoader(TextureLoader, "/assets/textures/img_uv_default.png");
   const intiValue = {
     progress: 0,
     timeSpeed: 1,
