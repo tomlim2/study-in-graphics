@@ -8,6 +8,11 @@ export const inProgressList = [
         thumbnail: "/assets/images/img_thumbnail_default.png",
       },
       {
+        name: "Default-Shader",
+        url: "/fiber/default-shader",
+        thumbnail: "/assets/images/img_thumbnail_default.png",
+      },
+      {
         name: "Boid in Blender",
         url: "/fiber/journey-game3",
         thumbnail: "/assets/images/img_thumbnail_default.png",
