@@ -3,7 +3,6 @@ import Link from "next/link";
 import { inProgressList, historyList } from "./homeContentLists";
 
 const SectionHome = () => {
-
     return (
         <section className="section-home">
             <ul className='list in-progress'>
