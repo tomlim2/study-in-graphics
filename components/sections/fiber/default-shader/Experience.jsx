@@ -2,6 +2,7 @@ import {
   CameraControls,
 } from "@react-three/drei";
 import { Perf } from "r3f-perf";
+import MeshSample from "./MeshSample";
 
 const Experience = () => {
   // const { color, opacity } = useControls("contact shadows", {
@@ -17,10 +18,7 @@ const Experience = () => {
       <pointLight position={[2, 2, 2]} intensity={30}></pointLight>
       <ambientLight intensity={1}></ambientLight>
 
-      <mesh visible userData={{ hello: 'world' }} position={[0, 0, 0]} rotation={[0, 0, 0]}>
-        <planeGeometry args={[2, 2]} />
-        <meshStandardMaterial opacity={1} color={0x000000} transparent />
-      </mesh>
+      <MeshSample />
 
 
     </>
