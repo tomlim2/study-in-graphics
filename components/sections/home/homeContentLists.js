@@ -8,8 +8,8 @@ export const inProgressList = [
         thumbnail: "/assets/images/img_thumbnail_default.png",
       },
       {
-        name: "Default-Shader",
-        url: "/fiber/default-shader",
+        name: "Default-Glsl",
+        url: "/fiber/default-glsl",
         thumbnail: "/assets/images/img_thumbnail_default.png",
       },
       {
