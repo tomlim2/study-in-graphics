@@ -13,6 +13,11 @@ export const inProgressList = [
         thumbnail: "/assets/images/img_thumbnail_default.png",
       },
       {
+        name: "Default-Loader-Gltf",
+        url: "/fiber/default-loader-gltf",
+        thumbnail: "/assets/images/img_thumbnail_default.png",
+      },
+      {
         name: "Boid in Blender",
         url: "/fiber/journey-game3",
         thumbnail: "/assets/images/img_thumbnail_default.png",
