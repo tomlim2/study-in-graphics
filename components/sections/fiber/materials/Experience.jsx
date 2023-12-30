@@ -38,7 +38,7 @@ const Experience = () => {
     const matcapsMapZ = useLoader(TextureLoader, "/assets/images/matcaps/matcap_00045.png");
     const gradientTextureMap = DataTextureBuilt(0xffff00)
 
-    const imgGradientMap = useTexture("/assets/images/toonGradientMap/5.jpg")
+    const imgGradientMap = useTexture("/assets/textures/toonGradientMaps/5.jpg")
     imgGradientMap.minFilter = NearestFilter
     imgGradientMap.magFilter = NearestFilter
     console.log(imgGradientMap);

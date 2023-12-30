@@ -195,7 +195,7 @@ const Experience = () => {
       <OrbitControls makeDefault />
       <Environment
         background
-        files="/assets/images/environmentMaps/blender/blender_2.hdr"
+        files="/assets/environmentMaps/blender/blender_2.hdr"
       ></Environment>
       <group>
         <mesh ref={meshRef}>

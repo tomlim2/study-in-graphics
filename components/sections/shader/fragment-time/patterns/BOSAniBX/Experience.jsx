@@ -50,14 +50,14 @@ const Experience = () => {
       <Environment
         background
         // files={[
-        //   "/assets/images/environmentMaps/2/px.jpg",
-        //   "/assets/images/environmentMaps/2/nx.jpg",
-        //   "/assets/images/environmentMaps/2/py.jpg",
-        //   "/assets/images/environmentMaps/2/ny.jpg",
-        //   "/assets/images/environmentMaps/2/pz.jpg",
-        //   "/assets/images/environmentMaps/2/nz.jpg",
+        //   "/assets/environmentMaps/2/px.jpg",
+        //   "/assets/environmentMaps/2/nx.jpg",
+        //   "/assets/environmentMaps/2/py.jpg",
+        //   "/assets/environmentMaps/2/ny.jpg",
+        //   "/assets/environmentMaps/2/pz.jpg",
+        //   "/assets/environmentMaps/2/nz.jpg",
         // ]}
-        // files="/assets/images/environmentMaps/the_sky_is_on_fire_2k.hdr"
+        // files="/assets/environmentMaps/the_sky_is_on_fire_2k.hdr"
         // preset="sunset"
         // resolution={32}
         preset="sunset"
