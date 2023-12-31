@@ -70,7 +70,7 @@ const ToonTorusKnot = props => {
 
   return (
     <TorusKnot ref={ref} args={[0.5, 0.2, 128, 128]} position={position}>
-      <meshToonMaterial color={color} gradientMap={textureName ? toneMap : null} />
+      <meshToonMaterial color={color} gradientMap={toneMap} />
     </TorusKnot>
   )
 }

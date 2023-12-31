@@ -1,11 +1,38 @@
-import { MeshTransmissionMaterial } from "@react-three/drei";
+import { MeshTransmissionMaterial, useTexture } from "@react-three/drei";
 import { useControls } from "leva";
 import { useGLTF } from "@react-three/drei";
-import { Color, MeshBasicMaterial, MeshToonMaterial } from "three";
+import { Color, MeshBasicMaterial, meshToonMaterial } from "three";
 import { useFrame } from "@react-three/fiber";
 import { useState, useRef } from "react";
+import * as THREE from "three";
 
 export default function LoaderGltf() {
+    /**
+     * Configs
+     */
+    const config = useControls(
+        'cartridge.material',
+        {
+            transmissionSampler: false,
+            backside: true,
+            samples: { value: 10, min: 1, max: 32, step: 1 },
+            resolution: { value: 2048, min: 256, max: 2048, step: 256 },
+            transmission: { value: 1, min: 0, max: 1 },
+            roughness: { value: 0.35, min: 0, max: 1, step: 0.01 },
+            thickness: { value: 0.25, min: 0, max: 10, step: 0.01 },
+            ior: { value: 1.46, min: 1, max: 5, step: 0.01 },
+            chromaticAberration: { value: 1, min: 0, max: 2 },
+            anisotropy: { value: 0.1, min: 0, max: 1, step: 0.01 },
+            distortion: { value: 0.0, min: 0, max: 1, step: 0.01 },
+            distortionScale: { value: 0.3, min: 0.01, max: 1, step: 0.01 },
+            temporalDistortion: { value: 0.5, min: 0, max: 1, step: 0.01 },
+            clearcoat: { value: 0, min: 0, max: 1 },
+            attenuationDistance: { value: 0.28, min: 0, max: 10, step: 0.01 },
+            attenuationColor: '#ea59ff',
+            color: '#ffffff',
+            bg: '#000000'
+        }
+    )
     const part1 = useRef()
     const part2 = useRef()
     const part3 = useRef()
@@ -35,7 +62,10 @@ export default function LoaderGltf() {
                     rotation={[Math.PI / 2, 0, 0]}
                     scale={meshScale}
                 >
-                    <meshToonMaterial color={'hotpink'} />
+                    <MeshTransmissionMaterial
+                        background={new THREE.Color(config.bg)}
+                        {...config}
+                    />
                 </mesh>
                 <mesh
                     ref={part1}
@@ -46,7 +76,10 @@ export default function LoaderGltf() {
                     rotation={[Math.PI / 2, 0, 0]}
                     scale={meshScale}
                 >
-                    <meshToonMaterial color={'hotpink'} />
+                    <MeshTransmissionMaterial
+                        background={new THREE.Color(config.bg)}
+                        {...config}
+                    />
                 </mesh>
                 <mesh
                     ref={part2}
@@ -56,7 +89,10 @@ export default function LoaderGltf() {
 
                     rotation={[Math.PI / 2, 0, 0]}
                     scale={meshScale}
-                ><meshToonMaterial color={'hotpink'} /></mesh>
+                ><MeshTransmissionMaterial
+                        background={new THREE.Color(config.bg)}
+                        {...config}
+                    /></mesh>
                 <mesh
                     ref={part3}
                     castShadow
@@ -65,7 +101,10 @@ export default function LoaderGltf() {
 
                     rotation={[Math.PI / 2, 0, 0]}
                     scale={meshScale}
-                ><meshToonMaterial color={'hotpink'} /></mesh>
+                ><MeshTransmissionMaterial
+                        background={new THREE.Color(config.bg)}
+                        {...config}
+                    /></mesh>
                 <mesh
                     ref={part4}
                     castShadow
@@ -74,7 +113,10 @@ export default function LoaderGltf() {
 
                     rotation={[Math.PI / 2, 0, 0]}
                     scale={meshScale}
-                ><meshToonMaterial color={'hotpink'} /></mesh>
+                ><MeshTransmissionMaterial
+                        background={new THREE.Color(config.bg)}
+                        {...config}
+                    /></mesh>
                 <group ref={part5Group}
                     position={[1.87, 0.333, 0]}
                     rotation={[0, 0, 0]} >
@@ -86,7 +128,10 @@ export default function LoaderGltf() {
                         rotation={[Math.PI / 2, 0, 0]}
                         position={[-1.87, -0.333, 0]}
                         scale={meshScale}
-                    ><meshToonMaterial color={'hotpink'} /></mesh>
+                    ><MeshTransmissionMaterial
+                            background={new THREE.Color(config.bg)}
+                            {...config}
+                        /></mesh>
                 </group>
             </group >
 
