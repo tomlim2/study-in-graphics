@@ -15,8 +15,7 @@ export default function LoaderGltf() {
     const suzanne = useGLTF(
         "/assets/models/monkeyHead.glb"
     );
-    console.log(suzanne.nodes.Scene);
-    console.log(suzanne, 'suzanne');
+    console.log(suzanne.nodes['Suzanne'].geometry, 'suzanne.nodes.geometry');
     // console.log(materials);
     return (
         <>
@@ -25,8 +24,8 @@ export default function LoaderGltf() {
                     ref={part6}
                     castShadow
                     receiveShadow
-                    geometry={suzanne.nodes.geometry}
-                    scale={300}
+                    geometry={suzanne.nodes['Suzanne'].geometry}
+                    scale={1}
                 >
                     <meshStandardMaterial color={color} />
                 </mesh>
@@ -36,3 +35,5 @@ export default function LoaderGltf() {
         </>
     );
 }
+
+
