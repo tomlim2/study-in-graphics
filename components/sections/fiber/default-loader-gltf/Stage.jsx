@@ -6,7 +6,7 @@ const Stage = () => {
     const config = useControls(
         'stage',
         {
-            color: '#06070a',
+            color: '#0040ff',
         }
     )
     const environmentConfig = useControls(

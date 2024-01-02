@@ -1,14 +1,10 @@
-import { MeshTransmissionMaterial, useTexture } from "@react-three/drei";
 import { useControls } from "leva";
 import { useGLTF } from "@react-three/drei";
-import { Color, MeshBasicMaterial, meshToonMaterial } from "three";
-import { useFrame } from "@react-three/fiber";
 import { useState, useRef } from "react";
-import * as THREE from "three";
 
 export default function LoaderGltf() {
     const { color } = useControls("standard material", {
-        color: "#1d8f75",
+        color: "#ffffff",
     });
     const part6 = useRef()
     const group = useRef()
@@ -25,7 +21,7 @@ export default function LoaderGltf() {
                     castShadow
                     receiveShadow
                     geometry={suzanne.nodes['Suzanne'].geometry}
-                    scale={1}
+                    scale={2}
                 >
                     <meshStandardMaterial color={color} />
                 </mesh>

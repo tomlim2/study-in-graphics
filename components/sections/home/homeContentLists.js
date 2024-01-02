@@ -3,21 +3,6 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
-        name: "Default",
-        url: "/fiber/default",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
-      },
-      {
-        name: "Default-Glsl",
-        url: "/fiber/default-glsl",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
-      },
-      {
-        name: "Default-Loader-Gltf",
-        url: "/fiber/default-loader-gltf",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
-      },
-      {
         name: "Boid in Blender",
         url: "/fiber/journey-game3",
         thumbnail: "/assets/images/img_thumbnail_default.png",
@@ -67,14 +52,9 @@ export const historyList = [
     categoryName: "Shader",
     urlList: [
       {
-        name: "Toon Material Gradient Map",
-        url: "/fiber/testToonMaterial",
-        thumbnail: "/assets/images/thumbnails/testToonMaterialGradientMap.png",
-      },
-      {
-        name: "Material Sample list",
-        url: "/fiber/materials",
-        thumbnail: "/assets/images/thumbnails/material-list.png",
+        name: "Default-Glsl",
+        url: "/fiber/default-glsl",
+        thumbnail: "/assets/images/thumbnails/default-glsl.png",
       },
       {
         name: "Vertex-Fragnent",
@@ -96,6 +76,26 @@ export const historyList = [
   {
     categoryName: "Fiber",
     urlList: [
+      {
+        name: "Default-Scene",
+        url: "/fiber/default",
+        thumbnail: "/assets/images/thumbnails/default-scene.png",
+      },
+      {
+        name: "Default-Loader-Gltf",
+        url: "/fiber/default-loader-gltf",
+        thumbnail: "/assets/images/thumbnails/default-loader-gltf.png",
+      },
+      {
+        name: "Toon Material Gradient Map",
+        url: "/fiber/testToonMaterial",
+        thumbnail: "/assets/images/thumbnails/testToonMaterialGradientMap.png",
+      },
+      {
+        name: "Material Sample list",
+        url: "/fiber/materials",
+        thumbnail: "/assets/images/thumbnails/material-list.png",
+      },
       {
         name: "Journey Game 3",
         url: "/fiber/journey-game3",
