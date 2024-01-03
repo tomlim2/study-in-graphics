@@ -49,7 +49,7 @@ export const inProgressList = [
 
 export const historyList = [
   {
-    categoryName: "Shader",
+    categoryName: "Glsl",
     urlList: [
       {
         name: "Default-Glsl",
