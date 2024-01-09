@@ -3,6 +3,11 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
+        name: "Test glsl",
+        url: "/shader/glsl-1",
+        thumbnail: "/assets/images/img_thumbnail_default.png",
+      },
+      {
         name: "Dynamic wall in Blender",
         url: "/fiber/journey-game3",
         thumbnail: "/assets/images/img_thumbnail_default.png",
