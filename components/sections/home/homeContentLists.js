@@ -8,6 +8,11 @@ export const inProgressList = [
         thumbnail: "/assets/images/img_thumbnail_default.png",
       },
       {
+        name: "Test glsl2",
+        url: "/shader/glsl-2",
+        thumbnail: "/assets/images/img_thumbnail_default.png",
+      },
+      {
         name: "Dynamic wall in Blender",
         url: "/fiber/journey-game3",
         thumbnail: "/assets/images/img_thumbnail_default.png",
