@@ -9,7 +9,7 @@ const SectionGlsl2 = () => {
       camera={{
         fov: 45,
         near: 0.1,
-        far: 50,
+        far: 55,
         position: [0, 0, 12],
       }}
       shadows
