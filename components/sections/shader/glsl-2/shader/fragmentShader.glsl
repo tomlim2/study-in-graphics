@@ -15,9 +15,12 @@ void main() {
 
     // d = smoothstep(0.0, 0.1, d);
 
-    d -= 0.5;
-    // d = abs(d);
-    d = step(0.1, d);
+    d = sin(d*8.0+uTime)/8.0;
+    // d -= 0.5;
+    d = abs(d);
+    // d = step(0.1, d);
+
+    d = smoothstep(0.0,0.1, d);
     vec3 color = vec3(d,d,d);
 
     gl_FragColor = vec4(color, 1.0);
