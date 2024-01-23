@@ -8,8 +8,8 @@ export const inProgressList = [
         thumbnail: "/assets/images/img_thumbnail_default.png",
       },
       {
-        name: "Test glsl2",
-        url: "/shader/glsl-2",
+        name: "Test glsl3",
+        url: "/shader/glsl-3",
         thumbnail: "/assets/images/img_thumbnail_default.png",
       },
       {
@@ -66,6 +66,11 @@ export const historyList = [
   {
     categoryName: "Glsl",
     urlList: [
+      {
+        name: "Test glsl2",
+        url: "/shader/glsl-2",
+        thumbnail: "/assets/images/thumbnails/thumbnail_glsl2.png",
+      },
       {
         name: "Default-Glsl",
         url: "/fiber/default-glsl",
