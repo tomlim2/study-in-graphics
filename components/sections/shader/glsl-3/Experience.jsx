@@ -8,7 +8,7 @@ const Experience = () => {
 
   return (
     <>
-      <color attach={'background'} args={['#0040ff']} />
+      <color attach={'background'} args={['#ff00d9']} />
       <Perf position="bottom-right" />
 
       <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} />

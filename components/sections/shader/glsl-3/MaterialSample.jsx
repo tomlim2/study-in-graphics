@@ -5,8 +5,8 @@ import vertexShader from 'raw-loader!glslify-loader!./shader/vertexShader.glsl'
 import { useControls } from "leva"
 
 const MaterialSample = (props) => {
-    const { width, height } = props
-    const materialRef = useRef()
+    const { width, height, materialRef } = props;
+
     const { color, opacity } = useControls("contact shadows", {
         color: "#1d8f75",
         opacity: { value: 1, min: 0, max: 1 },
@@ -20,7 +20,15 @@ const MaterialSample = (props) => {
 
     return <shaderMaterial
         ref={materialRef}
-        uniforms={{ uTime: { value: 0 }, uResolution: { value: { x: width, y: height } } }}
+        uniforms={{
+            uTime: { value: 0 },
+            uResolution: { value: { x: width, y: height } },
+            uMouse: {
+                value: {
+                    x: 0.5, y: 0.5
+                }
+            }
+        }}
         fragmentShader={fragmentShader}
         vertexShader={vertexShader}
     />
