@@ -3,6 +3,8 @@ import {
 } from "@react-three/drei";
 import { Perf } from "r3f-perf";
 import MeshSample from "./MeshSample";
+import LoaderGltf from "./LoaderGltf";
+import Stage from "./Stage";
 
 const Experience = () => {
 
@@ -12,10 +14,8 @@ const Experience = () => {
       <Perf position="bottom-right" />
 
       <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} />
-
-      <MeshSample />
-
-
+      <LoaderGltf />
+      <Stage />
     </>
   );
 };
