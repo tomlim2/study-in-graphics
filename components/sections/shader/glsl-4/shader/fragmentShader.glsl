@@ -23,7 +23,7 @@ void main() {
         st = fract(st * 1.5) - 0.5;
 
         float d = length(st) * exp(-length(st0));
-        vec3 col = palette(length(st0) + i*0.4 + uTime * 0.4);
+        vec3 col = palette(length(st0) + i * 0.4 + uTime * 0.4);
 
         // d = sin(d);
         // d = abs(d);

@@ -33,6 +33,10 @@ export default function LoaderGltf() {
                 >
                 </mesh> */}
             </group >
+            <mesh position={[3, 0, 0]}>
+                <planeGeometry />
+                <MaterialSample />
+            </mesh>
 
 
         </>
