@@ -1,6 +1,6 @@
 import { useControls } from "leva";
 import { useGLTF } from "@react-three/drei";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import MaterialSample from "./MaterialSample";
 
 export default function LoaderGltf() {

@@ -1,6 +1,7 @@
 varying vec2 vUv;
 uniform vec2 uResolution;
 uniform float uTime;
+uniform sampler2D uTexture1;
 
 vec3 palette(float t) {
     vec3 a = vec3(0.5);
@@ -19,9 +20,17 @@ float boxes(in vec2 _st, in vec2 _size) {
     return clamp(uv.x * uv.y, 0.0, 1.0);
 }
 
+vec4 sRGBToLinear( in vec4 value ) {
+	return vec4( mix( pow( value.rgb * 0.9478672986 + vec3( 0.0521327014 ), vec3( 2.4 ) ), value.rgb * 0.0773993808, vec3( lessThanEqual( value.rgb, vec3( 0.04045 ) ) ) ), value.a );
+}
+
 void main() {
     vec2 st = vUv;
     vec3 fc = vec3(1.0, 0.0, 1.0);
-    fc = (vec3(boxes(st, vec2(0.5)))) * fc;
+    vec4 textureColor = texture2D(uTexture1, st);
+    textureColor = sRGBToLinear(textureColor); 
+    vec3 box = (vec3(boxes(st, vec2(0.5))));
+    fc *= box;
+    fc += (1.0-box)*textureColor.xyz;
     gl_FragColor = vec4(fc, 1.0);
 }

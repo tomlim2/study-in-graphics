@@ -1,10 +1,12 @@
-import { useFrame } from "@react-three/fiber"
+import { useFrame, useLoader } from "@react-three/fiber"
 import { useRef } from "react"
+import { useControls } from "leva"
 import fragmentShader from 'raw-loader!glslify-loader!./shader/fragmentShader.glsl'
 import vertexShader from 'raw-loader!glslify-loader!./shader/vertexShader.glsl'
-import { useControls } from "leva"
+import { TextureLoader } from "three"
 
 const MaterialSample = (props) => {
+    const colorMap = useLoader(TextureLoader, "/assets/textures/img_uv_default.png");
     const { width, height } = props
     const materialRef = useRef()
     const { color, opacity } = useControls("contact shadows", {
@@ -20,7 +22,11 @@ const MaterialSample = (props) => {
 
     return <shaderMaterial
         ref={materialRef}
-        uniforms={{ uTime: { value: 0 }, uResolution: { value: { x: 1, y: 1 } } }}
+        uniforms={{
+            uTexture1: { type: "t", value: colorMap },
+            uTime: { value: 0 },
+            uResolution: { value: { x: 1, y: 1 } }
+        }}
         fragmentShader={fragmentShader}
         vertexShader={vertexShader}
     />
