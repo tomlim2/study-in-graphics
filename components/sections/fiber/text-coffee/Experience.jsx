@@ -49,10 +49,11 @@ export default Experience;
 function Cup(props) {
   const { nodes, materials } = useGLTF('/assets/textCoffee/coffee-transformed.glb')
   const texture = useTexture('/assets/textCoffee/1200px-Starbucks_Logo_ab_2011.svg.png')
+  console.log(materials);
   return (
     <group {...props} dispose={null}>
       <mesh castShadow receiveShadow geometry={nodes.coffee_cup_top_16oz.geometry} material={materials['13 - Default']}>
-        <Decal position={[0, 0.75, 0.3]} rotation={[0, 0, 0]} scale={[0.52, 0.6, 0.6]} map={texture} />
+        {/* <Decal position={[0, 0.75, 0.3]} rotation={[0, 0, 0]} scale={[0.52, 0.6, 0.6]} map={texture} /> */}
       </mesh>
     </group>
   )
