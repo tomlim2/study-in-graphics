@@ -3,6 +3,11 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
+        name: "Text Coffee",
+        url: "/fiber/text-coffee",
+        thumbnail: "/assets/images/img_thumbnail_default.png",
+      },
+      {
         name: "Test glsl5",
         url: "/shader/glsl-5",
         thumbnail: "/assets/images/img_thumbnail_default.png",
