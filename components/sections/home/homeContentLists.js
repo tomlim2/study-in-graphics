@@ -5,37 +5,32 @@ export const inProgressList = [
       {
         name: "Text Coffee",
         url: "/fiber/text-coffee",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Test glsl5",
         url: "/shader/glsl-5",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Test glsl4",
         url: "/shader/glsl-4",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Test glsl",
         url: "/shader/glsl-1",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
-      },
-      {
-        name: "Test glsl3",
-        url: "/shader/glsl-3",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Dynamic wall in Blender",
         url: "/fiber/journey-game3",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Boid in Blender",
         url: "/fiber/journey-game3",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
     ],
   },
@@ -45,18 +40,18 @@ export const inProgressList = [
       {
         name: "Time converter",
         url: "/",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "URL simple db system",
         url: "/",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Fluid Simulation",
         url: "https://kyndinfo.notion.site/Fluid-Simulation-f0516d9d12e245a08ae5c7545ac822dd",
         url2: "https://medium.com/@martinRenou/real-time-rendering-of-water-caustics-59cda1d74aa",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "In water environment",
@@ -66,12 +61,12 @@ export const inProgressList = [
       {
         name: "Toon Render",
         url: "/",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Daily GLSL",
         url: "/",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
     ],
   },
@@ -81,6 +76,11 @@ export const historyList = [
   {
     categoryName: "Glsl",
     urlList: [
+      {
+        name: "Test glsl3",
+        url: "/shader/glsl-3",
+        thumbnail: "/assets/images/thumbnails/glsl3.png",
+      },
       {
         name: "Test glsl2",
         url: "/shader/glsl-2",
@@ -149,42 +149,42 @@ export const historyList = [
       {
         name: "Drei-Portal",
         url: "/fiber/drei-portal",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Journey-Physics-Base",
         url: "/fiber/journey-physics",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Journey-Physics-GLTF",
         url: "/fiber/journey-physics-gltf",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Journey-Env",
         url: "/fiber/journey-env",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Journey-Env-Model",
         url: "/fiber/journey-env-model",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Journey-Models",
         url: "/fiber/journey-models",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Journey-Stage",
         url: "/fiber/journey-stage",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Journey-Postprocess",
         url: "/fiber/journey-postprocess",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Model emoji 1",
@@ -194,53 +194,53 @@ export const historyList = [
       {
         name: "Eye with maths",
         url: "/fiber/eye-with-maths",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Gameboy Material 1",
         url: "/fiber/gameboy-material1",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Models",
         url: "/fiber/models",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
 
       {
         name: "Raymarch101-frag1",
         url: "/fiber/raymarch101-frag1",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Raymarch101-frag2",
         url: "/fiber/raymarch101-frag2",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Raymarch101-frag3",
         url: "/fiber/raymarch101-frag3",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Raymarch101-frag4",
         url: "/fiber/raymarch101-frag4",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Raymarch101-frag5",
         url: "/fiber/raymarch101-frag5",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Raymarch101-frag6",
         url: "/fiber/raymarch101-frag6",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Raymarch101-frag7",
         url: "/fiber/raymarch101-frag7",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
     ],
   },
@@ -260,12 +260,12 @@ export const historyList = [
       {
         name: "Boid",
         url: "/p5/boid",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "Vector Field",
         url: "/p5/vfa",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
     ],
   },
@@ -275,12 +275,12 @@ export const historyList = [
       {
         name: "Geometry Node",
         url: "/blender/geometry-node",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
         name: "AI Render",
         url: "/blender/ai-render",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
     ],
   },
@@ -290,7 +290,7 @@ export const historyList = [
       {
         name: "UI",
         url: "/design/ui",
-        thumbnail: "/assets/images/img_thumbnail_default.png",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
     ],
   },
