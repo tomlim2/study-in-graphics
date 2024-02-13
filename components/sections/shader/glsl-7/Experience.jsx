@@ -81,13 +81,14 @@ const Experience = () => {
       #ifdef NO_ANIMATION
       greenValue = 1.0;
       #else
-      greenValue = sin(uTime)*.5 + 1.0;
+      greenValue = sin(uTime)*2. + 1.0;
       #endif
 
-      diffuseColor = vec4(1,greenValue,0,1);
+      diffuseColor = vec4(0.0,greenValue,0.0,1);
       // float fresnelTerm = dot(normalize(vPositionW - cameraPosition), vNormalW);
       // fresnelTerm = clamp(1.-fresnelTerm, 0., 1.);
-      // diffuseColor.rgb +=  pow(fresnelTerm, 4.0);
+      vec3 fresnelEffect = vec3(1.0) - -min(dot(vEye, normalize(vNN) ), 0.0);
+      diffuseColor.rgb += pow(fresnelEffect, vec3(2.0))*vec3(0.0,0.0,1.0);
       `)
     // console.log(shader.fragmentShader)
   }
