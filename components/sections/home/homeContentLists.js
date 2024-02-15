@@ -8,6 +8,16 @@ export const inProgressList = [
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
+        name: "Test glsl8",
+        url: "/shader/glsl-8",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
+        name: "Test glsl7",
+        url: "/shader/glsl-7",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
         name: "Test glsl6",
         url: "/shader/glsl-6",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",

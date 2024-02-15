@@ -91,17 +91,11 @@ const Experience = () => {
     shader.fragmentShader = shader.fragmentShader.replace(
       /*glsl*/`#include <color_fragment>`,
       /*glsl*/`#include <color_fragment>
-      float greenValue = sin(uTime)*.5 + 1.0;
-      #ifdef NO_ANIMATION
-      greenValue = 0.0;
-      #else
-      greenValue = sin(uTime)*2. + 1.0;
-      #endif
 
-      diffuseColor = vec4(0.0,greenValue,0.0,1);
+      // emissiveColor = vec4(0.0,0.1,0.0,1);
       
-      vec3 fresnelEffect = vec3(1.0) - -min(dot(vEye, normalize(vNN) ), 0.0);
-      diffuseColor.rgb += pow(fresnelEffect, vec3(4.0))*uFresnelColor;
+      // vec3 fresnelEffect = vec3(1.0) - -min(dot(vEye, normalize(vNN) ), 0.0);
+      // emissiveColor.rgb += pow(fresnelEffect, vec3(4.0))*uFresnelColor;
       `)
     console.log(shader.fragmentShader)
   }
@@ -119,6 +113,7 @@ const Experience = () => {
         <meshStandardMaterial
           ref={materialRef}
           color={'black'}
+          // emissive={'white'}
           transparent
           onBeforeCompile={(shader) => onUpdateShader(shader)} />
       </mesh>
