@@ -5,8 +5,8 @@ import { extend, useFrame, useLoader } from '@react-three/fiber'
 import { Perf } from "r3f-perf";
 import LoaderGltf from "./LoaderGltf";
 import Stage from "./Stage";
-import coffeeSmokeFragmentShader from 'raw-loader!glslify-loader!shaders/coffeeSmoke/fragment.glsl'
-import coffeeSmokeVertexShader from 'raw-loader!glslify-loader!shaders/coffeeSmoke/vertex.glsl'
+import coffeeSmokeFragmentShader from 'raw-loader!glslify-loader!shaders/hologram/fragment.glsl'
+import coffeeSmokeVertexShader from 'raw-loader!glslify-loader!shaders/hologram/vertex.glsl'
 import { DoubleSide, RepeatWrapping, TextureLoader } from "three";
 import { useRef } from "react";
 

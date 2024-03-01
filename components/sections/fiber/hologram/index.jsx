@@ -6,27 +6,24 @@ import { Leva } from "leva";
 import { useRecoilState } from "recoil";
 import { isDebuggerState } from "@/stores/storeFiber"
 
-const SectionGlsl2 = () => {
+const SectionHologram = () => {
   const [isDebugger, setIsDebugger] = useRecoilState(isDebuggerState)
-
-  // https://www.youtube.com/watch?v=f4s1h2YETNY&t=818s
+  
   return (
     <>
       <Leva hidden={!isDebugger} />
       <Canvas
+        shadows
         camera={{
           fov: 45,
           near: 0.1,
-          far: 55,
-          position: [0, 0, 12],
+          far: 50,
         }}
-        shadows
       >
         <Experience />
       </Canvas>
     </>
-
   );
 };
 
-export default SectionGlsl2;
+export default SectionHologram;

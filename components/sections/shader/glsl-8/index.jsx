@@ -3,8 +3,11 @@ import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
 import { Leva, useControls } from "leva";
 import * as THREE from "three";
+import { useRecoilState } from "recoil";
+import { isDebuggerState } from "@/stores/storeFiber"
 
 const SectionGlsl6 = () => {
+  const [isDebugger, setIsDebugger] = useRecoilState(isDebuggerState)
   const canvasConfig = useControls("canvas", {
     toneMapping: {
       value: THREE.CustomToneMapping,
@@ -19,7 +22,7 @@ const SectionGlsl6 = () => {
   });
   return (
     <>
-      <Leva hidden={location.hash !== '#debug'} />
+      <Leva hidden={!isDebugger} />
       <Canvas
         camera={{
           fov: 45,

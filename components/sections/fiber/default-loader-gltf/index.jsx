@@ -2,12 +2,14 @@
 import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
 import { Leva } from "leva";
-
+import { useRecoilState } from "recoil";
+import { isDebuggerState } from "@/stores/storeFiber"
 
 const SectionLoaderGltf = () => {
+  const [isDebugger, setIsDebugger] = useRecoilState(isDebuggerState)
   return (
     <>
-      <Leva hidden={location.hash !== '#debug'} />
+      <Leva hidden={!isDebugger} />
       <Canvas
         shadows
         camera={{
