@@ -1,4 +1,4 @@
-import SectionDefault from "components/sections/fiber/default";
+import SectionFireworks from "@/components/sections/fiber/fireworks";
 import styles from "./page.module.scss";
 
 export const metadata = {
@@ -6,13 +6,13 @@ export const metadata = {
   description: "My playground",
 };
 
-const FireworksPage = () => {
+const DefaultPage = () => {
   
   return (
     <main className={styles.page}>
-      <SectionDefault />
+      <SectionFireworks />
     </main>
   );
 };
 
-export default FireworksPage;
+export default DefaultPage;

@@ -4,7 +4,6 @@ import {
 
 import { Perf } from "r3f-perf";
 import LoaderGltf from "./LoaderGltf";
-import Stage from "./Stage";
 
 const Experience = () => {
 
@@ -12,8 +11,8 @@ const Experience = () => {
     <>
       <Perf position="bottom-right" />
       <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} />
-      <Stage />
       <LoaderGltf />
+      <color attach={'background'} args={['#000000']} />
     </>
   );
 };
