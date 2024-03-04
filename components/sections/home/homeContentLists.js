@@ -8,51 +8,6 @@ export const inProgressList = [
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {
-        name: "Hologram",
-        url: "/fiber/hologram",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
-        name: "Coffee Smoke",
-        url: "/fiber/coffee-smoke",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
-        name: "Text Coffee",
-        url: "/fiber/text-coffee",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
-        name: "Test glsl8",
-        url: "/shader/glsl-8",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
-        name: "Test glsl7",
-        url: "/shader/glsl-7",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
-        name: "Test glsl6",
-        url: "/shader/glsl-6",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
-        name: "Test glsl5",
-        url: "/shader/glsl-5",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
-        name: "Test glsl4",
-        url: "/shader/glsl-4",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
-        name: "Test glsl",
-        url: "/shader/glsl-1",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
         name: "Dynamic wall in Blender",
         url: "/fiber/journey-game3",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
@@ -104,8 +59,73 @@ export const inProgressList = [
 
 export const historyList = [
   {
-    categoryName: "Glsl",
+    categoryName: "Default",
     urlList: [
+      {
+        name: "Default-Glsl",
+        url: "/fiber/default-glsl",
+        thumbnail: "/assets/images/thumbnails/default-glsl.png",
+      },
+      {
+        name: "Default-Scene",
+        url: "/fiber/default",
+        thumbnail: "/assets/images/thumbnails/default-scene.png",
+      },
+      {
+        name: "Default-Loader-Gltf",
+        url: "/fiber/default-loader-gltf",
+        thumbnail: "/assets/images/thumbnails/default-loader-gltf.png",
+      },
+    ],
+  },
+  {
+    categoryName: "Shader",
+    urlList: [
+      {
+        name: "Hologram",
+        url: "/fiber/hologram",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
+        name: "Coffee Smoke",
+        url: "/fiber/coffee-smoke",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
+        name: "Text Coffee",
+        url: "/fiber/text-coffee",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
+        name: "Test glsl8",
+        url: "/shader/glsl-8",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
+        name: "Test glsl7",
+        url: "/shader/glsl-7",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
+        name: "Test glsl6",
+        url: "/shader/glsl-6",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
+        name: "Test glsl5",
+        url: "/shader/glsl-5",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
+        name: "Test glsl4",
+        url: "/shader/glsl-4",
+        thumbnail: "/assets/images/thumbnails/test-glsl-4.png",
+      },
+      {
+        name: "Test glsl",
+        url: "/shader/glsl-1",
+        thumbnail: "/assets/images/thumbnails/test-glsl-1.png",
+      },
       {
         name: "Test glsl3",
         url: "/shader/glsl-3",
@@ -116,11 +136,7 @@ export const historyList = [
         url: "/shader/glsl-2",
         thumbnail: "/assets/images/thumbnails/thumbnail_glsl2.png",
       },
-      {
-        name: "Default-Glsl",
-        url: "/fiber/default-glsl",
-        thumbnail: "/assets/images/thumbnails/default-glsl.png",
-      },
+
       {
         name: "Vertex-Fragnent",
         url: "/shader/vertex-fragnent",
@@ -141,16 +157,6 @@ export const historyList = [
   {
     categoryName: "Fiber",
     urlList: [
-      {
-        name: "Default-Scene",
-        url: "/fiber/default",
-        thumbnail: "/assets/images/thumbnails/default-scene.png",
-      },
-      {
-        name: "Default-Loader-Gltf",
-        url: "/fiber/default-loader-gltf",
-        thumbnail: "/assets/images/thumbnails/default-loader-gltf.png",
-      },
       {
         name: "Toon Material Gradient Map",
         url: "/fiber/testToonMaterial",
