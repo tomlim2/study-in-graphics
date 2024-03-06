@@ -1,4 +1,3 @@
-import { useLoader } from "@react-three/fiber";
 import fireworkFragmentShader from 'raw-loader!glslify-loader!shaders/fireworks/fragment.glsl'
 import fireworkVertexShader from 'raw-loader!glslify-loader!shaders/fireworks/vertex.glsl'
 import { useEffect } from "react";
@@ -6,7 +5,6 @@ import * as THREE from "three"
 
 
 export default function Fireworks() {
-    const heyMap = useLoader(THREE.TextureLoader, '/assets/images/thumbnails/test-glsl-1.png')
     const count = 600
     const positionsArray = new Float32Array(count * 3);
     const sizes = {
@@ -23,14 +21,13 @@ export default function Fireworks() {
         positionsArray[i3 + 2] = Math.random() - 0.5
     }
 
-    console.log(positionsArray);
-
     useEffect(() => {
         const handleResize = () => {
             // Update sizes
             sizes.width = window.innerWidth
             sizes.height = window.innerHeight
             sizes.resolution.set(sizes.width, sizes.height)
+            console.log(sizes);
         };
 
         // Add event listener when component mounts

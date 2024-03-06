@@ -2,14 +2,16 @@
 import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
 import { Leva } from "leva";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { isDebuggerState } from "@/stores/storeFiber"
+import { Perf } from "r3f-perf";
 
 const SectionLoaderGltf = () => {
-  const [isDebugger, setIsDebugger] = useRecoilState(isDebuggerState)
+  const isDebugger = useRecoilValue(isDebuggerState)
+
   return (
     <>
-      <Leva hidden={!isDebugger} />
+      {!isDebugger && <Leva hidden={true} />}
       <Canvas
         shadows
         camera={{
@@ -19,6 +21,7 @@ const SectionLoaderGltf = () => {
           position: [8, - 3, 8]
         }}
       >
+        {isDebugger && <Perf position="bottom-right" />}
         <Experience />
       </Canvas>
     </>

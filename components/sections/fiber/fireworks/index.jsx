@@ -1,22 +1,13 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
-import { Leva, useControls } from "leva";
-import * as THREE from "three";
+
+import { useRecoilState } from "recoil";
+import { isDebuggerState } from "@/stores/storeFiber"
+import { Perf } from "r3f-perf";
 
 const SectionFireworks = () => {
-  const canvasConfig = useControls("canvas", {
-    toneMapping: {
-      value: THREE.CustomToneMapping,
-      options: {
-        ACESFilmic: THREE.ACESFilmicToneMapping,
-        Cineon: THREE.CineonToneMapping,
-        Reinhard: THREE.ReinhardToneMapping,
-        Custom: THREE.CustomToneMapping,
-      },
-    },
-    toneMappingExposure: { value: 1.5, min: 0, max: 3, step: 0.01 },
-  });
+  const [isDebugger, setIsDebugger] = useRecoilState(isDebuggerState)
   return (
     <Canvas
       camera={{
@@ -26,11 +17,8 @@ const SectionFireworks = () => {
         position: [0, 0, 6],
       }}
       shadows
-      gl={{
-        toneMapping: canvasConfig.toneMapping,
-        toneMappingExposure: canvasConfig.toneMappingExposure,
-      }}
     >
+      {isDebugger && <Perf position="bottom-right" />}
       <Experience />
     </Canvas>
   );
