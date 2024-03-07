@@ -1,10 +1,12 @@
+import { useControls } from 'leva';
 import fireworkFragmentShader from 'raw-loader!glslify-loader!shaders/fireworks/fragment.glsl'
 import fireworkVertexShader from 'raw-loader!glslify-loader!shaders/fireworks/vertex.glsl'
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import * as THREE from "three"
 
 
 export default function Fireworks() {
+    const materialRef = useRef()
     const count = 600
     const positionsArray = new Float32Array(count * 3);
     const sizes = {
@@ -12,6 +14,43 @@ export default function Fireworks() {
         height: window.innerHeight
     }
     sizes.resolution = new THREE.Vector2(sizes.width, sizes.height)
+
+    // const textures = [
+    //     textureLoader.load('./particles/1.png'),
+    //     textureLoader.load('./particles/2.png'),
+    //     textureLoader.load('./particles/3.png'),
+    //     textureLoader.load('./particles/4.png'),
+    //     textureLoader.load('./particles/5.png'),
+    //     textureLoader.load('./particles/6.png'),
+    //     textureLoader.load('./particles/7.png'),
+    //     textureLoader.load('./particles/8.png'),
+    // ]
+
+
+    const { particleSize, fresnelPower } = useControls("holographic", {
+        particleSize: {
+            value: 0.5,
+            step: 0.01,
+            min: 0,
+            max: 2.5,
+            onChange: (value) => {
+                if (materialRef.current) {
+                    materialRef.current.uniforms.uSize.value = value;
+                }
+            }
+        },
+        fresnelPower: {
+            value: 1.25,
+            step: 0.25,
+            min: 0,
+            max: 10,
+            onChange: (value) => {
+                if (materialRef.current) {
+                    // materialRef.current.uniforms.uFresnelPower.value = value;
+                }
+            }
+        },
+    });
 
     for (let i = 0; i < count; i++) {
         const i3 = i * 3
@@ -22,12 +61,17 @@ export default function Fireworks() {
     }
 
     useEffect(() => {
+        if (materialRef.current) {
+            materialRef.current.uniforms.uResolution.value = sizes.resolution;
+        }
         const handleResize = () => {
             // Update sizes
             sizes.width = window.innerWidth
             sizes.height = window.innerHeight
             sizes.resolution.set(sizes.width, sizes.height)
-            console.log(sizes);
+            if (materialRef.current) {
+                materialRef.current.uniforms.uResolution.value = sizes.resolution;
+            }
         };
 
         // Add event listener when component mounts
@@ -50,11 +94,12 @@ export default function Fireworks() {
                 />
             </bufferGeometry>
             <shaderMaterial
+                ref={materialRef}
                 vertexShader={fireworkVertexShader}
                 fragmentShader={fireworkFragmentShader}
                 uniforms={
                     {
-                        uSize: new THREE.Uniform(50),
+                        uSize: new THREE.Uniform(particleSize),
                         uResolution: new THREE.Uniform(new THREE.Vector2(sizes.resolution))
                     }
                 }
