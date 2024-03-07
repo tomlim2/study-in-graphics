@@ -1,3 +1,4 @@
+import { useLoader } from '@react-three/fiber';
 import { useControls } from 'leva';
 import fireworkFragmentShader from 'raw-loader!glslify-loader!shaders/fireworks/fragment.glsl'
 import fireworkVertexShader from 'raw-loader!glslify-loader!shaders/fireworks/vertex.glsl'
@@ -11,21 +12,21 @@ export default function Fireworks() {
     const positionsArray = new Float32Array(count * 3);
     const sizes = {
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
+        pixelRatio: Math.min(window.devicePixelRatio, 2)
     }
     sizes.resolution = new THREE.Vector2(sizes.width, sizes.height)
-
-    // const textures = [
-    //     textureLoader.load('./particles/1.png'),
-    //     textureLoader.load('./particles/2.png'),
-    //     textureLoader.load('./particles/3.png'),
-    //     textureLoader.load('./particles/4.png'),
-    //     textureLoader.load('./particles/5.png'),
-    //     textureLoader.load('./particles/6.png'),
-    //     textureLoader.load('./particles/7.png'),
-    //     textureLoader.load('./particles/8.png'),
-    // ]
-
+    const textures = [
+        useLoader(THREE.TextureLoader, '/fireworks/particles/1.png'),
+        useLoader(THREE.TextureLoader, '/fireworks/particles/2.png'),
+        useLoader(THREE.TextureLoader, '/fireworks/particles/3.png'),
+        useLoader(THREE.TextureLoader, '/fireworks/particles/4.png'),
+        useLoader(THREE.TextureLoader, '/fireworks/particles/5.png'),
+        useLoader(THREE.TextureLoader, '/fireworks/particles/6.png'),
+        useLoader(THREE.TextureLoader, '/fireworks/particles/7.png'),
+        useLoader(THREE.TextureLoader, '/fireworks/particles/8.png'),
+    ]
+    console.log(textures);
 
     const { particleSize, fresnelPower } = useControls("holographic", {
         particleSize: {
@@ -68,7 +69,9 @@ export default function Fireworks() {
             // Update sizes
             sizes.width = window.innerWidth
             sizes.height = window.innerHeight
-            sizes.resolution.set(sizes.width, sizes.height)
+            sizes.pixelRatio = Math.min(window.devicePixelRatio, 2)
+            sizes.resolution.set(sizes.width * sizes.pixelRatio, sizes.height * sizes.pixelRatio)
+
             if (materialRef.current) {
                 materialRef.current.uniforms.uResolution.value = sizes.resolution;
             }
@@ -100,7 +103,8 @@ export default function Fireworks() {
                 uniforms={
                     {
                         uSize: new THREE.Uniform(particleSize),
-                        uResolution: new THREE.Uniform(new THREE.Vector2(sizes.resolution))
+                        uResolution: new THREE.Uniform(new THREE.Vector2(sizes.resolution)),
+                        uTexture: new THREE.Uniform(textures[7])
                     }
                 }
 
