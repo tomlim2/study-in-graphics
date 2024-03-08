@@ -86,6 +86,11 @@ export default function Fireworks() {
         };
     }, []);
 
+    const getTexture = (indexNumber = 0) => {
+        textures[indexNumber].flipY = false
+        return textures[indexNumber]
+    }
+
     return <>
         <points>
             <bufferGeometry >
@@ -100,11 +105,14 @@ export default function Fireworks() {
                 ref={materialRef}
                 vertexShader={fireworkVertexShader}
                 fragmentShader={fireworkFragmentShader}
+                transparent={true}
+                depthWrite={false}
+                blending={THREE.AdditiveBlending}
                 uniforms={
                     {
                         uSize: new THREE.Uniform(particleSize),
                         uResolution: new THREE.Uniform(new THREE.Vector2(sizes.resolution)),
-                        uTexture: new THREE.Uniform(textures[7])
+                        uTexture: new THREE.Uniform(getTexture(7))
                     }
                 }
 
