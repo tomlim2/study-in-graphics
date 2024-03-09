@@ -6,9 +6,19 @@ import { useRecoilState } from "recoil";
 import { isDebuggerState } from "@/stores/storeFiber"
 import { Perf } from "r3f-perf";
 import { Leva } from "leva";
+import Firework from "./Firework";
+import { useState } from "react";
 
 const SectionFireworks = () => {
   const [isDebugger, setIsDebugger] = useRecoilState(isDebuggerState)
+  const [fireworks, setFireworks] = useState([]);
+
+  const handleOnClick = (e) => {
+    console.log('hi');
+    const newFirework = <Firework key={1} />
+    setFireworks((prev) => [...prev, newFirework])
+  }
+
   return (
     <>
       {!isDebugger && <Leva hidden={true} />}
@@ -19,10 +29,12 @@ const SectionFireworks = () => {
           far: 50,
           position: [0, 0, 6],
         }}
+        onClick={handleOnClick}
         shadows
       >
         {isDebugger && <Perf position="bottom-right" />}
         <Experience />
+        {fireworks}
       </Canvas>
     </>
   );
