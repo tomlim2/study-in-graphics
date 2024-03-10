@@ -5,15 +5,14 @@ import fireworkFragmentShader from 'raw-loader!glslify-loader!shaders/fireworks/
 import fireworkVertexShader from 'raw-loader!glslify-loader!shaders/fireworks/vertex.glsl'
 import { useEffect, useRef } from "react";
 import * as THREE from "three"
-import { Color, AdditiveBlending } from 'three';
+import { AdditiveBlending } from 'three';
 
 
-export default function Firework() {
+export default function Firework({ count, particleSize, particleColor, radius, position, texture }) {
     const materialRef = useRef()
     const geometryRef = useRef()
     const pointsRef = useRef()
 
-    const count = 60
     const positionsArray = new Float32Array(count * 3);
     const sizesArray = new Float32Array(count);
     const timeMultipliersArray = new Float32Array(count)
@@ -25,54 +24,11 @@ export default function Firework() {
 
     sizes.resolution = new THREE.Vector2(sizes.width, sizes.height)
 
-    const textures = [
-        useLoader(THREE.TextureLoader, '/fireworks/particles/1.png'),
-        useLoader(THREE.TextureLoader, '/fireworks/particles/2.png'),
-        useLoader(THREE.TextureLoader, '/fireworks/particles/3.png'),
-        useLoader(THREE.TextureLoader, '/fireworks/particles/4.png'),
-        useLoader(THREE.TextureLoader, '/fireworks/particles/5.png'),
-        useLoader(THREE.TextureLoader, '/fireworks/particles/6.png'),
-        useLoader(THREE.TextureLoader, '/fireworks/particles/7.png'),
-        useLoader(THREE.TextureLoader, '/fireworks/particles/8.png'),
-    ]
-
-    const { particleSize, progress, color } = useControls("holographic", {
-        color: {
-            value: "#2c6bdb",
-            onChange: (value) => {
-                if (materialRef.current) {
-                    materialRef.current.uniforms.uColor.value = new Color(value);
-                }
-            }
-        },
-        particleSize: {
-            value: 0.5,
-            step: 0.01,
-            min: 0,
-            max: 2.5,
-            onChange: (value) => {
-                if (materialRef.current) {
-                    materialRef.current.uniforms.uSize.value = value;
-                }
-            }
-        },
-        progress: {
-            value: 0,
-            min: 0,
-            max: 1,
-            onChange: (value) => {
-                if (materialRef.current) {
-                    materialRef.current.uniforms.uProgress.value = value;
-                }
-            }
-        },
-    });
-
     for (let i = 0; i < count; i++) {
         const i3 = i * 3;
 
         const spherical = new THREE.Spherical(
-            1 * (0.75 + Math.random() * 0.25),
+            radius,
             Math.random() * Math.PI,
             Math.random() * Math.PI * 2
         )
@@ -92,7 +48,6 @@ export default function Firework() {
         const geometry = geometryRef.current;
 
         const destroy = () => {
-            // scene.remove(firework)
             geometryRef.current.dispose()
             materialRef.current.dispose()
             pointsRef.current.destroy
@@ -130,13 +85,8 @@ export default function Firework() {
         };
     }, []);
 
-    const getTexture = (indexNumber = 0) => {
-        textures[indexNumber].flipY = false
-        return textures[indexNumber]
-    }
-
     return <>
-        <points ref={pointsRef}>
+        <points ref={pointsRef} position={position}>
             <bufferGeometry ref={geometryRef} />
             <shaderMaterial
                 ref={materialRef}
@@ -149,8 +99,8 @@ export default function Firework() {
                     {
                         uSize: new THREE.Uniform(particleSize),
                         uResolution: new THREE.Uniform(new THREE.Vector2(sizes.resolution)),
-                        uTexture: new THREE.Uniform(getTexture(7)),
-                        uColor: new THREE.Uniform(color),
+                        uTexture: new THREE.Uniform(texture),
+                        uColor: new THREE.Uniform(particleColor),
                         uProgress: new THREE.Uniform(0)
                     }
                 }
