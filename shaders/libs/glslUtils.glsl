@@ -11,3 +11,7 @@ vec2 rotate2D(vec2 value, float angle)
     return m * value;
 }
 
+float remap(float value, float originMin, float originMax, float destinationMin, float destinationMax)
+{
+    return destinationMin + (value - originMin) * (destinationMax - destinationMin) / (originMax - originMin);
+}

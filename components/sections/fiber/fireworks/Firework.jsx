@@ -1,8 +1,8 @@
-import { useLoader } from '@react-three/fiber';
 import gsap from 'gsap';
-import { useControls } from 'leva';
+
 import fireworkFragmentShader from 'raw-loader!glslify-loader!shaders/fireworks/fragment.glsl'
 import fireworkVertexShader from 'raw-loader!glslify-loader!shaders/fireworks/vertex.glsl'
+import glslUtils from 'raw-loader!glslify-loader!shaders/libs/glslUtils.glsl'
 import { useEffect, useRef } from "react";
 import * as THREE from "three"
 import { AdditiveBlending } from 'three';
@@ -90,7 +90,10 @@ export default function Firework({ count, particleSize, particleColor, radius, p
             <bufferGeometry ref={geometryRef} />
             <shaderMaterial
                 ref={materialRef}
-                vertexShader={fireworkVertexShader}
+                vertexShader={`
+                ${glslUtils}
+                ${fireworkVertexShader}
+                `}
                 fragmentShader={fireworkFragmentShader}
                 transparent={true}
                 depthWrite={false}

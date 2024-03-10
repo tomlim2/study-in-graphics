@@ -1,13 +1,15 @@
 import {
   CameraControls,
 } from "@react-three/drei";
+import FireworkWrapper from "./FireworkWrapper";
+import SkyBackground from "./SkyBackground";
 
 const Experience = () => {
   return (
     <>
       <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} />
-      <pointLight position={[2, 2, 2]} intensity={30}></pointLight>
-      <ambientLight intensity={1}></ambientLight>
+      <FireworkWrapper />
+      <SkyBackground />
     </>
   );
 };

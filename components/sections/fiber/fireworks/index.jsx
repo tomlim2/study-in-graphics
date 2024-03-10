@@ -6,7 +6,6 @@ import { useRecoilState } from "recoil";
 import { isDebuggerState } from "@/stores/storeFiber"
 import { Perf } from "r3f-perf";
 import { Leva } from "leva";
-import FireworkWrapper from "./FireworkWrapper";
 
 const SectionFireworks = () => {
   const [isDebugger, setIsDebugger] = useRecoilState(isDebuggerState)
@@ -26,7 +25,6 @@ const SectionFireworks = () => {
       >
         {isDebugger && <Perf position="bottom-right" />}
         <Experience />
-        <FireworkWrapper />
       </Canvas>
     </>
   );
