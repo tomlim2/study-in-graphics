@@ -4,7 +4,9 @@ import { useRef } from "react";
 import lightsShadingFragmentShader from 'raw-loader!glslify-loader!shaders/lightsShading/fragment.glsl'
 import lightsShadingVertexShader from 'raw-loader!glslify-loader!shaders/lightsShading/vertex.glsl'
 import glslUtils from 'raw-loader!glslify-loader!shaders/libs/glslUtils.glsl'
-import glslAmbiendLight from 'raw-loader!glslify-loader!shaders/libs/glslAmbiendLight.glsl'
+import glslAmbientLight from 'raw-loader!glslify-loader!shaders/libs/glslAmbientLight.glsl'
+import glslDirectionalLight from 'raw-loader!glslify-loader!shaders/libs/glslDirectionalLight.glsl'
+import glslPointLight from 'raw-loader!glslify-loader!shaders/libs/glslPointLight.glsl'
 import { useFrame } from "@react-three/fiber";
 import { AdditiveBlending, Color, DoubleSide, Uniform } from "three";
 
@@ -80,7 +82,9 @@ export default function LoaderGltf() {
     }
     fragmentShader={
         `
-        ${glslAmbiendLight}
+        ${glslPointLight}
+        ${glslDirectionalLight}
+        ${glslAmbientLight}
         ${glslUtils}
         ${lightsShadingFragmentShader}
         `
