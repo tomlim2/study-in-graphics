@@ -3,7 +3,7 @@ varying vec3 vPosition;
 
 void main()
 {
-    
+    vec3 viewDirection = normalize(vPosition - cameraPosition);
     // Position
     vec4 modelPosition = modelMatrix * vec4(position, 1.0);
 
