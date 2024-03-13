@@ -75,15 +75,17 @@ export default function LoaderGltf() {
             }}
         vertexShader={
             `
-        ${glslUtils}
-        ${halftoneShadingVertexShader}
-        `
+            ${glslUtils}
+            ${halftoneShadingVertexShader}
+            `
         }
         fragmentShader={
             `
-        ${glslUtils}
-        ${halftoneShadingFragmentShader}
-        `
+            ${glslAmbientLight}
+            ${glslDirectionalLight}
+            ${glslUtils}
+            ${halftoneShadingFragmentShader}
+            `
         }
     />
 
