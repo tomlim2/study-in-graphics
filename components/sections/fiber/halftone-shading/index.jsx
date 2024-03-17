@@ -15,7 +15,7 @@ const SectionHalftoneShading = () => {
       <Canvas
         shadows
         camera={{
-          fov: 45,
+          fov: 30,
           near: 0.1,
           far: 50,
         }}
