@@ -10,7 +10,7 @@ import { isDebuggerState } from "@/stores/storeFiber"
 const SectionEarth = () => {
   const canvasConfig = useControls("canvas", {
     toneMapping: {
-      value: THREE.CustomToneMapping,
+      value: THREE.ACESFilmicToneMapping,
       options: {
         ACESFilmic: THREE.ACESFilmicToneMapping,
         Cineon: THREE.CineonToneMapping,
@@ -18,7 +18,7 @@ const SectionEarth = () => {
         Custom: THREE.CustomToneMapping,
       },
     },
-    toneMappingExposure: { value: 1.5, min: 0, max: 3, step: 0.01 },
+    toneMappingExposure: { value: 0.26, min: 0, max: 3, step: 0.01 },
   });
   const isDebugger = useRecoilValue(isDebuggerState)
   return (
