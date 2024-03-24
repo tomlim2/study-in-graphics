@@ -18,7 +18,7 @@ const SectionEarth = () => {
         Custom: THREE.CustomToneMapping,
       },
     },
-    toneMappingExposure: { value: 0.26, min: 0, max: 3, step: 0.01 },
+    toneMappingExposure: { value: 0.85, min: 0, max: 3, step: 0.01 },
   });
   const isDebugger = useRecoilValue(isDebuggerState)
   return (
