@@ -1,8 +1,7 @@
-import { useControls } from "leva";
 import { useGLTF } from "@react-three/drei";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { useLoader } from "@react-three/fiber";
-import { MeshBasicMaterial, SRGBColorSpace, TextureLoader } from "three";
+import { MeshBasicMaterial, SRGBColorSpace, TextureLoader, Uniform } from "three";
 
 export default function LoaderGltf() {
     const group = useRef()
@@ -23,9 +22,9 @@ export default function LoaderGltf() {
             <group scale={20} ref={group} dispose={null} >
                 <mesh geometry={strawberryCake.nodes['Cylinder001'].geometry}>
                     <shaderMaterial uniforms={{
-                        uDayTexture: new THREE.Uniform(earthDayTexture),
-                        uNightTexture: new THREE.Uniform(earthNightTexture),
-                        uSpecularCloudsTexture: new THREE.Uniform(earthSpecularCloudsTexture)
+                        uDayTexture: Uniform(earthDayTexture),
+                        uNightTexture: Uniform(earthNightTexture),
+                        uSpecularCloudsTexture: Uniform(earthSpecularCloudsTexture)
                     }} />
                 </mesh>
 

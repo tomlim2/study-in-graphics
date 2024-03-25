@@ -1,8 +1,5 @@
-import {
-  CameraControls,
-} from "@react-three/drei";
-
 import { useControls } from "leva";
+import { CameraControls } from "@react-three/drei";
 
 const Experience = () => {
   const { color, opacity } = useControls("contact shadows", {

@@ -1,6 +1,6 @@
 "use client";
-import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
+import { Canvas } from "@react-three/fiber";
 import { Leva } from "leva";
 import { useRecoilValue } from "recoil";
 import { isDebuggerState } from "@/stores/storeFiber"

@@ -3,7 +3,7 @@ import styles from "./page.module.scss";
 
 export const metadata = {
   title: "Default | Fiber | yslim",
-  description: "My playground",
+  description: "Earth",
 };
 
 const EarthPage = () => {

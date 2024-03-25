@@ -6,7 +6,7 @@ export const metadata = {
   description: "My playground",
 };
 
-const DefaultPage = () => {
+const FireworksPage = () => {
   
   return (
     <main className={styles.page}>
@@ -15,4 +15,4 @@ const DefaultPage = () => {
   );
 };
 
-export default DefaultPage;
+export default FireworksPage;

@@ -3,7 +3,7 @@ import styles from "./page.module.scss";
 
 export const metadata = {
   title: "Drei Portal | Fiber | yslim",
-  description: "My playground",
+  description: "Drei Portal",
 };
 
 const DreiPortal = () => {
