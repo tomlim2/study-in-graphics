@@ -10,13 +10,11 @@ const Experience = () => {
   return (
     <>
       <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} />
-      <pointLight position={[2, 2, 2]} intensity={30}></pointLight>
-      <ambientLight intensity={1}></ambientLight>
 
-      <mesh visible userData={{ hello: 'world' }} position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
-        <sphereGeometry args={[1, 16, 16]} />
-        <meshStandardMaterial opacity={opacity} color={color} transparent />
-      </mesh>
+      <points>
+        <planeGeometry args={[10, 10, 32, 32]} />
+        <meshBasicMaterial />
+      </points>
 
 
     </>

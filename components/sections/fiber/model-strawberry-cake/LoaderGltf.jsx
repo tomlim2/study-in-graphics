@@ -16,7 +16,6 @@ export default function LoaderGltf() {
     strawberryCake.scene.traverse((child) => {
         child.material = bakedMaterial
     })
-    console.log(strawberryCake);
     return (
         <>
             <group scale={20} ref={group} dispose={null} >
