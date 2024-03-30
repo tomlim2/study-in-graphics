@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { Perf } from "r3f-perf";
 import { useRecoilValue } from "recoil";
 import { isDebuggerState } from "@/stores/storeFiber"
+import styles from "./ParticleCursor.module.scss";
 
 const SectionParticleCursor = () => {
   const canvasConfig = useControls("canvas", {
@@ -23,6 +24,7 @@ const SectionParticleCursor = () => {
   const isDebugger = useRecoilValue(isDebuggerState)
   return (
     <>
+      <canvas className={styles.displacement} width={128} height={128}></canvas>
       {!isDebugger && <Leva hidden={true} />}
       <Canvas
         camera={{

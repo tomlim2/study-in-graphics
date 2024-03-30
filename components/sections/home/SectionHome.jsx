@@ -5,7 +5,7 @@ import { inProgressList, historyList } from "./homeContentLists";
 const SectionHome = () => {
     return (
         <section className={styles["section-home"]}>
-            <ul className={styles['list in-progress']}>
+            <ul className={styles['list']}>
                 {inProgressList.map((categoryItem, categoryIndex) => {
                     return (
                         <li className={styles.category} key={categoryIndex}>
