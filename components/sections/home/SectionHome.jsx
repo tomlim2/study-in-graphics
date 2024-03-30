@@ -4,18 +4,18 @@ import { inProgressList, historyList } from "./homeContentLists";
 
 const SectionHome = () => {
     return (
-        <section className="section-home">
-            <ul className='list in-progress'>
+        <section className={styles["section-home"]}>
+            <ul className={styles['list in-progress']}>
                 {inProgressList.map((categoryItem, categoryIndex) => {
                     return (
-                        <li className='category' key={categoryIndex}>
-                            <h2 className='category-name'>
+                        <li className={styles.category} key={categoryIndex}>
+                            <h2 className={styles['category-name']}>
                                 {categoryItem.categoryName}
                             </h2>
-                            <ul className='url-list'>
+                            <ul className={styles['url-list']}>
                                 {categoryItem.urlList.map((routeItem, routeIndex) => {
                                     return (
-                                        <li key={routeIndex} className='url-link'>
+                                        <li key={routeIndex} className={styles['url-link']}>
                                             <Link href={routeItem.url}>{routeItem.name}</Link>
                                         </li>
                                     );
@@ -25,22 +25,22 @@ const SectionHome = () => {
                     );
                 })}
             </ul>
-            <ul className='list history'>
+            <ul className={`${styles.list} ${styles.history}`}>
                 {historyList.map((categoryItem, categoryIndex) => {
                     return (
-                        <li className='category' key={categoryIndex}>
-                            <h2 className='category-name'>
+                        <li className={styles['category']} key={categoryIndex}>
+                            <h2 className={styles['category-name']}>
                                 {categoryItem.categoryName}
                             </h2>
-                            <ul className='url-list'>
+                            <ul className={styles['url-list']}>
                                 {categoryItem.urlList.map((routeItem, routeIndex) => {
                                     return (
-                                        <li key={routeIndex} className='url-item'>
+                                        <li key={routeIndex} className={styles['url-item']}>
                                             <Link href={routeItem.url}>
-                                                <div className="thumbnail">
+                                                <div className={styles.thumbnail}>
                                                     <img src={routeItem.thumbnail} alt="hi" />
-                                                    <div className="url-name-wrapper">
-                                                        <div className="url-name">
+                                                    <div className={styles["url-name-wrapper"]}>
+                                                        <div className={styles["url-name"]}>
                                                             {routeItem.name}
                                                         </div>
                                                     </div>
