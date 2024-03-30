@@ -1,4 +1,4 @@
-import "./sectionHome.scss";
+import styles from "./sectionHome.module.scss";
 import Link from "next/link";
 import { inProgressList, historyList } from "./homeContentLists";
 
