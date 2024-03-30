@@ -6,7 +6,6 @@ import { Perf } from "r3f-perf";
 import { useRecoilValue } from "recoil";
 import { isDebuggerState } from "@/stores/storeFiber"
 import { useEffect, useRef } from "react";
-import styles from "./ParticleCursor.module.scss";
 import { ACESFilmicToneMapping, CineonToneMapping, CustomToneMapping, ReinhardToneMapping } from "three";
 
 const SectionParticleCursor = () => {
