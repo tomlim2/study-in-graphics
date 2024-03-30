@@ -29,7 +29,7 @@ const SectionParticleCursor = () => {
           fov: 45,
           near: 0.1,
           far: 50,
-          position: [0, 0, 6],
+          position: [0, 0, 15],
         }}
         shadows
         gl={{

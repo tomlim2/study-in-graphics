@@ -108,7 +108,7 @@ const Earth = () => {
             </mesh>
             <group ref={earthSphereRef}>
                 <mesh position={[0, 0, 0]} >
-                    <sphereGeometry args={[1, 32, 32]} />
+                    <sphereGeometry args={[1, 64, 64]} />
                     <shaderMaterial
                         ref={earthShaderRef}
                         vertexShader={
