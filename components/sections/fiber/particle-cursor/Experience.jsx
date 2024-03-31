@@ -1,14 +1,12 @@
 import { CameraControls } from "@react-three/drei";
 import ParticleForCursor from "./ParticleForCursor";
-import { CanvasTexture, Raycaster, Vector2 } from "three";
+import { CanvasTexture, DoubleSide, Raycaster, Vector2 } from "three";
 import { useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 
 const Experience = () => {
-  const cursorOnMesh = {
-    x: -1,
-    y: -1
-  }
+  const cursorOnMesh = new Vector2(-1, -1)
+  const curosrOnMeshPrevious = new Vector2(-1, -1)
 
   /**
  * Sizes
@@ -46,22 +44,35 @@ const Experience = () => {
 
   const tick = () => {
     if (displacement.canvas) {
+      
       // Fade out
       displacement.context.globalCompositeOperation = 'source-over'
       displacement.context.globalAlpha = 0.02
       displacement.context.fillRect(0, 0, displacement.canvas.width, displacement.canvas.height)
 
       // Draw glow
-      const glowSize = displacement.canvas.width * 0.25
+      const glowSize = displacement.canvas.width * 0.4
       displacement.context.globalCompositeOperation = 'lighten'
-      displacement.context.globalAlpha = 1
+      const dx = cursorOnMesh.x * displacement.canvas.width - glowSize * 0.5
+      const dy = (1 - cursorOnMesh.y) * displacement.canvas.height - glowSize * 0.5
+      
+      // Speed alpha
+      const cursorDistance = curosrOnMeshPrevious.distanceTo(new Vector2(dx, dy))
+      curosrOnMeshPrevious.copy(new Vector2(dx, dy))
+      const alpha = Math.min(cursorDistance * 0.009, 1)
+      displacement.context.globalAlpha = alpha
+
+      
+
       displacement.context.drawImage(
         displacement.glowImage,
-        cursorOnMesh.x * displacement.canvas.width - glowSize * 0.5,
-        (1 - cursorOnMesh.y) * displacement.canvas.height - glowSize * 0.5,
+        dx,
+        dy,
         glowSize,
         glowSize
       )
+
+
       // Texture
       displacement.texture.needsUpdate = true
     }
@@ -81,7 +92,7 @@ const Experience = () => {
         visible={false}
       >
         <planeGeometry args={[10, 10]} />
-        <meshBasicMaterial color={'red'} />
+        <meshBasicMaterial color={'red'} side={DoubleSide} />
       </mesh>
       <ParticleForCursor
         sizes={sizes}
