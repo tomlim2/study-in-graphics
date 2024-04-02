@@ -15,8 +15,6 @@ export default function ParticleForCursor({ sizes, displacementTexture }) {
 
     sizes.resolution = new Vector2(sizes.width, sizes.height)
 
-
-
     const texture = useLoader(TextureLoader, '/particleCursor/picture-1.png')
 
     useEffect(() => {

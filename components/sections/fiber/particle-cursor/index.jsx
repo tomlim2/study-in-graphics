@@ -22,17 +22,19 @@ const SectionParticleCursor = () => {
     },
     toneMappingExposure: { value: 1.5, min: 0, max: 3, step: 0.01 },
   });
+
   const isDebugger = useRecoilValue(isDebuggerState)
+
+
 
   return (
     <>
       {!isDebugger && <Leva hidden={true} />}
       <Canvas
         camera={{
-          fov: 45,
+          fov: 100,
           near: 0.1,
-          far: 50,
-          position: [0, 0, 15],
+          position: [0, 0, 5],
         }}
         shadows
         gl={{

@@ -51,14 +51,14 @@ const Experience = () => {
       displacement.context.fillRect(0, 0, displacement.canvas.width, displacement.canvas.height)
 
       // Draw glow
-      const glowSize = displacement.canvas.width * 0.4
+      const glowSize = displacement.canvas.width * 0.5
       displacement.context.globalCompositeOperation = 'lighten'
       const dx = cursorOnMesh.x * displacement.canvas.width - glowSize * 0.5
       const dy = (1 - cursorOnMesh.y) * displacement.canvas.height - glowSize * 0.5
       
       // Speed alpha
       const cursorDistance = curosrOnMeshPrevious.distanceTo(new Vector2(dx, dy))
-      curosrOnMeshPrevious.copy(new Vector2(dx, dy))
+      curosrOnMeshPrevious.copy(new Vector2(dx, dy)*0.1)
       const alpha = Math.min(cursorDistance * 0.009, 1)
       displacement.context.globalAlpha = alpha
 
