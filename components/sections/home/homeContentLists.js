@@ -3,6 +3,11 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
+        name: "Particle Morphing",
+        url: "/fiber/particle-morphing",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
         name: "Particle Cursor",
         url: "/fiber/particle-cursor",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
