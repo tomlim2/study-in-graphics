@@ -1,7 +1,7 @@
 import { CameraControls } from "@react-three/drei";
 import morphingVertexShader from 'raw-loader!glslify-loader!shaders/particle-morphing/vertex.glsl'
 import morphingFragnentSahder from 'raw-loader!glslify-loader!shaders/particle-morphing/fragment.glsl'
-import { Uniform, Vector2 } from "three";
+import { AdditiveBlending, Uniform, Vector2 } from "three";
 import { useEffect, useRef } from "react";
 
 const Experience = () => {
@@ -35,13 +35,15 @@ const Experience = () => {
     <>
       <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} />
       <points>
-        <sphereGeometry args={[3]} />
+        <sphereGeometry args={[3]} setIndex={null} />
         <shaderMaterial
           ref={shaderRef}
+          blending={AdditiveBlending}
+          depthWrite={false}
           vertexShader={morphingVertexShader}
           fragmentShader={morphingFragnentSahder}
           uniforms={{
-            uSize: new Uniform(0.04),
+            uSize: new Uniform(0.1),
             uResolution: new Uniform(setUResolution()),
           }
           }
