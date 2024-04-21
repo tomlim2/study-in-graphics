@@ -16,9 +16,10 @@ const Experience = () => {
   useEffect(() => {
     console.log(gltfModels, 'gltfModels');
     // Positions
-    gltfModels.scene.children.map((child) => {
-      console.log(child)
+    const positions = gltfModels.scene.children.map((child) => {
+      return child.geometry.attributes.position
     })
+    console.log(positions, 'positions');
   }, [gltfModels])
   const handleResize = () => {
     sizes.width = window.innerWidth;
