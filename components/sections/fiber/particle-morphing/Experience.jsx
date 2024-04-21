@@ -1,4 +1,4 @@
-import { CameraControls } from "@react-three/drei";
+import { CameraControls, useGLTF } from "@react-three/drei";
 import morphingVertexShader from 'raw-loader!glslify-loader!shaders/particle-morphing/vertex.glsl'
 import morphingFragnentSahder from 'raw-loader!glslify-loader!shaders/particle-morphing/fragment.glsl'
 import { AdditiveBlending, Uniform, Vector2 } from "three";
@@ -6,15 +6,28 @@ import { useEffect, useRef } from "react";
 
 const Experience = () => {
   const shaderRef = useRef()
+  let particles = null
+  const gltfModels = useGLTF('/particle-morphing/models.glb')
   const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
     pixelRatio: Math.min(window.devicePixelRatio, 2)
   }
+  useEffect(() => {
+    console.log(gltfModels, 'gltfModels');
+    // Positions
+    gltfModels.scene.children.map((child) => {
+      console.log(child)
+    })
+  }, [gltfModels])
   const handleResize = () => {
     sizes.width = window.innerWidth;
     sizes.height = window.innerHeight;
     sizes.pixelRatio = Math.min(window.devicePixelRatio, 2)
+
+    // Materials
+    if (particles)
+      particles.material.uniforms.uResolution.value.set(setUResolution())
 
     if (shaderRef.current) {
       shaderRef.current.uniforms.uResolution.value = new Uniform(setUResolution())
@@ -43,7 +56,7 @@ const Experience = () => {
           vertexShader={morphingVertexShader}
           fragmentShader={morphingFragnentSahder}
           uniforms={{
-            uSize: new Uniform(0.1),
+            uSize: new Uniform(0.05),
             uResolution: new Uniform(setUResolution()),
           }
           }

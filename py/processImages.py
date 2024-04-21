@@ -18,6 +18,9 @@ def process_images(input_files, output_file):
 
     result_img.save(output_file)
 
+    for file in input_files:
+        os.remove(file)
+
 input_directory = 'py/input/'  
 output_directory = 'py/output/'
 
