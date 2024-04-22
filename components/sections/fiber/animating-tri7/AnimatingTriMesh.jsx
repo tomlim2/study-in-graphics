@@ -180,7 +180,6 @@ const AnimatingTriMesh = () => {
     <group>
       <mesh>
         <bufferGeometry
-
           {...nonIndexedGeometry}
           onUpdate={(geometry) => {
             onUpdateGeo(geometry);
