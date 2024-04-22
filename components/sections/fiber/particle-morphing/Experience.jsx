@@ -13,10 +13,37 @@ const Experience = () => {
     pixelRatio: Math.min(window.devicePixelRatio, 2)
   }
   let particles = null
+
+  const handleResize = () => {
+    sizes.width = window.innerWidth;
+    sizes.height = window.innerHeight;
+    sizes.pixelRatio = Math.min(window.devicePixelRatio, 2)
+
+    // Materials
+    if (particles)
+      particles.material.uniforms.uResolution.value.set(setUResolution())
+
+    if (shaderRef.current) {
+      shaderRef.current.uniforms.uResolution.value = new Uniform(setUResolution())
+    }
+  }
   useEffect(() => {
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  const setUResolution = () => {
+    return new Vector2(sizes.width * sizes.pixelRatio, sizes.height * sizes.pixelRatio)
+  }
+
+  const onUpdateBufferGeometry = (geo) => {
+    console.log(geo, 'geo');
     console.log(gltfModels, 'gltfModels');
     particles = {}
-    // Positions
+
+    // // Positions
     const positions = gltfModels.scene.children.map((child) => {
       return child.geometry.attributes.position
     })
@@ -47,38 +74,14 @@ const Experience = () => {
             newArray[i3 + 1] = 0
             newArray[i3 + 2] = 0
           }
-          particles.positions.push(new Float32BufferAttribute(newArray, 3))
-          console.log(particles.positions, 'particles.positions');
-          // Geometry
-          particles.geometry = new BufferGeometry()
-          particles.geometry.setAttribute('position', particles.positions[1])
+
         }
+        particles.positions.push(new Float32BufferAttribute(newArray, 3))
       }
     }
-
-  }, [gltfModels])
-  const handleResize = () => {
-    sizes.width = window.innerWidth;
-    sizes.height = window.innerHeight;
-    sizes.pixelRatio = Math.min(window.devicePixelRatio, 2)
-
-    // Materials
-    if (particles)
-      particles.material.uniforms.uResolution.value.set(setUResolution())
-
-    if (shaderRef.current) {
-      shaderRef.current.uniforms.uResolution.value = new Uniform(setUResolution())
-    }
-  }
-  useEffect(() => {
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
-
-  const setUResolution = () => {
-    return new Vector2(sizes.width * sizes.pixelRatio, sizes.height * sizes.pixelRatio)
+    console.log(particles.positions, 'particles.positions');
+    // Geometry
+    geo.setAttribute('position', particles.positions[1])
   }
 
   return (
@@ -86,12 +89,7 @@ const Experience = () => {
       <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} />
 
       <points>
-        <bufferGeometry setIndex={null}>
-          {particles && <bufferAttribute
-            attachObject={['attributes', 'position']}
-            count={particles.maxCount}
-            array={particles.positions}
-            itemSize={3}></bufferAttribute>}
+        <bufferGeometry onUpdate={(geo) => { onUpdateBufferGeometry(geo) }}>
         </bufferGeometry>
         <shaderMaterial
           ref={shaderRef}
