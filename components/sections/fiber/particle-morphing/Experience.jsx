@@ -1,12 +1,24 @@
+import { useControls } from "leva";
 import { CameraControls, useGLTF } from "@react-three/drei";
 import morphingVertexShader from 'raw-loader!glslify-loader!shaders/particle-morphing/vertex.glsl'
 import morphingFragnentSahder from 'raw-loader!glslify-loader!shaders/particle-morphing/fragment.glsl'
+import simplexNose3d from 'raw-loader!glslify-loader!shaders/libs/simplexNoise3D.glsl'
 import { AdditiveBlending, BufferGeometry, Float32BufferAttribute, Uniform, Vector2 } from "three";
 import { useEffect, useRef } from "react";
 
 const Experience = () => {
   const shaderRef = useRef()
   const gltfModels = useGLTF('/particle-morphing/models.glb')
+  const { progress } = useControls("canvas", {
+    progress: {
+      value: 0, min: 0, max: 1, step: 0.01,
+      onChange: (value) => {
+        if (shaderRef.current) {
+          shaderRef.current.uniforms.uProgress.value = value;
+        }
+      }
+    },
+  });
   const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
@@ -70,9 +82,10 @@ const Experience = () => {
             newArray[i3 + 1] = originalArray[i3 + 1]
             newArray[i3 + 2] = originalArray[i3 + 2]
           } else {
-            newArray[i3 + 0] = 0
-            newArray[i3 + 1] = 0
-            newArray[i3 + 2] = 0
+            const randomIndex = Math.floor(position.count * Math.random()) * 3
+            newArray[i3 + 0] = originalArray[randomIndex + 0]
+            newArray[i3 + 1] = originalArray[randomIndex + 1]
+            newArray[i3 + 2] = originalArray[randomIndex + 2]
           }
 
         }
@@ -82,6 +95,8 @@ const Experience = () => {
     console.log(particles.positions, 'particles.positions');
     // Geometry
     geo.setAttribute('position', particles.positions[1])
+    geo.setAttribute('position', particles.positions[1])
+    geo.setAttribute('aPositionTarget', particles.positions[3])
   }
 
   return (
@@ -95,11 +110,16 @@ const Experience = () => {
           ref={shaderRef}
           blending={AdditiveBlending}
           depthWrite={false}
-          vertexShader={morphingVertexShader}
-          fragmentShader={morphingFragnentSahder}
+          vertexShader={
+            `${simplexNose3d}
+            ${morphingVertexShader}
+            `
+          }
+          fragmentShader={`${morphingFragnentSahder}`}
           uniforms={{
-            uSize: new Uniform(0.05),
+            uSize: new Uniform(0.3),
             uResolution: new Uniform(setUResolution()),
+            uProgress: new Uniform(progress)
           }
           }
         />

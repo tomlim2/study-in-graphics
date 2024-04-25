@@ -32,9 +32,9 @@ const SectionParticleMorphing = () => {
       {!isDebugger && <Leva hidden={true} />}
       <Canvas
         camera={{
-          fov: 100,
+          fov: 15,
           near: 0.1,
-          position: [0, 0, 5],
+          position: [0, 0, 35],
         }}
         shadows
         gl={{
