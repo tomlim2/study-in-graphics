@@ -5,6 +5,7 @@ import morphingFragnentSahder from 'raw-loader!glslify-loader!shaders/particle-m
 import simplexNose3d from 'raw-loader!glslify-loader!shaders/libs/simplexNoise3D.glsl'
 import { AdditiveBlending, BufferGeometry, Float32BufferAttribute, Uniform, Vector2 } from "three";
 import { useEffect, useRef } from "react";
+import gsap from "gsap/gsap-core";
 
 const Experience = () => {
   const shaderRef = useRef()
@@ -18,6 +19,7 @@ const Experience = () => {
         }
       }
     },
+    morph: { value: 0, min: 0, max: 3, step: 1, onChange: (num) => { particles.morph(num) } },
   });
   const sizes = {
     width: window.innerWidth,
@@ -51,15 +53,30 @@ const Experience = () => {
   }
 
   const onUpdateBufferGeometry = (geo) => {
-    console.log(geo, 'geo');
-    console.log(gltfModels, 'gltfModels');
     particles = {}
+    particles.index = 0
+
+    // Methods
+    particles.morph = (index) => {
+      // Update attributes
+      geo.attributes.position = particles.positions[particles.index]
+      geo.attributes.aPositionTarget = particles.positions[index]
+
+      // Animate uProgress
+      gsap.fromTo(
+        shaderRef.current.uniforms.uProgress,
+        { value: 0 },
+        { value: 1, duration: 3, ease: 'linear' }
+      )
+      // Save index
+      particles.index = index
+    }
+
 
     // // Positions
     const positions = gltfModels.scene.children.map((child) => {
       return child.geometry.attributes.position
     })
-    console.log(positions, 'positions');
     particles.maxCount = 0
 
     for (const position of positions) {
@@ -92,11 +109,12 @@ const Experience = () => {
         particles.positions.push(new Float32BufferAttribute(newArray, 3))
       }
     }
-    console.log(particles.positions, 'particles.positions');
     // Geometry
     geo.setAttribute('position', particles.positions[1])
     geo.setAttribute('position', particles.positions[1])
     geo.setAttribute('aPositionTarget', particles.positions[3])
+
+    geo.setAttribute('position', particles.positions[particles.index])
   }
 
   return (
