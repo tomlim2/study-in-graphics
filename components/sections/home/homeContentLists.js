@@ -3,46 +3,6 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
-        name: "Particle Morphing",
-        url: "/fiber/particle-morphing",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
-        name: "Particle Cursor",
-        url: "/fiber/particle-cursor",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
-        name: "Earth",
-        url: "/fiber/earth",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
-        name: "Model Strawberry Cake",
-        url: "/fiber/model-strawberry-cake",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
-        name: "Model Hugu",
-        url: "/fiber/model-fish-hugu",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
-        name: "Halftone Shading",
-        url: "/fiber/halftone-shading",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
-        name: "Lights Shading",
-        url: "/fiber/lights-shading",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
-        name: "Fireworks",
-        url: "/fiber/fireworks",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-      },
-      {
         name: "Dynamic wall in Blender",
         url: "/fiber/journey-game3",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
@@ -116,6 +76,46 @@ export const historyList = [
   {
     categoryName: "Shader",
     urlList: [
+      {
+        name: "Particle Morphing",
+        url: "/fiber/particle-morphing",
+        thumbnail: "/assets/images/thumbnails/particle-morphing.png",
+      },
+      {
+        name: "Particle Cursor",
+        url: "/fiber/particle-cursor",
+        thumbnail: "/assets/images/thumbnails/particle-cursor.png",
+      },
+      {
+        name: "Earth",
+        url: "/fiber/earth",
+        thumbnail: "/assets/images/thumbnails/earth.png",
+      },
+      {
+        name: "Model Strawberry Cake",
+        url: "/fiber/model-strawberry-cake",
+        thumbnail: "/assets/images/thumbnails/model-strawberry-cake.png",
+      },
+      {
+        name: "Model Hugu",
+        url: "/fiber/model-fish-hugu",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
+        name: "Halftone Shading",
+        url: "/fiber/halftone-shading",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
+        name: "Lights Shading",
+        url: "/fiber/lights-shading",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
+        name: "Fireworks",
+        url: "/fiber/fireworks",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
       {
         name: "Hologram",
         url: "/fiber/hologram",

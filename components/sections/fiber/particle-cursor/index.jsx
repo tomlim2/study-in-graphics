@@ -32,9 +32,9 @@ const SectionParticleCursor = () => {
       {!isDebugger && <Leva hidden={true} />}
       <Canvas
         camera={{
-          fov: 100,
+          fov: 30,
           near: 0.1,
-          position: [0, 0, 5],
+          position: [0, 0, 30],
         }}
         shadows
         gl={{

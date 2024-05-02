@@ -3,7 +3,7 @@ import { CameraControls, useGLTF } from "@react-three/drei";
 import morphingVertexShader from 'raw-loader!glslify-loader!shaders/particle-morphing/vertex.glsl'
 import morphingFragnentSahder from 'raw-loader!glslify-loader!shaders/particle-morphing/fragment.glsl'
 import simplexNose3d from 'raw-loader!glslify-loader!shaders/libs/simplexNoise3d.glsl'
-import { AdditiveBlending, BufferGeometry, Float32BufferAttribute, Uniform, Vector2 } from "three";
+import { AdditiveBlending, Float32BufferAttribute, Uniform, Vector2 } from "three";
 import { useEffect, useRef } from "react";
 import gsap from "gsap/gsap-core";
 
@@ -35,7 +35,7 @@ const Experience = () => {
 
     // Materials
     if (particles)
-      particles.material.uniforms.uResolution.value.set(setUResolution())
+       shaderRef.current.uniforms.uResolution.value = new Uniform(setUResolution())
 
     if (shaderRef.current) {
       shaderRef.current.uniforms.uResolution.value = new Uniform(setUResolution())

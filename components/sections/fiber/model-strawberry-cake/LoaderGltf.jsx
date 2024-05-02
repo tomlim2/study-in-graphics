@@ -11,7 +11,6 @@ export default function LoaderGltf() {
     const texture = useLoader(TextureLoader, '/assets/models/strawberryCakeBaked/baked-v2.jpg')
     texture.flipY = false;
     texture.colorSpace = SRGBColorSpace;
-    console.log(texture);
     const bakedMaterial = new MeshBasicMaterial({ map: texture })
     strawberryCake.scene.traverse((child) => {
         child.material = bakedMaterial
@@ -20,13 +19,7 @@ export default function LoaderGltf() {
         <>
             <group scale={20} ref={group} dispose={null} >
                 <mesh geometry={strawberryCake.nodes['Cylinder001'].geometry}>
-                    <shaderMaterial uniforms={{
-                        uDayTexture: Uniform(earthDayTexture),
-                        uNightTexture: Uniform(earthNightTexture),
-                        uSpecularCloudsTexture: Uniform(earthSpecularCloudsTexture)
-                    }} />
                 </mesh>
-
             </group >
 
 

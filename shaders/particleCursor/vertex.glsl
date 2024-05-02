@@ -39,7 +39,7 @@ void main()
     // float pictureIntensity = texture(uDisplacementTexture, uv).r;
 
     // Point size
-    gl_PointSize = 0.05 * pictureIntensity * uResolution.y;
+    gl_PointSize = 0.2 * pictureIntensity * uResolution.y;
     gl_PointSize *= (1.0 / - viewPosition.z);
 
      // Varyings
