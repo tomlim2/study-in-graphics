@@ -1,103 +1,147 @@
-import { CameraControls } from "@react-three/drei";
-import ParticleForCursor from "./ParticleForCursor";
-import { CanvasTexture, DoubleSide, Raycaster, Vector2 } from "three";
-import { useEffect } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useControls } from "leva";
+import { CameraControls, useGLTF } from "@react-three/drei";
+import morphingVertexShader from 'raw-loader!glslify-loader!shaders/particle-morphing/vertex.glsl'
+import morphingFragnentSahder from 'raw-loader!glslify-loader!shaders/particle-morphing/fragment.glsl'
+import simplexNose3d from 'raw-loader!glslify-loader!shaders/libs/simplexNoise3d.glsl'
+import { AdditiveBlending, BufferGeometry, Float32BufferAttribute, Uniform, Vector2 } from "three";
+import { useEffect, useRef } from "react";
+import gsap from "gsap/gsap-core";
 
 const Experience = () => {
-  const cursorOnMesh = new Vector2(-1, -1)
-  const curosrOnMeshPrevious = new Vector2(-1, -1)
-
-  /**
- * Sizes
- */
+  const shaderRef = useRef()
+  const gltfModels = useGLTF('/particle-morphing/models.glb')
+  const { progress } = useControls("canvas", {
+    progress: {
+      value: 0, min: 0, max: 1, step: 0.01,
+      onChange: (value) => {
+        if (shaderRef.current) {
+          shaderRef.current.uniforms.uProgress.value = value;
+        }
+      }
+    },
+    morph: { value: 0, min: 0, max: 3, step: 1, onChange: (num) => { particles.morph(num) } },
+  });
   const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
     pixelRatio: Math.min(window.devicePixelRatio, 2)
   }
-  const displacement = {}
+  let particles = null
 
-  // 2D canvas
-  displacement.canvas = document.createElement('canvas')
-  displacement.canvas.width = 128
-  displacement.canvas.height = 128
-  displacement.canvas.style.position = 'fixed'
-  displacement.canvas.style.width = '256px'
-  displacement.canvas.style.height = '256px'
-  displacement.canvas.style.top = '50px'
-  displacement.canvas.style.left = '20px'
-  displacement.canvas.style.zIndex = 10
-  document.body.append(displacement.canvas)
+  const handleResize = () => {
+    sizes.width = window.innerWidth;
+    sizes.height = window.innerHeight;
+    sizes.pixelRatio = Math.min(window.devicePixelRatio, 2)
 
-  // Context
-  displacement.context = displacement.canvas.getContext('2d')
-  displacement.context.fillStyle = 'black'
-  displacement.context.fillRect(0, 0, displacement.canvas.width, displacement.canvas.height)
+    // Materials
+    if (particles)
+      particles.material.uniforms.uResolution.value.set(setUResolution())
 
-  // Glow image
-  displacement.glowImage = new Image()
-  displacement.glowImage.src = '/particleCursor/glow.png'
-
-  // Texture
-  displacement.texture = new CanvasTexture(displacement.canvas)
-
-  const tick = () => {
-    if (displacement.canvas) {
-      
-      // Fade out
-      displacement.context.globalCompositeOperation = 'source-over'
-      displacement.context.globalAlpha = 0.02
-      displacement.context.fillRect(0, 0, displacement.canvas.width, displacement.canvas.height)
-
-      // Draw glow
-      const glowSize = displacement.canvas.width * 0.5
-      displacement.context.globalCompositeOperation = 'lighten'
-      const dx = cursorOnMesh.x * displacement.canvas.width - glowSize * 0.5
-      const dy = (1 - cursorOnMesh.y) * displacement.canvas.height - glowSize * 0.5
-      
-      // Speed alpha
-      const cursorDistance = curosrOnMeshPrevious.distanceTo(new Vector2(dx, dy))
-      curosrOnMeshPrevious.copy(new Vector2(dx, dy)*0.1)
-      const alpha = Math.min(cursorDistance * 0.009, 1)
-      displacement.context.globalAlpha = alpha
-
-      
-
-      displacement.context.drawImage(
-        displacement.glowImage,
-        dx,
-        dy,
-        glowSize,
-        glowSize
-      )
-
-
-      // Texture
-      displacement.texture.needsUpdate = true
+    if (shaderRef.current) {
+      shaderRef.current.uniforms.uResolution.value = new Uniform(setUResolution())
     }
   }
+  useEffect(() => {
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
-  useFrame(state => {
-    tick()
-  })
+  const setUResolution = () => {
+    return new Vector2(sizes.width * sizes.pixelRatio, sizes.height * sizes.pixelRatio)
+  }
+
+  const onUpdateBufferGeometry = (geo) => {
+    particles = {}
+    particles.index = 0
+
+    // Methods
+    particles.morph = (index) => {
+      // Update attributes
+      geo.attributes.position = particles.positions[particles.index]
+      geo.attributes.aPositionTarget = particles.positions[index]
+
+      // Animate uProgress
+      gsap.fromTo(
+        shaderRef.current.uniforms.uProgress,
+        { value: 0 },
+        { value: 1, duration: 3, ease: 'linear' }
+      )
+      // Save index
+      particles.index = index
+    }
+
+
+    // // Positions
+    const positions = gltfModels.scene.children.map((child) => {
+      return child.geometry.attributes.position
+    })
+    particles.maxCount = 0
+
+    for (const position of positions) {
+      if (position.count > particles.maxCount) {
+        particles.maxCount = position.count
+      }
+    }
+
+    particles.positions = []
+    for (const position of positions) {
+      {
+        const originalArray = position.array
+        const newArray = new Float32Array(particles.maxCount * 3)
+
+        for (let i = 0; i < particles.maxCount; i++) {
+          const i3 = i * 3
+
+          if (i3 < originalArray.length) {
+            newArray[i3 + 0] = originalArray[i3 + 0]
+            newArray[i3 + 1] = originalArray[i3 + 1]
+            newArray[i3 + 2] = originalArray[i3 + 2]
+          } else {
+            const randomIndex = Math.floor(position.count * Math.random()) * 3
+            newArray[i3 + 0] = originalArray[randomIndex + 0]
+            newArray[i3 + 1] = originalArray[randomIndex + 1]
+            newArray[i3 + 2] = originalArray[randomIndex + 2]
+          }
+
+        }
+        particles.positions.push(new Float32BufferAttribute(newArray, 3))
+      }
+    }
+    // Geometry
+    geo.setAttribute('position', particles.positions[1])
+    geo.setAttribute('position', particles.positions[1])
+    geo.setAttribute('aPositionTarget', particles.positions[3])
+
+    geo.setAttribute('position', particles.positions[particles.index])
+  }
 
   return (
     <>
       <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} />
-      <mesh onPointerMove={(event) => {
-        cursorOnMesh.x = event.uv.x;
-        cursorOnMesh.y = event.uv.y;
-      }}
-        visible={false}
-      >
-        <planeGeometry args={[10, 10]} />
-        <meshBasicMaterial color={'red'} side={DoubleSide} />
-      </mesh>
-      <ParticleForCursor
-        sizes={sizes}
-        displacementTexture={displacement.texture}
-      />
+
+      <points>
+        <bufferGeometry onUpdate={(geo) => { onUpdateBufferGeometry(geo) }}>
+        </bufferGeometry>
+        <shaderMaterial
+          ref={shaderRef}
+          blending={AdditiveBlending}
+          depthWrite={false}
+          vertexShader={
+            `${simplexNose3d}
+            ${morphingVertexShader}
+            `
+          }
+          fragmentShader={`${morphingFragnentSahder}`}
+          uniforms={{
+            uSize: new Uniform(0.3),
+            uResolution: new Uniform(setUResolution()),
+            uProgress: new Uniform(progress)
+          }
+          }
+        />
+      </points>
     </>
   );
 };
