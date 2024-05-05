@@ -34,17 +34,11 @@ const Experience = () => {
     sizes.height = window.innerHeight;
     sizes.pixelRatio = Math.min(window.devicePixelRatio, 2)
     
-    // Geometry
-    if(bufferRef.current)
-      bufferRef.current.onUpdate(geo => onUpdateBufferGeometry(geo))
-    
-
     // Materials
     if (particles)
-      shaderRef.current.uniforms.uResolution.value.set(setUResolution())
+      shaderRef.current.uniforms.uResolution.value = setUResolution()
 
-    if (shaderRef.current) 
-      shaderRef.current.uniforms.uResolution.value = new Uniform(setUResolution())
+    
   }
 
   useEffect(() => {
@@ -145,7 +139,7 @@ const Experience = () => {
           uniforms={{
             uSize: new Uniform(0.3),
             uResolution: new Uniform(setUResolution()),
-            uProgress: new Uniform(progress)
+            uProgress: new Uniform(0)
           }
           }
         />
