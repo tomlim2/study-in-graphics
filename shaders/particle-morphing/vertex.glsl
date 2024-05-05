@@ -3,7 +3,7 @@ uniform float uSize;
 uniform float uProgress;
 
 attribute vec3 aPositionTarget;
-attribute vec3 aSize;
+attribute float aSize;
 
 varying vec3 vColor;
 

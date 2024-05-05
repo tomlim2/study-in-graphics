@@ -3,12 +3,13 @@ import { CameraControls, useGLTF } from "@react-three/drei";
 import morphingVertexShader from 'raw-loader!glslify-loader!shaders/particle-morphing/vertex.glsl'
 import morphingFragnentSahder from 'raw-loader!glslify-loader!shaders/particle-morphing/fragment.glsl'
 import simplexNose3d from 'raw-loader!glslify-loader!shaders/libs/simplexNoise3d.glsl'
-import { AdditiveBlending, BufferGeometry, Float32BufferAttribute, Uniform, Vector2 } from "three";
+import { AdditiveBlending, BufferAttribute, BufferGeometry, Float32BufferAttribute, Uniform, Vector2 } from "three";
 import { useEffect, useRef } from "react";
 import gsap from "gsap/gsap-core";
 
 const Experience = () => {
   const shaderRef = useRef()
+  const bufferRef = useRef()
   const gltfModels = useGLTF('/particle-morphing/models.glb')
   const { progress } = useControls("canvas", {
     progress: {
@@ -32,14 +33,18 @@ const Experience = () => {
     sizes.width = window.innerWidth;
     sizes.height = window.innerHeight;
     sizes.pixelRatio = Math.min(window.devicePixelRatio, 2)
+    
+    // Geometry
+    if(bufferRef.current)
+      bufferRef.current.onUpdate(geo => onUpdateBufferGeometry(geo))
+    
 
     // Materials
     if (particles)
-      particles.material.uniforms.uResolution.value.set(setUResolution())
+      shaderRef.current.uniforms.uResolution.value.set(setUResolution())
 
-    if (shaderRef.current) {
+    if (shaderRef.current) 
       shaderRef.current.uniforms.uResolution.value = new Uniform(setUResolution())
-    }
   }
 
   useEffect(() => {
@@ -113,7 +118,7 @@ const Experience = () => {
     const sizesArray = new Float32Array(particles.maxCount)
     for(let i = 0; i < particles.maxCount; i++)
 	    sizesArray[i] = Math.random()
-
+    
     geo.setAttribute('aPositionTarget', particles.positions[3])
     geo.setAttribute('position', particles.positions[particles.index])
     geo.setAttribute('aSize', new BufferAttribute(sizesArray, 1))
@@ -126,8 +131,7 @@ const Experience = () => {
       <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} />
 
       <points>
-        <bufferGeometry onUpdate={(geo) => { onUpdateBufferGeometry(geo) }}>
-        </bufferGeometry>
+        <bufferGeometry ref={bufferRef} onUpdate={(geo) => { onUpdateBufferGeometry(geo) }} />
         <shaderMaterial
           ref={shaderRef}
           blending={AdditiveBlending}
