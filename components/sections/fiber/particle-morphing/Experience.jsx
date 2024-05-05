@@ -41,6 +41,7 @@ const Experience = () => {
       shaderRef.current.uniforms.uResolution.value = new Uniform(setUResolution())
     }
   }
+
   useEffect(() => {
     window.addEventListener('resize', handleResize)
     return () => {
@@ -71,7 +72,6 @@ const Experience = () => {
       // Save index
       particles.index = index
     }
-
 
     // // Positions
     const positions = gltfModels.scene.children.map((child) => {
@@ -110,11 +110,15 @@ const Experience = () => {
       }
     }
     // Geometry
-    geo.setAttribute('position', particles.positions[1])
-    geo.setAttribute('position', particles.positions[1])
-    geo.setAttribute('aPositionTarget', particles.positions[3])
+    const sizesArray = new Float32Array(particles.maxCount)
+    for(let i = 0; i < particles.maxCount; i++)
+	    sizesArray[i] = Math.random()
 
+    geo.setAttribute('aPositionTarget', particles.positions[3])
     geo.setAttribute('position', particles.positions[particles.index])
+    geo.setAttribute('aSize', new BufferAttribute(sizesArray, 1))
+
+    
   }
 
   return (
