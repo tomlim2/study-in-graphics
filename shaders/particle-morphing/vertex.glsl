@@ -1,14 +1,16 @@
 uniform vec2 uResolution;
 uniform float uSize;
 uniform float uProgress;
+uniform vec3 uColorA;
+uniform vec3 uColorB;
 
 attribute vec3 aPositionTarget;
+attribute float aSize;
 
 varying vec3 vColor;
 
 void main()
 {
-
     // Mixed position
     float noiseOrigin = simplexNoise3d(position * 0.2);
     float noiseTarget = simplexNoise3d(aPositionTarget * 0.2);
@@ -29,7 +31,7 @@ void main()
     gl_Position = projectedPosition;
 
     // Point size
-    gl_PointSize = uSize * uResolution.y;
+    gl_PointSize = aSize * uSize * uResolution.y;
     gl_PointSize *= (1.0 / - viewPosition.z);
 
     // Varyings

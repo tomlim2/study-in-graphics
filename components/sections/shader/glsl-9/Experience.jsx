@@ -2,7 +2,7 @@ import { CameraControls} from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { Color, Uniform } from "three";
-import glsl9VertexShader from 'raw-loader!glslify-loader!shaders/glsl/glsl9vertexShader.glsl'
+import glsl9VertexShader from 'raw-loader!glslify-loader!shaders/glsl/glsl9VertexShader.glsl'
 import glsl9FragmentShader from 'raw-loader!glslify-loader!shaders/glsl/glsl9FragmentShader.glsl'
 
 const Experience = () => {
