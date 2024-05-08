@@ -1,6 +1,8 @@
 uniform vec2 uResolution;
 uniform float uSize;
 uniform float uProgress;
+uniform vec3 uColorA;
+uniform vec3 uColorB;
 
 attribute vec3 aPositionTarget;
 attribute float aSize;

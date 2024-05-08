@@ -3,7 +3,7 @@ import { CameraControls, useGLTF } from "@react-three/drei";
 import morphingVertexShader from 'raw-loader!glslify-loader!shaders/particle-morphing/vertex.glsl'
 import morphingFragnentSahder from 'raw-loader!glslify-loader!shaders/particle-morphing/fragment.glsl'
 import simplexNose3d from 'raw-loader!glslify-loader!shaders/libs/simplexNoise3d.glsl'
-import { AdditiveBlending, BufferAttribute, BufferGeometry, Float32BufferAttribute, Uniform, Vector2 } from "three";
+import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, Float32BufferAttribute, Uniform, Vector2 } from "three";
 import { useEffect, useRef } from "react";
 import gsap from "gsap/gsap-core";
 
@@ -11,7 +11,7 @@ const Experience = () => {
   const shaderRef = useRef()
   const bufferRef = useRef()
   const gltfModels = useGLTF('/particle-morphing/models.glb')
-  const { progress } = useControls("canvas", {
+  const { progress, colorA, colorB } = useControls("canvas", {
     progress: {
       value: 0, min: 0, max: 1, step: 0.01,
       onChange: (value) => {
@@ -20,8 +20,32 @@ const Experience = () => {
         }
       }
     },
-    morph: { value: 0, min: 0, max: 3, step: 1, onChange: (num) => { particles.morph(num) } },
-  });
+    morph: {
+      value: 0, min: 0, max: 3, step: 1,
+      onChange: (num) => {
+        particles.morph(num)
+
+        console.log(0);
+      }
+    },
+    colorA: {
+      value: '#44ff00',
+      onChange: (value) => {
+        if (shaderRef.current) {
+          shaderRef.current.uniforms.uColorA.value = new Color(value);
+        }
+      }
+    },
+    colorB: {
+      value: '#4572f7',
+      onChange: (value) => {
+        if (shaderRef.current) {
+          shaderRef.current.uniforms.uColorB.value = new Color(value);
+        }
+      }
+    },
+  }
+  );
   const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
@@ -33,12 +57,12 @@ const Experience = () => {
     sizes.width = window.innerWidth;
     sizes.height = window.innerHeight;
     sizes.pixelRatio = Math.min(window.devicePixelRatio, 2)
-    
+
     // Materials
     if (particles)
       shaderRef.current.uniforms.uResolution.value = setUResolution()
 
-    
+
   }
 
   useEffect(() => {
@@ -110,14 +134,12 @@ const Experience = () => {
     }
     // Geometry
     const sizesArray = new Float32Array(particles.maxCount)
-    for(let i = 0; i < particles.maxCount; i++)
-	    sizesArray[i] = Math.random()
-    
+    for (let i = 0; i < particles.maxCount; i++)
+      sizesArray[i] = Math.random()
+
     geo.setAttribute('aPositionTarget', particles.positions[3])
     geo.setAttribute('position', particles.positions[particles.index])
     geo.setAttribute('aSize', new BufferAttribute(sizesArray, 1))
-
-    
   }
 
   return (
@@ -139,7 +161,9 @@ const Experience = () => {
           uniforms={{
             uSize: new Uniform(0.3),
             uResolution: new Uniform(setUResolution()),
-            uProgress: new Uniform(0)
+            uProgress: new Uniform(0),
+            uColorA: {value: new Color(colorA)},
+            uColorB: {value: new Color(colorB)},
           }
           }
         />
