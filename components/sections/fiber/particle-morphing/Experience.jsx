@@ -146,7 +146,7 @@ const Experience = () => {
     <>
       <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} />
 
-      <points>
+      <points frustumCulled={false}>
         <bufferGeometry ref={bufferRef} onUpdate={(geo) => { onUpdateBufferGeometry(geo) }} />
         <shaderMaterial
           ref={shaderRef}
