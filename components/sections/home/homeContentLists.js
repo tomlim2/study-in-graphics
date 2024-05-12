@@ -3,6 +3,11 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
+        name: "gpgpu-flow-field",
+        url: "/fiber/gpgpu-flow-field",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
         name: "glsl 9",
         url: "/shader/glsl-9",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
