@@ -144,7 +144,7 @@ const Experience = () => {
 
   return (
     <>
-      <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} />
+      <CameraControls makeDefault maxDistance={100} dollySpeed={0.25} />
 
       <points frustumCulled={false}>
         <bufferGeometry ref={bufferRef} onUpdate={(geo) => { onUpdateBufferGeometry(geo) }} />
