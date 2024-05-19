@@ -31,6 +31,7 @@ const SectionGPGPUFlowField = () => {
     <>
       {!isDebugger && <Leva hidden={true} />}
       <Canvas
+        ref={canvasRef}
         camera={{
           fov: 15,
           near: 0.1,
@@ -43,7 +44,7 @@ const SectionGPGPUFlowField = () => {
         }}
       >
         {isDebugger && <Perf position="bottom-right" />}
-        <Experience />
+        <Experience canvasRef={canvasRef} />
       </Canvas>
     </>
 

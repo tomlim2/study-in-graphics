@@ -8,7 +8,7 @@ import { isDebuggerState } from "@/stores/storeFiber"
 import { useEffect, useRef } from "react";
 import { ACESFilmicToneMapping, CineonToneMapping, CustomToneMapping, ReinhardToneMapping } from "three";
 
-const SectionParticleMorphing = () => {
+const SectionGPGPUFlowField = () => {
   const canvasRef = useRef();
   const canvasConfig = useControls("canvas", {
     toneMapping: {
@@ -25,12 +25,13 @@ const SectionParticleMorphing = () => {
 
   const isDebugger = useRecoilValue(isDebuggerState)
 
-
+  console.log(canvasRef);
 
   return (
     <>
       {!isDebugger && <Leva hidden={true} />}
       <Canvas
+        ref={canvasRef}
         camera={{
           fov: 15,
           near: 0.1,
@@ -50,4 +51,4 @@ const SectionParticleMorphing = () => {
   );
 };
 
-export default SectionParticleMorphing;
+export default SectionGPGPUFlowField;
