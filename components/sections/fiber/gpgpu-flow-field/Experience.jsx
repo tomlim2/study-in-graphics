@@ -2,11 +2,12 @@ import { useControls } from "leva";
 import { CameraControls, useGLTF } from "@react-three/drei";
 import flowFieldVertexShader from 'raw-loader!glslify-loader!shaders/gpgpu-flow-field/vertex.glsl'
 import flowFieldFragnentSahder from 'raw-loader!glslify-loader!shaders/gpgpu-flow-field/fragment.glsl'
+import flowFieldParticleShader from 'raw-loader!glslify-loader!shaders/gpgpu-flow-field/particles.glsl'
 import simplexNose3d from 'raw-loader!glslify-loader!shaders/libs/simplexNoise3d.glsl'
 import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, Float32BufferAttribute, SphereGeometry, Uniform, Vector2 } from "three";
 import { useEffect, useRef } from "react";
-import gsap from "gsap/gsap-core";
 import { GPUComputationRenderer } from 'three/examples/jsm/misc/GPUComputationRenderer'
+import { useFrame } from "@react-three/fiber";
 
 const Experience = (props) => {
   const renderer = props.canvasRef.current
@@ -32,7 +33,6 @@ const Experience = (props) => {
     height: window.innerHeight,
     pixelRatio: Math.min(window.devicePixelRatio, 2)
   }
-  let particles = null
 
   const handleResize = () => {
     sizes.width = window.innerWidth;
@@ -57,28 +57,45 @@ const Experience = (props) => {
     return new Vector2(sizes.width * sizes.pixelRatio, sizes.height * sizes.pixelRatio)
   }
 
-  const onUpdateGeometry = (geometry) => {
-    const baseGeometry = {}
-    baseGeometry.instance = new SphereGeometry(3)
-    baseGeometry.count = baseGeometry.instance.attributes.position.count
+  const baseGeometry = {}
+  baseGeometry.instance = new SphereGeometry(3)
+  baseGeometry.count = baseGeometry.instance.attributes.position.count
 
-    const particles = {}
+  const gpgpu = {}
+  gpgpu.size = Math.ceil(Math.sqrt(baseGeometry.count))
+  gpgpu.computation = new GPUComputationRenderer(gpgpu.size, gpgpu.size, renderer)
+  // Init
+  // gpgpu.computation.init()
+
+  const particles = {}
+  // Base particles
+  const baseParticlesTexture = gpgpu.computation.createTexture()
+  console.log(baseParticlesTexture, 'baseParticlesTexture');
+  console.log(baseParticlesTexture.image.data, 'baseParticlesTexture.image.data');
+
+  // Particles variable
+  gpgpu.particlesVariable = gpgpu.computation.addVariable('uParticles', flowFieldParticleShader, baseParticlesTexture)
+  gpgpu.computation.setVariableDependencies(gpgpu.particlesVariable, [gpgpu.particlesVariable])
+
+  // Debug
+  gpgpu.debug = <mesh position={[3, 0, 0]}><planeGeometry args={[3, 3]} /><meshBasicMaterial /></mesh>
+
+  const onUpdateGeometry = (geometry) => {
     geometry = baseGeometry.instance
 
-    const gpgpu = {}
-    gpgpu.size = Math.ceil(Math.sqrt(baseGeometry.count))
-    gpgpu.computation = new GPUComputationRenderer(gpgpu.size, gpgpu.size, renderer)
-
-    const baseParticlesTexture = gpgpu.computation.createTexture()
-    console.log(baseParticlesTexture,'baseParticlesTexture');
-    console.log(baseParticlesTexture.image.data,'baseParticlesTexture.image.data');
   }
+
+  useFrame((state, delta) => {
+    // GPGPU Update
+    // gpgpu.computation.compute()
+  })
 
 
   return (
     <>
       <color attach={'background'} args={[clearColor]} />
       <CameraControls makeDefault maxDistance={100} dollySpeed={0.25} />
+      {gpgpu.debug}
       <points frustumCulled={false}>
         <sphereGeometry onUpdate={(geometry) => onUpdateGeometry(geometry)} args={[1, 16, 16]} />
         <shaderMaterial
