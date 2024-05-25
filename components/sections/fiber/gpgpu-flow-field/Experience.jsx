@@ -10,8 +10,7 @@ import { GPUComputationRenderer } from 'three/examples/jsm/misc/GPUComputationRe
 import { useFrame } from "@react-three/fiber";
 
 const Experience = (props) => {
-  const renderer = props.canvasRef.current
-  console.log(renderer);
+  const renderer = props.canvasRef
 
   const shaderRef = useRef()
   const bufferRef = useRef()
@@ -64,8 +63,7 @@ const Experience = (props) => {
   const gpgpu = {}
   gpgpu.size = Math.ceil(Math.sqrt(baseGeometry.count))
   gpgpu.computation = new GPUComputationRenderer(gpgpu.size, gpgpu.size, renderer)
-  // Init
-  // gpgpu.computation.init()
+  
 
   const particles = {}
   // Base particles
@@ -77,6 +75,13 @@ const Experience = (props) => {
   gpgpu.particlesVariable = gpgpu.computation.addVariable('uParticles', flowFieldParticleShader, baseParticlesTexture)
   gpgpu.computation.setVariableDependencies(gpgpu.particlesVariable, [gpgpu.particlesVariable])
 
+  // Init
+  console.log(renderer);
+  gpgpu.computation.init()
+  if (renderer) {
+    
+  }
+
   // Debug
   gpgpu.debug = <mesh position={[3, 0, 0]}><planeGeometry args={[3, 3]} /><meshBasicMaterial /></mesh>
 
@@ -87,7 +92,7 @@ const Experience = (props) => {
 
   useFrame((state, delta) => {
     // GPGPU Update
-    // gpgpu.computation.compute()
+    gpgpu.computation.compute()
   })
 
 

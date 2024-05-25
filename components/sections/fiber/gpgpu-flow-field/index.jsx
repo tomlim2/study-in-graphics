@@ -5,10 +5,12 @@ import { Leva, useControls } from "leva";
 import { Perf } from "r3f-perf";
 import { useRecoilValue } from "recoil";
 import { isDebuggerState } from "@/stores/storeFiber"
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ACESFilmicToneMapping, CineonToneMapping, CustomToneMapping, ReinhardToneMapping } from "three";
+import * as THREE from "three";
 
 const SectionGPGPUFlowField = () => {
+  const [renderer, setRenderer] = useState(null)
   const canvasRef = useRef();
   const canvasConfig = useControls("canvas", {
     toneMapping: {
@@ -23,9 +25,20 @@ const SectionGPGPUFlowField = () => {
     toneMappingExposure: { value: 1.5, min: 0, max: 3, step: 0.01 },
   });
 
+  useEffect(() => {
+    if (canvasRef.current) {
+      const WebGLRenderer = new THREE.WebGLRenderer({
+        canvas: canvasConfig.current
+      })
+      setRenderer(WebGLRenderer)
+    }
+
+    return () => {
+
+    }
+  }, [])
+
   const isDebugger = useRecoilValue(isDebuggerState)
-
-
 
   return (
     <>
@@ -38,13 +51,9 @@ const SectionGPGPUFlowField = () => {
           position: [0, 0, 35],
         }}
         shadows
-        gl={{
-          toneMapping: canvasConfig.toneMapping,
-          toneMappingExposure: canvasConfig.toneMappingExposure,
-        }}
       >
         {isDebugger && <Perf position="bottom-right" />}
-        <Experience canvasRef={canvasRef} />
+        <Experience canvasRef={renderer} />
       </Canvas>
     </>
 
