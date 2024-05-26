@@ -14,11 +14,40 @@ import { useRecoilValue } from 'recoil';
 import { GPUComputationRenderer } from 'three/examples/jsm/misc/GPUComputationRenderer';
 
 const SectionGPGPUFlowField = () => {
+  const loadGLTF = async (callback) => {
+    // Loaders
+    const dracoLoader = new DRACOLoader()
+    dracoLoader.setDecoderPath('/draco/')
+
+    const gltfLoader = new GLTFLoader()
+    gltfLoader.setDRACOLoader(dracoLoader)
+
+    /**
+     * Load model
+     */
+    gltfLoader.loadAsync('/gpgpu-flow-field/model.glb')
+      .then((gltf) => {
+        
+        gpgpuFlowField(gltf)
+      })
+      .catch((error) => {
+        // Handle any errors that occurred while loading the model
+        console.error('An error happened', error);
+      });
+  }
 
   useEffect(() => {
+    loadGLTF()
+    
+    return () => {
+
+    }
+  }, [])
+
+  const gpgpuFlowField = (gltf) => {
     /**
- * Base
- */
+     * Base
+     */
     // Debug
     const gui = new GUI({ width: 340 })
     const debugObject = {}
@@ -29,12 +58,7 @@ const SectionGPGPUFlowField = () => {
     // Scene
     const scene = new THREE.Scene()
 
-    // Loaders
-    const dracoLoader = new DRACOLoader()
-    dracoLoader.setDecoderPath('/draco/')
 
-    const gltfLoader = new GLTFLoader()
-    gltfLoader.setDRACOLoader(dracoLoader)
 
     /**
      * Sizes
@@ -87,17 +111,15 @@ const SectionGPGPUFlowField = () => {
 
     debugObject.clearColor = '#29191f'
     renderer.setClearColor(debugObject.clearColor)
-    console.log(renderer);
 
     /**
      * Base geometry
      */
     const baseGeometry = {}
-
-    baseGeometry.instance = new THREE.SphereGeometry(3)
+    console.log(gltf, 'gltf');
+    // baseGeometry.instance = new THREE.SphereGeometry(3)
+    baseGeometry.instance = gltf.scene.children[0].geometry
     baseGeometry.count = baseGeometry.instance.attributes.position.count
-
-    
 
     /**
      * GPU Compute
@@ -113,6 +135,12 @@ const SectionGPGPUFlowField = () => {
     for (let i = 0; i < baseGeometry.count; i++) {
       const i3 = i * 3
       const i4 = i * 4
+
+      // Position based on geometry
+      baseParticlesTexture.image.data[i4 + 0] = baseGeometry.instance.attributes.position.array[i3 + 0]
+      baseParticlesTexture.image.data[i4 + 1] = baseGeometry.instance.attributes.position.array[i3 + 1]
+      baseParticlesTexture.image.data[i4 + 2] = baseGeometry.instance.attributes.position.array[i3 + 2]
+      baseParticlesTexture.image.data[i4 + 3] = 0
     }
 
     // Particles variable
@@ -130,12 +158,31 @@ const SectionGPGPUFlowField = () => {
     gpgpu.debug.position.x = 3
     scene.add(gpgpu.debug)
 
-    
+
 
     /**
      * Particles
      */
     const particles = {}
+
+    // Geometry
+    const particlesUvArray = new Float32Array(baseGeometry.count * 2)
+    for (let y = 0; y < gpgpu.size; y++) {
+      for (let x = 0; x < gpgpu.size; x++) {
+        const i = (y * gpgpu.size + x)
+        const i2 = i * 2
+
+        // Particles UV
+        const uvX = (x + 0.5) / gpgpu.size
+        const uvY = (y + 0.5) / gpgpu.size
+
+        particlesUvArray[i2 + 0] = uvX;
+        particlesUvArray[i2 + 1] = uvY;
+      }
+    }
+    particles.geometry = new THREE.BufferGeometry()
+    particles.geometry.setDrawRange(0, baseGeometry.count)
+    particles.geometry.setAttribute('aParticlesUv', new THREE.BufferAttribute(particlesUvArray, 2))
 
 
     // Material
@@ -145,12 +192,13 @@ const SectionGPGPUFlowField = () => {
       uniforms:
       {
         uSize: new THREE.Uniform(0.4),
-        uResolution: new THREE.Uniform(new THREE.Vector2(sizes.width * sizes.pixelRatio, sizes.height * sizes.pixelRatio))
+        uResolution: new THREE.Uniform(new THREE.Vector2(sizes.width * sizes.pixelRatio, sizes.height * sizes.pixelRatio)),
+        uParticlesTexture: new THREE.Uniform()
       }
     })
 
     // Points
-    particles.points = new THREE.Points(baseGeometry.instance, particles.material)
+    particles.points = new THREE.Points(particles.geometry, particles.material)
     scene.add(particles.points)
 
     /**
@@ -178,17 +226,14 @@ const SectionGPGPUFlowField = () => {
 
       // GPGPU Update
       gpgpu.computation.compute()
+      particles.material.uniforms.uParticlesTexture.value = gpgpu.computation.getCurrentRenderTarget(gpgpu.particlesVariable).texture
 
       // Call tick again on the next frame
       window.requestAnimationFrame(tick)
     }
 
     tick()
-
-    return () => {
-
-    }
-  }, [])
+  }
 
   const isDebugger = useRecoilValue(isDebuggerState)
 
