@@ -5,7 +5,7 @@ const MeshSample = () => {
     console.log(ThreeCustomShaderMaterial);
     return (
         <mesh>
-            <sphereGeometry args={[1, 16, 16]} />
+            <sphereGeometry args={[2, 64, 64]} />
             <MaterialSample />
         </mesh>
     )

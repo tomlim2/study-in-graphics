@@ -2,6 +2,8 @@ import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 import wobbleFragmentShader from 'raw-loader!glslify-loader!shaders/wobbe/fragment.glsl'
 import wobbleVertexShader from 'raw-loader!glslify-loader!shaders/wobbe/vertex.glsl'
+import simplexNoise4d from 'raw-loader!glslify-loader!shaders/libs/simplexNoise4d.glsl'
+
 import { useControls } from "leva"
 import { Color } from "three"
 import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
@@ -49,7 +51,10 @@ const MaterialSample = () => {
     const material = new CustomShaderMaterial({
         // CSM
         baseMaterial: THREE.MeshPhysicalMaterial,
-        vertexShader: wobbleVertexShader,
+        vertexShader: 
+        `${simplexNoise4d}
+        ${wobbleVertexShader}
+        `,
         fragmentShader: wobbleFragmentShader,
         silent: true,
 
