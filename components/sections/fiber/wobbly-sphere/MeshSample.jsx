@@ -29,7 +29,7 @@ const MeshSample = () => {
 
     useFrame((state, delta) => {
         if (materialRef.current) {
-            customUniforms.uTime.value = state.clock.elapsedTime;
+            materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
             // console.log(materialRef.current.onBeforeCompile((shader)=>{
             //   console.log(shader);
             // }));
@@ -59,7 +59,11 @@ const MeshSample = () => {
         ${wobbleVertexShader}
         `,
         fragmentShader: wobbleFragmentShader,
+        uniforms: {
+            uTime: new THREE.Uniform(2)
+        },
         silent: true,
+        
 
         // MeshPhysicalMaterial
         metalness: 0,
@@ -85,18 +89,25 @@ const MeshSample = () => {
         depthPacking: THREE.RGBADepthPacking
     })
 
-    let geometry = new THREE.IcosahedronGeometry(2.5, 64)
+    let geometry = new THREE.IcosahedronGeometry(1.5, 64)
     geometry = mergeVertices(geometry)
     geometry.computeTangents()
 
     return (
-        <mesh>
-            <bufferGeometry {...geometry}></bufferGeometry>
-            <meshPhysicalMaterial
-                ref={materialRef}
-                {...material}
-            />
-        </mesh>
+        <>
+            <mesh castShadow customDepthMaterial={depthMaterial} >
+                <bufferGeometry {...geometry}></bufferGeometry>
+                <meshPhysicalMaterial
+                    ref={materialRef}
+                    {...material}
+                />
+            </mesh>
+            <mesh position={[-1,0,-3]} receiveShadow>
+                <planeGeometry args={[7,7]}></planeGeometry>
+                <meshPhysicalMaterial></meshPhysicalMaterial>
+            </mesh>
+        </>
+
     )
 }
 

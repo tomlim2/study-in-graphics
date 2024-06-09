@@ -1,5 +1,6 @@
 varying vec2 vUv;
 attribute vec4 tangent;
+uniform float uTime;
 
 float getWobble(vec3 position)
 {
