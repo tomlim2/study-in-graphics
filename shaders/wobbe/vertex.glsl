@@ -1,12 +1,16 @@
 varying vec2 vUv;
 attribute vec4 tangent;
+
 uniform float uTime;
+uniform float uPositionFrequency;
+uniform float uTimeFrequency;
+uniform float uStrength;
 
 float getWobble(vec3 position)
 {
     return simplexNoise4d(vec4(
         position, // XYZ
-        0.0       // W
+        0.0 + uTime       // W
     ));
 }
 

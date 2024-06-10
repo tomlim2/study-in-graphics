@@ -17,19 +17,50 @@ const MeshSample = () => {
     console.log(ThreeCustomShaderMaterial);
 
     const { fresnelColor } = useControls("fresnel", {
-        fresnelColor: {
-            value: "#ff99ff",
+        uPositionFrequency: {
+            value: 1,
+            max: 2,
+            min: 0,
+            step: 0.001,
             onChange: (value) => {
                 if (materialRef.current) {
-                    customUniforms.uFresnelColor.value = new Color(value);
+                    uniforms.uPositionFrequency.value = value;
+                }
+            }
+        },
+        uTimeFrequency: {
+            value: 1,
+            max: 2,
+            min: 0,
+            step: 0.001,
+            onChange: (value) => {
+                if (materialRef.current) {
+                    uniforms.uTimeFrequency.value = value;
+                }
+            }
+        },
+        uStrength: {
+            value: 1,
+            max: 2,
+            min: 0,
+            step: 0.001,
+            onChange: (value) => {
+                if (materialRef.current) {
+                    uniforms.uStrength.value = value;
                 }
             }
         },
     });
+    const uniforms = {
+        uTime: new THREE.Uniform(0),
+        uPositionFrequency: new THREE.Uniform(0.5),
+        uTimeFrequency: new THREE.Uniform(0.4),
+        uStrength: new THREE.Uniform(0.3),
+    }
 
     useFrame((state, delta) => {
         if (materialRef.current) {
-            materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
+            uniforms.uTime.value = state.clock.elapsedTime;
             // console.log(materialRef.current.onBeforeCompile((shader)=>{
             //   console.log(shader);
             // }));
@@ -42,14 +73,7 @@ const MeshSample = () => {
         }
     });
 
-    const customUniforms = {
-        uTime: {
-            value: 0
-        },
-        uFresnelColor: {
-            value: new Color(fresnelColor)
-        }
-    }
+
 
     const material = new CustomShaderMaterial({
         // CSM
@@ -59,11 +83,9 @@ const MeshSample = () => {
         ${wobbleVertexShader}
         `,
         fragmentShader: wobbleFragmentShader,
-        uniforms: {
-            uTime: new THREE.Uniform(2)
-        },
+        uniforms: uniforms,
         silent: true,
-        
+
 
         // MeshPhysicalMaterial
         metalness: 0,
@@ -83,6 +105,7 @@ const MeshSample = () => {
             `${simplexNoise4d}
         ${wobbleVertexShader}
         `,
+        uniforms: uniforms,
         silent: true,
 
         // MeshDepthMaterial
@@ -102,8 +125,8 @@ const MeshSample = () => {
                     {...material}
                 />
             </mesh>
-            <mesh position={[-1,0,-3]} receiveShadow>
-                <planeGeometry args={[7,7]}></planeGeometry>
+            <mesh position={[-1, 0, -3]} receiveShadow>
+                <planeGeometry args={[7, 7]}></planeGeometry>
                 <meshPhysicalMaterial></meshPhysicalMaterial>
             </mesh>
         </>
