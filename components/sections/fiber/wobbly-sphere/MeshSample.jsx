@@ -15,10 +15,17 @@ const MeshSample = () => {
     const materialRef = useRef();
     const meshRef = useRef();
     console.log(ThreeCustomShaderMaterial);
+    const uniforms = {
+        uTime: new THREE.Uniform(0),
+        uPositionFrequency: new THREE.Uniform(.38),
+        uTimeFrequency: new THREE.Uniform(0.12),
+        uStrength: new THREE.Uniform(0.3),
+        uWarpStrength: new THREE.Uniform(1.7),
+    }
 
     const { fresnelColor } = useControls("fresnel", {
         uPositionFrequency: {
-            value: 1,
+            value: uniforms.uPositionFrequency.value,   
             max: 2,
             min: 0,
             step: 0.001,
@@ -29,7 +36,7 @@ const MeshSample = () => {
             }
         },
         uTimeFrequency: {
-            value: 1,
+            value: uniforms.uTimeFrequency.value,
             max: 2,
             min: 0,
             step: 0.001,
@@ -40,7 +47,7 @@ const MeshSample = () => {
             }
         },
         uStrength: {
-            value: 1,
+            value: uniforms.uStrength.value,
             max: 2,
             min: 0,
             step: 0.001,
@@ -50,13 +57,19 @@ const MeshSample = () => {
                 }
             }
         },
+        uWarpStrength: {
+            value: uniforms.uWarpStrength.value,
+            max: 2,
+            min: 0,
+            step: 0.001,
+            onChange: (value) => {
+                if (materialRef.current) {
+                    uniforms.uWarpStrength.value = value;
+                }
+            }
+        },
     });
-    const uniforms = {
-        uTime: new THREE.Uniform(0),
-        uPositionFrequency: new THREE.Uniform(0.5),
-        uTimeFrequency: new THREE.Uniform(0.4),
-        uStrength: new THREE.Uniform(0.3),
-    }
+    
 
     useFrame((state, delta) => {
         if (materialRef.current) {
