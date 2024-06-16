@@ -9,9 +9,9 @@ uniform float uStrength;
 float getWobble(vec3 position)
 {
     return simplexNoise4d(vec4(
-        position, // XYZ
-        0.0 + uTime       // W
-    ));
+        position * uPositionFrequency, // XYZ
+        uTime * uTimeFrequency       // W
+    ))* uStrength;
 }
 
 void main()
