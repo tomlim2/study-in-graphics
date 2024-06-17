@@ -15,17 +15,22 @@ const MeshSample = () => {
     const materialRef = useRef();
     const meshRef = useRef();
     console.log(ThreeCustomShaderMaterial);
+    const debugObject = {}
+    debugObject.colorA = '#0000ff'
+    debugObject.colorB = '#ff0000'
     const uniforms = {
         uTime: new THREE.Uniform(0),
         uPositionFrequency: new THREE.Uniform(.38),
         uTimeFrequency: new THREE.Uniform(0.12),
-        uStrength: new THREE.Uniform(0.3),
         uWarpStrength: new THREE.Uniform(1.7),
+        uStrength: new THREE.Uniform(1.5),
+        uColorA: new THREE.Uniform(new THREE.Color(debugObject.colorA)),
+        uColorB: new THREE.Uniform(new THREE.Color(debugObject.colorB))
     }
 
-    const { fresnelColor } = useControls("fresnel", {
+    const { fresnelColor, metalness } = useControls("fresnel", {
         uPositionFrequency: {
-            value: uniforms.uPositionFrequency.value,   
+            value: uniforms.uPositionFrequency.value,
             max: 2,
             min: 0,
             step: 0.001,
@@ -46,17 +51,6 @@ const MeshSample = () => {
                 }
             }
         },
-        uStrength: {
-            value: uniforms.uStrength.value,
-            max: 2,
-            min: 0,
-            step: 0.001,
-            onChange: (value) => {
-                if (materialRef.current) {
-                    uniforms.uStrength.value = value;
-                }
-            }
-        },
         uWarpStrength: {
             value: uniforms.uWarpStrength.value,
             max: 2,
@@ -68,8 +62,98 @@ const MeshSample = () => {
                 }
             }
         },
+        uStrength: {
+            value: uniforms.uStrength.value,
+            max: 2,
+            min: 0,
+            step: 0.001,
+            onChange: (value) => {
+                if (materialRef.current) {
+                    uniforms.uStrength.value = value;
+                }
+            }
+        },
+        metalness: {
+            value: 0,
+            max: 2,
+            min: 0,
+            step: 0.001,
+            onChange: (value) => {
+                if (materialRef.current) {
+                    materialRef.current.metalness = value;
+                }
+            }
+        },
+        roughness: {
+            value: 0.5,
+            max: 2,
+            min: 0,
+            step: 0.001,
+            onChange: (value) => {
+                if (materialRef.current) {
+                    materialRef.current.roughness = value;
+                }
+            }
+        },
+        color: {
+            value: "#ffffff",
+            onChange: (value) => {
+                if (materialRef.current) {
+                    materialRef.current.color = new Color(value);
+                }
+            }
+        },
+        uColorA: {
+            value: debugObject.colorA,
+            onChange: (value) => {
+                if (materialRef.current) {
+                    uniforms.uColorA.value = new Color(value);
+                }
+            }
+        },
+        uColorB: {
+            value: debugObject.colorB,
+            onChange: (value) => {
+                if (materialRef.current) {
+                    uniforms.uColorB.value = new Color(value);
+                }
+            }
+        },
+        transmission: {
+            value: 0,
+            max: 2,
+            min: 0,
+            step: 0.001,
+            onChange: (value) => {
+                if (materialRef.current) {
+                    materialRef.current.transmission = value;
+                }
+            }
+        },
+        ior: {
+            value: 1.5,
+            max: 2,
+            min: 0,
+            step: 0.001,
+            onChange: (value) => {
+                if (materialRef.current) {
+                    materialRef.current.ior = value;
+                }
+            }
+        },
+        thickness: {
+            value: 1.5,
+            max: 2,
+            min: 0,
+            step: 0.001,
+            onChange: (value) => {
+                if (materialRef.current) {
+                    materialRef.current.thickness = value;
+                }
+            }
+        }
     });
-    
+
 
     useFrame((state, delta) => {
         if (materialRef.current) {

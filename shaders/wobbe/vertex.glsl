@@ -1,11 +1,13 @@
 varying vec2 vUv;
+varying float vWobble;
+
 attribute vec4 tangent;
 
 uniform float uTime;
 uniform float uPositionFrequency;
 uniform float uTimeFrequency;
-uniform float uStrength;
 uniform float uWarpStrength;
+uniform float uStrength;
 
 float getWobble(vec3 position)
 {
@@ -41,5 +43,7 @@ void main()
     vec3 toB = normalize(positionB - csm_Position);
     csm_Normal = cross(toA, toB);
 
+    // Varying
     vUv = uv;
+    vWobble = wobble / uStrength;
 }
