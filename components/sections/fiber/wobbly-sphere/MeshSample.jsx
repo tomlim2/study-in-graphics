@@ -10,10 +10,12 @@ import { Color } from "three"
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
 import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
 import * as THREE from 'three'
+import { useGLTF } from "@react-three/drei"
 
 const MeshSample = () => {
     const materialRef = useRef();
     const meshRef = useRef();
+    const suzanne = useGLTF('/assets/models/suzanne.glb')
     console.log(ThreeCustomShaderMaterial);
     const debugObject = {}
     debugObject.colorA = '#0000ff'
@@ -209,14 +211,15 @@ const MeshSample = () => {
         depthPacking: THREE.RGBADepthPacking
     })
 
-    let geometry = new THREE.IcosahedronGeometry(1.5, 64)
+    let geometry = suzanne.scene.children[0].geometry
+    // new THREE.IcosahedronGeometry(1.5, 64)
     geometry = mergeVertices(geometry)
     geometry.computeTangents()
 
     return (
         <>
             <mesh castShadow customDepthMaterial={depthMaterial} >
-                <bufferGeometry {...geometry}></bufferGeometry>
+                <bufferGeometry {...geometry} />
                 <meshPhysicalMaterial
                     ref={materialRef}
                     {...material}
