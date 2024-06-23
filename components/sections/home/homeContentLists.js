@@ -3,6 +3,11 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
+        name: "sliced-model",
+        url: "/fiber/wobbly-sphere",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
         name: "wobbly-sphere",
         url: "/fiber/wobbly-sphere",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
