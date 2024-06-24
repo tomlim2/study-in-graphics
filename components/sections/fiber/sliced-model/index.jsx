@@ -6,7 +6,7 @@ import { Leva } from "leva";
 import { useRecoilValue } from "recoil";
 import { isDebuggerState } from "@/stores/storeFiber"
 
-const SectionWobblySphere = () => {
+const SectionSlicedModel = () => {
   const isDebugger = useRecoilValue(isDebuggerState)
   return (
     <>
@@ -30,4 +30,4 @@ const SectionWobblySphere = () => {
 
 
 //to do: keep fix up on debugger hash
-export default SectionWobblySphere;
+export default SectionSlicedModel;

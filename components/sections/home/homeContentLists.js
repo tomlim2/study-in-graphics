@@ -4,7 +4,7 @@ export const inProgressList = [
     urlList: [
       {
         name: "sliced-model",
-        url: "/fiber/wobbly-sphere",
+        url: "/fiber/sliced-model#debug",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
       },
       {

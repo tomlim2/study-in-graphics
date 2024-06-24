@@ -1,18 +1,18 @@
+import SectionSlicedModel from "@/components/sections/fiber/sliced-model";
 import styles from "./page.module.scss";
-import SectionWobblySphere from "@/components/sections/fiber/wobbly-sphere";
 
 export const metadata = {
   title: "Default | Fiber | Sliced Model | yslim",
   description: "Sliced model with Fiber",
 };
 
-const PageWobblySphere = () => {
+const PageSlicedModel = () => {
 
   return (
     <main className={styles.page}>
-      <SectionWobblySphere/>
+      <SectionSlicedModel />
     </main>
   );
 };
 
-export default PageWobblySphere;
+export default PageSlicedModel;
