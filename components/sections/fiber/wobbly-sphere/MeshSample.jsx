@@ -1,4 +1,3 @@
-import ThreeCustomShaderMaterial from "three-custom-shader-material"
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 import wobbleFragmentShader from 'raw-loader!glslify-loader!shaders/wobbe/fragment.glsl'
@@ -16,7 +15,6 @@ const MeshSample = () => {
     const materialRef = useRef();
     const meshRef = useRef();
     const suzanne = useGLTF('/assets/models/suzanne.glb')
-    console.log(ThreeCustomShaderMaterial);
     const debugObject = {}
     debugObject.colorA = '#0000ff'
     debugObject.colorB = '#ff0000'
