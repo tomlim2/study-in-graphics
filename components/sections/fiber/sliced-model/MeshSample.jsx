@@ -14,7 +14,8 @@ const MeshSample = () => {
         metalness: 0.5,
         roughness: 0.25,
         envMapIntensity: 0.5,
-        color: '#858080'
+        color: '#858080',
+        silent: true,
     })
     return (
         <>
