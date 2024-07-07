@@ -22,6 +22,13 @@ const MeshSample = () => {
         color: '#858080',
         silent: true,
     })
+
+    const gearMaterial = new MeshPhysicalMaterial({
+        metalness: 0.5,
+        roughness: 0.25,
+        envMapIntensity: 0.5,
+        color: '#858080',
+    })
     return (
         <>
             <mesh position={[0, 0, 0]} scale={[4, 4, 4]} receiveShadow castShadow>
@@ -30,11 +37,11 @@ const MeshSample = () => {
             </mesh>
             <mesh position={[0, 0, 0]} receiveShadow castShadow>
                 <bufferGeometry {...geometry2}></bufferGeometry>
-                <meshStandardMaterial {...slicedMaterial} />
+                <meshStandardMaterial {...gearMaterial} />
             </mesh>
-            <mesh position={[0, 0, 0]} receiveShadow castShadow>
+            <mesh position={[0, 0, 0]} scale={[.6, .6, .6]} receiveShadow castShadow>
                 <bufferGeometry {...geometry3}></bufferGeometry>
-                <meshStandardMaterial {...slicedMaterial} />
+                <meshStandardMaterial {...gearMaterial} />
             </mesh>
             <mesh position={[-4, -3, -4]} lookAt={new Vector3(0, 0, 0)} >
                 <planeGeometry args={[10, 10, 10]}></planeGeometry>
