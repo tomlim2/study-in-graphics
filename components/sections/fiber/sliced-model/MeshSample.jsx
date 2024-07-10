@@ -3,19 +3,56 @@ import { useGLTF } from "@react-three/drei"
 import { MeshPhysicalMaterial, Vector3 } from "three"
 import fragmentShader from 'raw-loader!glslify-loader!shaders/sliced/fragment.glsl'
 import vertexShader from 'raw-loader!glslify-loader!shaders/sliced/vertex.glsl'
+import { useControls } from "leva"
+import * as THREE from 'three'
+import { useRef } from 'react'
 
 const MeshSample = () => {
+    const materialRef = useRef();
     const grears = useGLTF('/sliced-model/gears.glb')
     let geometry1 = grears.scene.children[0].geometry
     let geometry2 = grears.scene.children[1].geometry
     let geometry3 = grears.scene.children[2].geometry
+
+    const uniforms = {
+        uSliceStart: new THREE.Uniform(1.75),
+        uSliceArc: new THREE.Uniform(1.25),
+    }
+
+    useControls("sliced material", {
+        uSliceStart: {
+            value: uniforms.uSliceStart.value,
+            max: 2,
+            min: 0,
+            step: 0.001,
+            onChange: (value) => {
+                if (materialRef.current) {
+                    uniforms.uSliceStart.value = value;
+                }
+            }
+        },
+        uSliceArc: {
+            value: uniforms.uSliceArc.value,
+            max: 2,
+            min: 0,
+            step: 0.001,
+            onChange: (value) => {
+                if (materialRef.current) {
+                    uniforms.uSliceArc.value = value;
+                }
+            }
+        },
+    })
+
+    
+
 
     const slicedMaterial = new CustomShaderMaterial({
         // CSM
         baseMaterial: MeshPhysicalMaterial,
         vertexShader: vertexShader,
         fragmentShader: fragmentShader,
-
+        uniforms: uniforms,
         metalness: 0.5,
         roughness: 0.25,
         envMapIntensity: 0.5,
@@ -33,7 +70,7 @@ const MeshSample = () => {
         <>
             <mesh position={[0, 0, 0]} scale={[4, 4, 4]} receiveShadow castShadow>
                 <bufferGeometry {...geometry1}></bufferGeometry>
-                <meshStandardMaterial {...slicedMaterial} />
+                <meshStandardMaterial ref={materialRef} {...slicedMaterial} />
             </mesh>
             <mesh position={[0, 0, 0]} receiveShadow castShadow>
                 <bufferGeometry {...geometry2}></bufferGeometry>
