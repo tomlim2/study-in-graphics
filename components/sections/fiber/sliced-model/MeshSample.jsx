@@ -19,7 +19,7 @@ const MeshSample = () => {
         uSliceArc: new THREE.Uniform(1.25),
     }
 
-    useControls("sliced material", {
+    const {uSliceStart, uSliceArc} = useControls("sliced material", {
         uSliceStart: {
             value: uniforms.uSliceStart.value,
             max: 2,
