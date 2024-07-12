@@ -58,6 +58,7 @@ const MeshSample = () => {
         envMapIntensity: 0.5,
         color: '#858080',
         silent: true,
+        side: THREE.DoubleSide
     })
 
     const gearMaterial = new MeshPhysicalMaterial({
