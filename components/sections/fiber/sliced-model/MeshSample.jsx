@@ -14,12 +14,25 @@ const MeshSample = () => {
     let geometry2 = grears.scene.children[1].geometry
     let geometry3 = grears.scene.children[2].geometry
 
+    const patchMap = {
+        csm_Slice:
+        {
+            '#include <colorspace_fragment>':
+            `
+                #include <colorspace_fragment>
+    
+                if(!gl_FrontFacing)
+                    gl_FragColor = vec4(0.75, 0.15, 0.3, 1.0);
+            `
+        }
+    }
+
     const uniforms = {
         uSliceStart: new THREE.Uniform(1.75),
         uSliceArc: new THREE.Uniform(1.25),
     }
 
-    const {uSliceStart, uSliceArc} = useControls("sliced material", {
+    const { uSliceStart, uSliceArc } = useControls("sliced material", {
         uSliceStart: {
             value: uniforms.uSliceStart.value,
             max: 2,
@@ -44,15 +57,13 @@ const MeshSample = () => {
         },
     })
 
-    
-
-
     const slicedMaterial = new CustomShaderMaterial({
         // CSM
         baseMaterial: MeshPhysicalMaterial,
         vertexShader: vertexShader,
         fragmentShader: fragmentShader,
         uniforms: uniforms,
+        patchMap: patchMap,
         metalness: 0.5,
         roughness: 0.25,
         envMapIntensity: 0.5,
