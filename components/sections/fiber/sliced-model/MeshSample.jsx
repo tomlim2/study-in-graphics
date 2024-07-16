@@ -18,7 +18,7 @@ const MeshSample = () => {
         csm_Slice:
         {
             '#include <colorspace_fragment>':
-            `
+                `
                 #include <colorspace_fragment>
     
                 if(!gl_FrontFacing)
@@ -72,6 +72,19 @@ const MeshSample = () => {
         side: THREE.DoubleSide
     })
 
+    const slicedDepthMaterial = new CustomShaderMaterial({
+        // CSM
+        baseMaterial: THREE.MeshDepthMaterial,
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader,
+        uniforms: uniforms,
+        patchMap: patchMap,
+        silent: true,
+
+        // MeshDepthMaterial
+        depthPacking: THREE.RGBADepthPacking
+    })
+
     const gearMaterial = new MeshPhysicalMaterial({
         metalness: 0.5,
         roughness: 0.25,
@@ -80,10 +93,11 @@ const MeshSample = () => {
     })
     return (
         <>
-            <mesh position={[0, 0, 0]} scale={[4, 4, 4]} receiveShadow castShadow>
+            <mesh position={[0, 0, 0]} scale={[4, 4, 4]} receiveShadow castShadow customDepthMaterial={slicedDepthMaterial}>
                 <bufferGeometry {...geometry1}></bufferGeometry>
                 <meshStandardMaterial ref={materialRef} {...slicedMaterial} />
             </mesh>
+            
             <mesh position={[0, 0, 0]} receiveShadow castShadow>
                 <bufferGeometry {...geometry2}></bufferGeometry>
                 <meshStandardMaterial {...gearMaterial} />
