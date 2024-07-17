@@ -106,9 +106,9 @@ const MeshSample = () => {
                 <bufferGeometry {...geometry3}></bufferGeometry>
                 <meshStandardMaterial {...gearMaterial} />
             </mesh>
-            <mesh position={[-4, -3, -4]} lookAt={new Vector3(0, 0, 0)} >
-                <planeGeometry args={[10, 10, 10]}></planeGeometry>
-                <meshStandardMaterial color={'#aaaaaa'}></meshStandardMaterial>
+            <mesh position={[-2, -3, -2]} rotation={[0,0.75,0]} receiveShadow>
+                <planeGeometry args={[20, 20, 20]}></planeGeometry>
+                <meshStandardMaterial color={'#fefefe'}></meshStandardMaterial>
             </mesh>
         </>
 
