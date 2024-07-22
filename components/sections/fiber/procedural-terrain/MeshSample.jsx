@@ -6,6 +6,7 @@ import vertexShader from 'raw-loader!glslify-loader!shaders/sliced/vertex.glsl'
 import { useControls } from "leva"
 import * as THREE from 'three'
 import { useRef } from 'react'
+import { Brush } from 'three-bvh-csg'
 
 const MeshSample = () => {
     const materialRef = useRef();

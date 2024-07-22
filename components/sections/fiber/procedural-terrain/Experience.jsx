@@ -18,10 +18,8 @@ const Experience = () => {
 
   return (
     <>
-      <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} />
-      <Environment background={true} backgroundIntensity={.5} backgroundBlurriness={.5} environmentIntensity={.01} files={'/sliced-model/aerodynamics_workshop.hdr'}></Environment>
-      <directionalLight castShadow color={'#fdf7df'} intensity={4} position={[6.25, 3, 4]} />
-      <MeshSample />
+      
+      
     </>
   );
 };
