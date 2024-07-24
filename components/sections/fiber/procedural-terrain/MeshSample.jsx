@@ -94,6 +94,7 @@ const MeshSample = () => {
     })
     return (
         <>
+        
             <mesh position={[0, 0, 0]} scale={[4, 4, 4]} receiveShadow castShadow customDepthMaterial={slicedDepthMaterial}>
                 <bufferGeometry {...geometry1}></bufferGeometry>
                 <meshStandardMaterial ref={materialRef} {...slicedMaterial} />
