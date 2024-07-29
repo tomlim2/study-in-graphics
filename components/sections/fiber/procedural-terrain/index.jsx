@@ -5,6 +5,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'
 import GUI from 'lil-gui'
 import { useEffect } from 'react';
+import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
 
 const SectionProceduralTerrain = () => {
   useEffect(() => {
@@ -37,12 +38,12 @@ const SectionProceduralTerrain = () => {
 
     /**
      * Placeholder
-     */
     const placeholder = new THREE.Mesh(
       new THREE.IcosahedronGeometry(2, 5),
       new THREE.MeshPhysicalMaterial()
     )
     scene.add(placeholder)
+    */
 
     /**
      * Board
@@ -50,6 +51,8 @@ const SectionProceduralTerrain = () => {
     // Brushes
     const boardFill = new Brush(new THREE.BoxGeometry(11, 2, 11))
     const boardHole = new Brush(new THREE.BoxGeometry(10, 2.1, 10))
+    // boardHole.position.y = 0.2
+    // boardHole.updateMatrixWorld()
 
     boardFill.material.color.set('red')
     boardHole.material = new THREE.MeshNormalMaterial()
@@ -58,10 +61,32 @@ const SectionProceduralTerrain = () => {
     const evaluator = new Evaluator()
 
     const board = evaluator.evaluate(boardFill, boardHole, SUBTRACTION)
+    board.castShadow = true
+    board.receiveShadow = true
     board.geometry.clearGroups()
     board.material = new THREE.MeshStandardMaterial({ color: '#ffffff', metalness: 0, roughness: 0.3 })
 
     scene.add(board)
+
+    // Geometry
+    const geometry = new THREE.PlaneGeometry(10, 10, 500, 500)
+    geometry.rotateX(- Math.PI * 0.5)
+    // Material
+    const material = new CustomShaderMaterial({
+      // CSM
+      baseMaterial: THREE.MeshStandardMaterial,
+      silent: true,
+
+      // MeshStandardMaterial
+      metalness: 0,
+      roughness: 0.5,
+      color: '#85d534'
+    })
+    // Mesh
+    const terrain = new THREE.Mesh(geometry, material)
+    terrain.receiveShadow = true
+    terrain.castShadow = true
+    scene.add(terrain)
     /**
      * Lights
      */
