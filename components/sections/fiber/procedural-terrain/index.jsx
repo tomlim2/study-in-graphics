@@ -6,6 +6,8 @@ import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'
 import GUI from 'lil-gui'
 import { useEffect } from 'react';
 import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
+import terrainVertexShader from 'raw-loader!glslify-loader!shaders/terrain/vertex.glsl'
+import terrainFragmentShader from 'raw-loader!glslify-loader!shaders/terrain/fragment.glsl'
 
 const SectionProceduralTerrain = () => {
   useEffect(() => {
@@ -75,12 +77,16 @@ const SectionProceduralTerrain = () => {
     const material = new CustomShaderMaterial({
       // CSM
       baseMaterial: THREE.MeshStandardMaterial,
+      vertexShader: terrainVertexShader,
+      fragmentShader: terrainFragmentShader,
       silent: true,
 
       // MeshStandardMaterial
       metalness: 0,
       roughness: 0.5,
-      color: '#85d534'
+      color: '#85d534',
+      side: THREE.DoubleSide
+      
     })
     // Mesh
     const terrain = new THREE.Mesh(geometry, material)
