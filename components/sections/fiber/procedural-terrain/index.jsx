@@ -186,7 +186,7 @@ const SectionProceduralTerrain = () => {
   }, [])
   return (
     <>
-      <canvas class="webgl"></canvas>
+      <canvas className="webgl"></canvas>
     </>
 
   );
