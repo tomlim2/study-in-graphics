@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
 import terrainVertexShader from 'raw-loader!glslify-loader!shaders/terrain/vertex.glsl'
 import terrainFragmentShader from 'raw-loader!glslify-loader!shaders/terrain/fragment.glsl'
+import simplexNoise2d from 'raw-loader!glslify-loader!shaders/libs/simplexNoise2d.glsl'
 
 const SectionProceduralTerrain = () => {
   useEffect(() => {
@@ -72,12 +73,16 @@ const SectionProceduralTerrain = () => {
 
     // Geometry
     const geometry = new THREE.PlaneGeometry(10, 10, 500, 500)
+    geometry.deleteAttribute('uv')
+    geometry.deleteAttribute('normal')
+    
     geometry.rotateX(- Math.PI * 0.5)
     // Material
     const material = new CustomShaderMaterial({
       // CSM
       baseMaterial: THREE.MeshStandardMaterial,
-      vertexShader: terrainVertexShader,
+      vertexShader: `${simplexNoise2d}
+      ${terrainVertexShader}`,
       fragmentShader: terrainFragmentShader,
       silent: true,
 
