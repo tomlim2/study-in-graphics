@@ -3,6 +3,11 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
+        name: "1/8192",
+        url: "/pj/oned8192",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+      },
+      {
         name: "procedural-terrain",
         url: "/fiber/procedural-terrain#debug",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
