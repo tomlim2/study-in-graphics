@@ -4,3 +4,18 @@
   justify-content: center;
   height: 100vh;
 }
+
+.oe-debug-list {
+  .item {
+    display: flex;
+    align-items: center;
+  }
+
+  .item + .item {
+    margin-top: 24px;
+  }
+
+  .item-info {
+    width: 240px;
+  }
+}
