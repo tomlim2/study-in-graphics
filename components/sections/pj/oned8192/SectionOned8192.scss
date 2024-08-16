@@ -19,3 +19,17 @@
     width: 240px;
   }
 }
+
+.o8_selector{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.o8_button {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+}
