@@ -4,10 +4,10 @@ const OeSelector = (props) => {
     return (
         <ul className="o8_selector">
             <li>
-                <OeButton selectorId={props.round + "Green"} onClickButton={props.onClickButton} text="Green" />
+                <OeButton round={props.round} onClickButton={props.onClickButton} choose="Green" />
             </li>
             <li>
-                <OeButton selectorId={props.round + "Blue"} onClickButton={props.onClickButton} text="Blue" />
+                <OeButton round={props.round} onClickButton={props.onClickButton} choose="Blue" />
             </li>
         </ul>
     )
