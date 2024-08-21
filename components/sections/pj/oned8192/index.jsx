@@ -8,6 +8,17 @@ const SectionOned8192 = () => {
   const [blueOrGreen, setBlueOrGreen] = useState([])
   const [selectColor, setSelectedColor] = useState([])
   const [roundInProgress, setRoundInProgress] = useState(0)
+
+  const resetGame = () => {
+    setRoundInProgress(0)
+    let newStatusArray = [...blueOrGreen]
+    newStatusArray.forEach((status) => {
+      status.step = "wait"
+    })
+    newStatusArray[0].step = "now"
+    setBlueOrGreen(newStatusArray)
+  }
+
   const onClickButton = (e, round, selectedColor) => {
     const isPassed = blueOrGreen[roundInProgress].answer === selectedColor
     const newStatusArray = [...blueOrGreen]
@@ -18,6 +29,7 @@ const SectionOned8192 = () => {
       setRoundInProgress(newRoundNow)
     } else {
       newStatusArray[roundInProgress].step = "failed"
+      resetGame()
     }
 
     
@@ -29,7 +41,7 @@ const SectionOned8192 = () => {
     let BGArray = [];
     let selectionStatus = {
       answer: "",
-      step: "before-start"
+      step: "wait"
     }
     for (let i = 0; i < 13; i++) {
       const randomAlg = Math.random()
@@ -37,14 +49,14 @@ const SectionOned8192 = () => {
         selectionStatus = {
           round: i,
           answer: "blue",
-          step: "before-start"
+          step: "wait"
         }
         BGArray.push(selectionStatus)
       } else {
         selectionStatus = {
           round: i,
           answer: "green",
-          step: "before-start",
+          step: "wait",
         }
         BGArray.push(selectionStatus)
       }
@@ -57,7 +69,7 @@ const SectionOned8192 = () => {
   const debugList = (BGArray) => {
     return BGArray.map((status, index) => {
       return (
-        <li className="item" key={index}>
+        <li className={`item${" status-" + status.step}`} key={index}>
           <div className="item-info">
             <div>Round: {status.round}</div>
             <div>Answer: {status.answer}</div>
