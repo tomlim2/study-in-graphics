@@ -84,7 +84,7 @@ const SectionOned8192 = () => {
   return (
     <div className={"section"}>
       <div className="">
-        <button>control</button>
+        {/* <button>control</button> */}
       </div>
       {blueOrGreen.length === 0 ?
         "" :

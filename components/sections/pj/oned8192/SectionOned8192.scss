@@ -13,7 +13,15 @@
   }
 
   .status-now{
-    background-color: turquoise;
+    background-color: greenyellow;
+  }
+
+  .status-wait{
+    background-color: lightcoral;
+  }
+
+  .status-passed{
+    background-color: whitesmoke;
   }
 
   .item + .item {
