@@ -72,7 +72,7 @@ const SectionOned8192 = () => {
         <li className={`item${" status-" + status.step}`} key={index}>
           <div className="item-info">
             <div>Round: {status.round}</div>
-            <div>Answer: {status.answer}</div>
+            {/* <div>Answer: {status.answer}</div> */}
             <div>Step: {status.step}</div>
           </div>
           <div className={` ${status.step == "now" ? "" : "disable-selector"}`}><OeSelector round={index} onClickButton={onClickButton} /></div>
