@@ -3,18 +3,24 @@ import { useEffect, useState } from "react";
 import "./SectionOned8192.scss";
 import { Player } from "@lottiefiles/react-lottie-player";
 import OeSelector from "./components/ui/OeSelector";
+import { init } from "@dimforge/rapier3d-compat";
+import { random } from "gsap";
 const SectionOned8192 = () => {
 
   const [blueOrGreen, setBlueOrGreen] = useState([])
   const [selectColor, setSelectedColor] = useState([])
   const [roundInProgress, setRoundInProgress] = useState(0)
 
+  const setRandomGB = () => Math.random() > 0.5 ? "green" : "blue"
   const resetGame = () => {
     setRoundInProgress(0)
     let newStatusArray = [...blueOrGreen]
     newStatusArray.forEach((status) => {
+      status.answer = setRandomGB()
       status.step = "wait"
     })
+
+
     newStatusArray[0].step = "now"
     setBlueOrGreen(newStatusArray)
   }
@@ -32,38 +38,31 @@ const SectionOned8192 = () => {
       resetGame()
     }
 
-    
+
     setBlueOrGreen(newStatusArray)
   }
 
-
-  useEffect(() => {
+  const initGame = () => {
     let BGArray = [];
     let selectionStatus = {
       answer: "",
       step: "wait"
     }
     for (let i = 0; i < 13; i++) {
-      const randomAlg = Math.random()
-      if (randomAlg > 0.5) {
-        selectionStatus = {
-          round: i,
-          answer: "blue",
-          step: "wait"
-        }
-        BGArray.push(selectionStatus)
-      } else {
-        selectionStatus = {
-          round: i,
-          answer: "green",
-          step: "wait",
-        }
-        BGArray.push(selectionStatus)
+      selectionStatus = {
+        round: i,
+        answer: setRandomGB(),
+        step: "wait"
       }
+      BGArray.push(selectionStatus)
     }
     BGArray[0].step = "now"
     setBlueOrGreen(BGArray)
+  }
 
+
+  useEffect(() => {
+    initGame()
   }, [])
 
   const debugList = (BGArray) => {
