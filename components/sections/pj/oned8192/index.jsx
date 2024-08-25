@@ -5,15 +5,17 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import OeSelector from "./components/ui/OeSelector";
 import { init } from "@dimforge/rapier3d-compat";
 import { random } from "gsap";
+import RoundStatusPiece from "./components/RoundStatusPiece";
+
 const SectionOned8192 = () => {
 
   const [blueOrGreen, setBlueOrGreen] = useState([])
   const [selectColor, setSelectedColor] = useState([])
-  const [roundInProgress, setRoundInProgress] = useState(0)
+  const [currentRound, setCurrentRound] = useState(0)
 
   const setRandomGB = () => Math.random() > 0.5 ? "green" : "blue"
   const resetGame = () => {
-    setRoundInProgress(0)
+    setCurrentRound(0)
     let newStatusArray = [...blueOrGreen]
     newStatusArray.forEach((status) => {
       status.answer = setRandomGB()
@@ -26,15 +28,15 @@ const SectionOned8192 = () => {
   }
 
   const onClickButton = (e, round, selectedColor) => {
-    const isPassed = blueOrGreen[roundInProgress].answer === selectedColor
+    const isPassed = blueOrGreen[currentRound].answer === selectedColor
     const newStatusArray = [...blueOrGreen]
     if (isPassed) {
-      let newRoundNow = roundInProgress + 1
-      newStatusArray[roundInProgress].step = "passed"
+      let newRoundNow = currentRound + 1
+      newStatusArray[currentRound].step = "passed"
       newStatusArray[newRoundNow].step = "now"
-      setRoundInProgress(newRoundNow)
+      setCurrentRound(newRoundNow)
     } else {
-      newStatusArray[roundInProgress].step = "failed"
+      newStatusArray[currentRound].step = "failed"
       resetGame()
     }
 
@@ -70,26 +72,51 @@ const SectionOned8192 = () => {
       return (
         <li className={`item${" status-" + status.step}`} key={index}>
           <div className="item-info">
-            <div>Round: {status.round}</div>
+            <div className="round-display">
+              <div className="round-text">Total Round: 13</div>
+              <div className="round-number">{status.round + 1}</div>
+            </div>
             {/* <div>Answer: {status.answer}</div> */}
-            <div>Step: {status.step}</div>
+            {/* <div>Step: {status.step}</div> */}
           </div>
-          <div className={` ${status.step == "now" ? "" : "disable-selector"}`}><OeSelector round={index} onClickButton={onClickButton} /></div>
+          <div className={`selector-wrapper ${status.step == "now" ? "" : "disable-selector"}`}>
+            <OeSelector round={index} onClickButton={onClickButton} />
+          </div>
         </li>
       )
     })
   }
 
+  const progressBoard = (roundArray, currentRoundNumber) => {
+    let listRound = roundArray
+
+    return listRound.map((item, index) => {
+      return (
+        <RoundStatusPiece assignedRound={index} assignedColor={item.answer} key={index} currentRound={Number(currentRoundNumber)} />
+      )
+    })
+  }
+
   return (
-    <div className={"section"}>
-      <div className="">
-        {/* <button>control</button> */}
+    <div className={"sectionOned8192"}>
+      <div className="dec">
+        1/8192 chance to win!!
       </div>
-      {blueOrGreen.length === 0 ?
-        "" :
-        <ul className={`oe-debug-list`}>
-          {debugList(blueOrGreen)}
-        </ul>}
+      <div className="card-wrapper">
+        <div className="game-progress">
+          <ul className="round-status">
+            {progressBoard(blueOrGreen, currentRound)}
+          </ul>
+        </div>
+        <div className="list-wrapper">
+          {blueOrGreen.length === 0 ?
+            "" :
+            <ul className={`oe-debug-list`}>
+              {debugList(blueOrGreen)}
+            </ul>
+          }
+        </div>
+      </div>
     </div>
   );
 };

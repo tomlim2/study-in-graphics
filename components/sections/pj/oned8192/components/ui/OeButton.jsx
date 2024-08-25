@@ -3,7 +3,7 @@ const OeButton = (props) => {
         props.onClickButton(e, props.round, props.choose);
     }
     return (
-        <button className="o8_button" onClick={(e)=>onButtonClick(e)}>{props.choose}</button>
+        <button className={`o8_button${" button_"+props.choose}`} onClick={(e)=>onButtonClick(e)}>{props.choose}</button>
     )
 }
 
