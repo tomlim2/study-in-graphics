@@ -2,13 +2,35 @@
 import { Canvas } from "@react-three/fiber";
 import "./SectionWaveOnClick.scss";
 import Experience from "./Experience";
+import { useEffect, useRef, useState } from "react";
+import * as THREE from "three";
 
 const SectionWaveOnClick = () => {
+  const [renderer, setRenderer] = useState(null)
+  const canvasRef = useRef();
+  useEffect(() => {
+    if (canvasRef.current) {
+      const WebGLRenderer = new THREE.WebGLRenderer({
+      })
+      setRenderer(WebGLRenderer)
+    }
+  
+    return () => {
+      
+    }
+  }, [])
+  
   return (
     <div className={"sectionWaveOnClick"}>
       <>
-        <Canvas>
-          <Experience />
+        <Canvas
+          ref={canvasRef}
+          camera={{
+            fov: 30,
+            near: 0.1,
+            position: [0, 0, 30],
+          }}>
+          <Experience renderer={renderer} />
         </Canvas>
       </>
     </div>

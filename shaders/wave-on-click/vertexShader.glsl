@@ -1,7 +1,14 @@
 varying vec2 vUv;
 varying vec4 vTangent;
 varying float vWobble;
+varying float vRadius;
+
 attribute vec4 tangent;
+uniform vec3 uMouse;
+uniform float uTime;
+uniform float uVel;
+uniform float uDeltaTime;
+
 
 void main () {
     vec4 modelPosition = modelMatrix * vec4(position, 1.0);
@@ -21,12 +28,26 @@ void main () {
 
     // Wobble
     float wobble = simplexNoise4d(vec4(
-        modelPosition.xyz, // XYZ
-        0.0           // W
+        modelPosition.xyz,
+        uTime
     ));
 
-    modelPosition.xyz += wobble * modifiedNormal;
+    vWobble = wobble;
 
+    // Calculate the distance between the current vertex and the mouse position
+    float distance = length(uMouse - modelPosition.xyz);
+
+    // Define the radius of the sphere
+    float radius = 2.;
+
+    // Raise up the vertices within the sphere when the mouse enters
+    if (distance < radius) {
+        modelPosition.xyz += 0.3 * modifiedNormal * (radius - distance);
+        vRadius = 0.0;
+    } else {
+        vRadius = 0.0;
+    }
+    // modelPosition.xyz += wobble * modifiedNormal;
     vec4 viewPosition = viewMatrix * modelPosition;
     vec4 projectedPosition = projectionMatrix * viewPosition;
     
@@ -34,5 +55,4 @@ void main () {
 
     vUv = uv;
     vTangent = tangent;
-    vWobble = wobble;
 }
