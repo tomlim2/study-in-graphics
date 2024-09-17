@@ -16,7 +16,8 @@ void main () {
     
     // colorMix = smoothstep(uSSA, uSSB, wobble) * colorMix;
     // float colorF = step(0.0, sin(vUv.x * 100.0 * vTangent.x));
-    vec3 color = vec3(colorMix);
+    // vec3 color = vec3(colorMix);
+    vec3 color = vec3(1.0);
 
     gl_FragColor = vec4(color, 1.0);
 

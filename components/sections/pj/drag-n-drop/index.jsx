@@ -1,11 +1,11 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
-import "./SectionWaveOnClick.scss";
+import "./SectionDragAndDrop.scss";
 import Experience from "./Experience";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
-const SectionWaveOnClick = () => {
+const SectionDragAndDrop = () => {
   const [renderer, setRenderer] = useState(null)
   const canvasRef = useRef();
   useEffect(() => {
@@ -16,12 +16,12 @@ const SectionWaveOnClick = () => {
     }
   
     return () => {
-      setRenderer(null)
+      
     }
   }, [])
   
   return (
-    <div className={"sectionWaveOnClick"}>
+    <div className={"sectionDragAndDrop"}>
       <>
         <Canvas
           ref={canvasRef}
@@ -37,4 +37,4 @@ const SectionWaveOnClick = () => {
   );
 };
 
-export default SectionWaveOnClick;
+export default SectionDragAndDrop;
