@@ -2,6 +2,7 @@ varying vec2 vUv;
 varying vec4 vTangent;
 varying float vWobble;
 varying float vRadius;
+varying vec3 vTriangleCenter;
 
 attribute vec4 tangent;
 attribute float aRandom;
@@ -12,6 +13,9 @@ uniform float uTime;
 uniform float uVel;
 uniform float uDeltaTime;
 uniform vec3 uMouseWorldPosition;
+uniform float uTriangleCount;
+uniform float uCollisionRaius;
+uniform sampler2D uTriangleDataTexture;
 
 
 void main () {
@@ -31,12 +35,12 @@ void main () {
     vec3 modifiedNormal = cross(toA, toB);
 
     // Wobble
-    float wobble = simplexNoise4d(vec4(
-        modelPosition.xyz,
-        uTime
-    ));
+    // float wobble = simplexNoise4d(vec4(
+    //     modelPosition.xyz,
+    //     uTime
+    // ));
 
-    vWobble = wobble;
+    // vWobble = wobble;
 
     // OLD Calculate the distance between the current vertex and the mouse position
     //float distance = length(uMouse - modelPosition.xyz);
@@ -52,20 +56,34 @@ void main () {
     // }
     // modelPosition.xyz += wobble * modifiedNormal; //OLD
     vec3 mousePos = vec3 (uMouseWorldPosition.x,uMouseWorldPosition.y,.5);
+    
+    // Old
     float dst = length(aCenter - mousePos);
-    float effect = 1.0 - smoothstep(0.0, 30., dst);
+    float effect = 1.0 - smoothstep(0.0, 20.0, dst);
+
+
+    // NEW Calculate the distance between the current vertex and the mouse position
+    float triangleID = floor(float(gl_VertexID) / 3.0);
+    vec4 triangleData = texture2D(uTriangleDataTexture, vec2(triangleID / uTriangleCount, 0.0));
+    vec3 triangleCenter = triangleData.xyz;
+
+    // float dstnc = length(triangleCenter - uMouseWorldPosition);
+    // float effect = 1.0 - smoothstep(0.0, uCollisionRaius, dstnc);
+
     effect = pow(effect, 120.0);
+    float displaceAmount = effect * (2. + sin(uTime*1.+aRandom*10.)*.2);
 
-    vec3 displaceDirection = normal;
-    float displaceAmount = effect * 2.5;
+    vTriangleCenter = aCenter;
 
-    modelPosition.xyz += displaceAmount * modifiedNormal;
+    vec3 displaceDirection = modifiedNormal;
 
+    modelPosition.xyz += displaceAmount * displaceDirection;
+    
     vec4 viewPosition = viewMatrix * modelPosition;
     vec4 projectedPosition = projectionMatrix * viewPosition;
     
     gl_Position = projectedPosition;
 
     vUv = uv;
-    vTangent = tangent;
+    // vTangent = triangleData;
 }
