@@ -64,7 +64,7 @@ const Experience = (props) => {
 
 
     const { geometry, triangleDataTexture, triangleCount } = useMemo(() => {
-        const geo = new THREE.IcosahedronGeometry(4, 16);
+        const geo = new THREE.IcosahedronGeometry(4, 32);
         const positionAttr = geo.getAttribute('position');
         const triangleCount = positionAttr.count / 3;
         const triangleData = new Float32Array(triangleCount * 4);
@@ -153,7 +153,7 @@ const Experience = (props) => {
         uVel: new THREE.Uniform(0),
         deltaTime: new THREE.Uniform(0),
         uTriangleData: { type: "t", value: triangleDataTexture },
-        uCollisionRaius: new THREE.Uniform(4.),
+        uCollisionRaius: new THREE.Uniform(5.),
         uTriangleCount: new THREE.Uniform(triangleCount),
     }
 
@@ -186,7 +186,7 @@ const Experience = (props) => {
     return (
         <>
             <Bvh firstHitOnly>
-                <mesh ref={sphereRef} onPointerMove={castDotOnObject}>
+                <mesh receiveShadow castShadow ref={sphereRef} onPointerMove={castDotOnObject}>
                     <bufferGeometry {...geometry}
                     />
                     <CSM
@@ -199,6 +199,10 @@ const Experience = (props) => {
                         side={THREE.DoubleSide}
                         uniforms={uniforms} 
                         normalMap={normalMap}
+                        normalMapType={THREE.TangentSpaceNormalMap}
+                        normalScale={new THREE.Vector2(.2, .2)}
+                        roughness={.3}
+                        wireframe
                         />
                 </mesh>
             </Bvh>
@@ -206,7 +210,7 @@ const Experience = (props) => {
                 {/* <sphereGeometry args={[.1, 16, 16]} /> */}
                 {/* <meshBasicMaterial color={"blue"} /> */}
             </mesh>
-            {BasisGeometry()}
+            {/* {BasisGeometry()} */}
         </>
     )
 }
@@ -216,7 +220,7 @@ const BasisGeometry = () => {
     return (
         <mesh>
             <icosahedronGeometry args={[3.95, 16]} />
-            <meshBasicMaterial color={"blue"} wireframe />
+            <meshBasicMaterial color={"gray"} wireframe />
         </mesh>
     )
 }

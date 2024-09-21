@@ -16,12 +16,12 @@ uniform sampler2D uTriangleDataTexture;
 
 vec3 calculateRepulse(vec3 mouse, vec3 center, float strength, float radius) {
     vec3 direction = center - mouse;
-    direction.z = 0.0;
+    // direction.z = 0.0;
     float distance = length(direction);
     float falloff = smoothstep(radius, 0.0, distance);
 
     vec3 repulsionDir = normalize(direction);
-    repulsionDir.z = 0.0;
+    // repulsionDir.z = 0.0;
 
     return repulsionDir * falloff * strength;
 }
@@ -67,7 +67,7 @@ void main () {
     // Old
     vec3 repulsionNormal = normalize(aCenter - uMouseWorldPosition);
     float dst = length(aCenter - uMouseWorldPosition);
-    float effect = 1.0 - smoothstep(0.0, uCollisionRaius, dst);
+    float effect = 1.0 - smoothstep(0.0, uCollisionRaius*2.0, dst);
 
 
     // NEW Calculate the distance between the current vertex and the mouse position
@@ -77,7 +77,7 @@ void main () {
     // float idVariation = fract(triangleData.w*1234.5678) * 0.3;
     effect = pow(effect, 16.0);
 
-    vec3 repulsion = calculateRepulse(uMouseWorldPosition, aCenter, uCollisionRaius*0.5, uCollisionRaius);
+    vec3 repulsion = calculateRepulse(uMouseWorldPosition, aCenter, uCollisionRaius, uCollisionRaius);
     // float dstnc = length(triangleCenter - uMouseWorldPosition);
     // float effect = 1.0 - smoothstep(0.0, uCollisionRaius, dstnc);
 

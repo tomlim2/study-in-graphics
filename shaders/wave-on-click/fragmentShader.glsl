@@ -19,7 +19,7 @@ void main () {
     // colorMix = smoothstep(uSSA, uSSB, wobble) * colorMix;
     // float colorF = step(0.0, sin(vUv.x * 100.0 * vTangent.x));
     vec4 data = texture2D(uTriangleDataTexture, vUv);
-    vec3 color = vec3(.95,.15,0.1);
+    vec3 color = vec3(.1,.1,.1);
 
     // gl_FragColor = vec4(color, 1.0);
     csm_DiffuseColor.rgb = color;
