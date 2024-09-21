@@ -9,7 +9,7 @@ import { useControls } from "leva";
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
 import { Bvh, CameraControls, DragControls } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
-import CustomShaderMaterial from "three-custom-shader-material";
+import CSM from "three-custom-shader-material";
 
 const Experience = (props) => {
     const renderer = props.renderer;
@@ -63,7 +63,7 @@ const Experience = (props) => {
 
 
     const { geometry, triangleDataTexture, triangleCount } = useMemo(() => {
-        const geo = new THREE.IcosahedronGeometry(4, 1);
+        const geo = new THREE.IcosahedronGeometry(4, 16);
         const positionAttr = geo.getAttribute('position');
         const triangleCount = positionAttr.count / 3;
         const triangleData = new Float32Array(triangleCount * 4);
@@ -152,7 +152,7 @@ const Experience = (props) => {
         uVel: new THREE.Uniform(0),
         deltaTime: new THREE.Uniform(0),
         uTriangleData: { type: "t", value: triangleDataTexture },
-        uCollisionRaius: new THREE.Uniform(20.),
+        uCollisionRaius: new THREE.Uniform(6.),
         uTriangleCount: new THREE.Uniform(triangleCount),
     }
 
@@ -209,17 +209,18 @@ const Experience = (props) => {
     return (
         <>
             <Bvh firstHitOnly>
-                <mesh ref={sphereRef}>
+                <mesh ref={sphereRef} onPointerMove={castDotOnObject}>
                     <bufferGeometry {...geometry}
                     />
-                    <CustomShaderMaterial
-                        baseMaterial={THREE.MeshBasicMaterial}
+                    <CSM
+                        baseMaterial={THREE.MeshStandardMaterial}
+                        attach="material"
                         vertexShader={`${simplexNoise4d}
                         ${vertexShader}
                         `}
                         fragmentShader={fragmentShader}
-                        color={"#ff00ff"}
-                    ></CustomShaderMaterial>
+                        side={THREE.DoubleSide}
+                        uniforms={uniforms} />
 
                     {/* <shaderMaterial
                         ref={materialRef}
@@ -237,30 +238,16 @@ const Experience = (props) => {
                 {/* <sphereGeometry args={[.1, 16, 16]} /> */}
                 {/* <meshBasicMaterial color={"blue"} /> */}
             </mesh>
-            <mesh>
-                <icosahedronGeometry args={[3.95, 1]} />
-                <meshBasicMaterial color={"cyan"} />
-            </mesh>
-            {/* {BasisGeometry(uniforms)} */}
-            {/* <mesh>
-                <planeGeometry args={[40, 40, 16, 16]} />
-                <meshBasicMaterial color={"white"} wireframe={true} />
-            </mesh> */}
+            {/* {BasisGeometry()} */}
         </>
     )
 }
 
 const BasisGeometry = () => {
-    const material = new CustomShaderMaterial({
-        baseMaterial: THREE.MeshBasicMaterial,
-        color: "#ffff00",
-        vertexShader,
-        fragmentShader,
-        uniforms
-    })
+    
     return (
         <mesh>
-            <icosahedronGeometry args={[3.95, 1]} />
+            <icosahedronGeometry args={[3.95, 8]} />
             <meshBasicMaterial color={"cyan"} />
         </mesh>
     )

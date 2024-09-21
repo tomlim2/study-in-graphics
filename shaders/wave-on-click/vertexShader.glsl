@@ -10,37 +10,46 @@ attribute vec3 aCenter;
 
 uniform vec3 uMouse;
 uniform float uTime;
-uniform float uVel;
-uniform float uDeltaTime;
+
 uniform vec3 uMouseWorldPosition;
 uniform float uTriangleCount;
 uniform float uCollisionRaius;
 uniform sampler2D uTriangleDataTexture;
 
+vec3 calculateRepulse(vec3 mouse, vec3 center, float strength, float radius) {
+    float distance = length(center - mouse);
+    vec3 directionNormal = normalize(center - mouse);
+    float force = 0.0;
+    if (distance < radius) {
+        float smoothFactor = smoothstep(0.0, radius, distance);
+        force = (radius - distance) * smoothFactor;
+    }
+    return directionNormal * force;
+}
 
 void main () {
     vec4 modelPosition = modelMatrix * vec4(position, 1.0);
     // modelPosition.z += sin(modelNormal.x * 4.0) * 1.0;
     // modelPosition.z += cos(modelNormal.y * 4.0) * 1.0;
     vec3 biTangent = cross(normal, tangent.xyz);
-    float shift = 0.01;
+    float shift = 0.5;
     // vec3 vTangent = tangent.xyz;
 
-    vec3 positionA = modelPosition.xyz + tangent.xyz * shift;
-    vec3 positionB = modelPosition.xyz + biTangent * shift;
+    vec3 positionA = csm_Position.xyz + tangent.xyz * shift;
+    vec3 positionB = csm_Position.xyz + biTangent * shift;
 
-    vec3 toA = normalize(positionA - modelPosition.xyz);
-    vec3 toB = normalize(positionB - modelPosition.xyz);
+    vec3 toA = normalize(positionA - csm_Position.xyz);
+    vec3 toB = normalize(positionB - csm_Position.xyz);
 
     vec3 modifiedNormal = cross(toA, toB);
 
     // Wobble
-    // float wobble = simplexNoise4d(vec4(
-    //     modelPosition.xyz,
-    //     uTime
-    // ));
+    float wobble = simplexNoise4d(vec4(
+        csm_Position.xyz,
+        uTime
+    ));
 
-    // vWobble = wobble;
+    vWobble = wobble;
 
     // OLD Calculate the distance between the current vertex and the mouse position
     //float distance = length(uMouse - modelPosition.xyz);
@@ -55,30 +64,38 @@ void main () {
     //     vRadius = 0.0;
     // }
     // modelPosition.xyz += wobble * modifiedNormal; //OLD
-    vec3 mousePos = vec3 (uMouseWorldPosition.x,uMouseWorldPosition.y,.5);
+    vec3 mousePos = vec3 (uMouseWorldPosition.x,uMouseWorldPosition.y,.0);
     
     // Old
     float dst = length(aCenter - mousePos);
-    float effect = 1.0 - smoothstep(0.0, 20.0, dst);
+    float effect = 1.0 - smoothstep(0.0, uCollisionRaius, dst);
 
 
     // NEW Calculate the distance between the current vertex and the mouse position
-    float triangleID = floor(float(gl_VertexID) / 3.0);
-    vec4 triangleData = texture2D(uTriangleDataTexture, vec2(triangleID / uTriangleCount, 0.0));
-    vec3 triangleCenter = triangleData.xyz;
+    // float triangleID = floor(float(gl_VertexID) / 3.0);
+    // vec4 triangleData = texture2D(uTriangleDataTexture, vec2(triangleID / uTriangleCount, 0.0));
+    // vec3 triangleCenter = triangleData.xyz;
+    // float idVariation = fract(triangleData.w*1234.5678) * 0.3;
+    effect = pow(effect, 20.0);
+    vec3 repulsion = calculateRepulse(uMouseWorldPosition, aCenter, uCollisionRaius, uCollisionRaius);
 
     // float dstnc = length(triangleCenter - uMouseWorldPosition);
     // float effect = 1.0 - smoothstep(0.0, uCollisionRaius, dstnc);
 
-    effect = pow(effect, 120.0);
-    float displaceAmount = effect * (2. + sin(uTime*1.+aRandom*10.)*.2);
+    float pulseFrequncy = aRandom * 0.5;
+    float fpulseAmplitude = .5 * effect;
+    float pulse = sin(uTime * pulseFrequncy)*fpulseAmplitude;
+    float displaceAmount = effect * 10.0;
+    displaceAmount =+ pulse;
 
-    vTriangleCenter = aCenter;
+    
+    vec3 normalDisplacement = normalize(aCenter) * displaceAmount;
 
     vec3 displaceDirection = modifiedNormal;
+    vec3 displacement = normalDisplacement + repulsion * (1.0 + effect);
 
-    modelPosition.xyz += displaceAmount * displaceDirection;
-    
+    csm_Position.xyz +=  displacement;
+
     vec4 viewPosition = viewMatrix * modelPosition;
     vec4 projectedPosition = projectionMatrix * viewPosition;
     

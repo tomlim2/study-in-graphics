@@ -3,6 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import "./SectionWaveOnClick.scss";
 import Experience from "./Experience";
 import { useEffect, useRef, useState } from "react";
+import {  Environment } from "@react-three/drei";
 import * as THREE from "three";
 
 const SectionWaveOnClick = () => {
@@ -14,12 +15,12 @@ const SectionWaveOnClick = () => {
       })
       setRenderer(WebGLRenderer)
     }
-  
+
     return () => {
       setRenderer(null)
     }
   }, [])
-  
+
   return (
     <div className={"sectionWaveOnClick"}>
       <>
@@ -30,6 +31,17 @@ const SectionWaveOnClick = () => {
             near: 0.1,
             position: [0, 0, 30],
           }}>
+          <Environment
+            background={false}
+            files={[
+              "/assets/environmentMaps/3/px.jpg",
+              "/assets/environmentMaps/3/nx.jpg",
+              "/assets/environmentMaps/3/py.jpg",
+              "/assets/environmentMaps/3/ny.jpg",
+              "/assets/environmentMaps/3/pz.jpg",
+              "/assets/environmentMaps/3/nz.jpg",
+            ]}
+          ></Environment>
           <Experience renderer={renderer} />
         </Canvas>
       </>
