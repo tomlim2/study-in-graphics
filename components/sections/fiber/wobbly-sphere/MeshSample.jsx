@@ -1,15 +1,17 @@
+import * as THREE from 'three'
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
+
+import simplexNoise4d from 'raw-loader!glslify-loader!shaders/libs/simplexNoise4d.glsl'
 import wobbleFragmentShader from 'raw-loader!glslify-loader!shaders/wobbe/fragment.glsl'
 import wobbleVertexShader from 'raw-loader!glslify-loader!shaders/wobbe/vertex.glsl'
-import simplexNoise4d from 'raw-loader!glslify-loader!shaders/libs/simplexNoise4d.glsl'
 
 import { useControls } from "leva"
 import { Color } from "three"
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
-import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
-import * as THREE from 'three'
 import { useGLTF } from "@react-three/drei"
+
+import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
 
 const MeshSample = () => {
     const materialRef = useRef();
