@@ -34,14 +34,15 @@ const SectionWaveOnClick = () => {
           <Environment
             background={false}
             files={[
-              "/assets/environmentMaps/3/px.jpg",
-              "/assets/environmentMaps/3/nx.jpg",
-              "/assets/environmentMaps/3/py.jpg",
-              "/assets/environmentMaps/3/ny.jpg",
-              "/assets/environmentMaps/3/pz.jpg",
-              "/assets/environmentMaps/3/nz.jpg",
+              "/assets/environmentMaps/1/px.jpg",
+              "/assets/environmentMaps/1/nx.jpg",
+              "/assets/environmentMaps/1/py.jpg",
+              "/assets/environmentMaps/1/ny.jpg",
+              "/assets/environmentMaps/1/pz.jpg",
+              "/assets/environmentMaps/1/nz.jpg",
             ]}
           ></Environment>
+          <directionalLight castShadow intensity={1} position={[0, 10, 10]} />  
           <Experience renderer={renderer} />
         </Canvas>
       </>

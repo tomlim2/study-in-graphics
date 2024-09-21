@@ -1,10 +1,8 @@
 varying vec2 vUv;
-varying vec4 vTangent;
 varying float vWobble;
 varying float vRadius;
 varying vec3 vTriangleCenter;
 
-attribute vec4 tangent;
 attribute float aRandom;
 attribute vec3 aCenter;
 
@@ -17,14 +15,15 @@ uniform float uCollisionRaius;
 uniform sampler2D uTriangleDataTexture;
 
 vec3 calculateRepulse(vec3 mouse, vec3 center, float strength, float radius) {
-    float distance = length(center - mouse);
-    vec3 directionNormal = normalize(center - mouse);
-    float force = 0.0;
-    if (distance < radius) {
-        float smoothFactor = smoothstep(0.0, radius, distance);
-        force = (radius - distance) * smoothFactor;
-    }
-    return directionNormal * force;
+    vec3 direction = center - mouse;
+    direction.z = 0.0;
+    float distance = length(direction);
+    float falloff = smoothstep(radius, 0.0, distance);
+
+    vec3 repulsionDir = normalize(direction);
+    repulsionDir.z = 0.0;
+
+    return repulsionDir * falloff * strength;
 }
 
 void main () {
@@ -32,7 +31,7 @@ void main () {
     // modelPosition.z += sin(modelNormal.x * 4.0) * 1.0;
     // modelPosition.z += cos(modelNormal.y * 4.0) * 1.0;
     vec3 biTangent = cross(normal, tangent.xyz);
-    float shift = 0.5;
+    float shift = 0.05;
     // vec3 vTangent = tangent.xyz;
 
     vec3 positionA = csm_Position.xyz + tangent.xyz * shift;
@@ -64,10 +63,10 @@ void main () {
     //     vRadius = 0.0;
     // }
     // modelPosition.xyz += wobble * modifiedNormal; //OLD
-    vec3 mousePos = vec3 (uMouseWorldPosition.x,uMouseWorldPosition.y,.0);
     
     // Old
-    float dst = length(aCenter - mousePos);
+    vec3 repulsionNormal = normalize(aCenter - uMouseWorldPosition);
+    float dst = length(aCenter - uMouseWorldPosition);
     float effect = 1.0 - smoothstep(0.0, uCollisionRaius, dst);
 
 
@@ -76,22 +75,21 @@ void main () {
     // vec4 triangleData = texture2D(uTriangleDataTexture, vec2(triangleID / uTriangleCount, 0.0));
     // vec3 triangleCenter = triangleData.xyz;
     // float idVariation = fract(triangleData.w*1234.5678) * 0.3;
-    effect = pow(effect, 20.0);
-    vec3 repulsion = calculateRepulse(uMouseWorldPosition, aCenter, uCollisionRaius, uCollisionRaius);
+    effect = pow(effect, 16.0);
 
+    vec3 repulsion = calculateRepulse(uMouseWorldPosition, aCenter, uCollisionRaius*0.5, uCollisionRaius);
     // float dstnc = length(triangleCenter - uMouseWorldPosition);
     // float effect = 1.0 - smoothstep(0.0, uCollisionRaius, dstnc);
 
-    float pulseFrequncy = aRandom * 0.5;
-    float fpulseAmplitude = .5 * effect;
-    float pulse = sin(uTime * pulseFrequncy)*fpulseAmplitude;
+    float pulseFrequncy = 5.0 + aRandom * 10.0;
+    float pulseAmplitude = .05 * effect;
+    float pulse = sin(uTime * pulseFrequncy) * pulseAmplitude;
     float displaceAmount = effect * 10.0;
-    displaceAmount =+ pulse;
+    displaceAmount =+  pulse;
 
     
-    vec3 normalDisplacement = normalize(aCenter) * displaceAmount;
+    vec3 normalDisplacement = repulsionNormal * displaceAmount;
 
-    vec3 displaceDirection = modifiedNormal;
     vec3 displacement = normalDisplacement + repulsion * (1.0 + effect);
 
     csm_Position.xyz +=  displacement;

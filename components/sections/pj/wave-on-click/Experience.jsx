@@ -7,8 +7,8 @@ import simplexNoise4d from 'raw-loader!glslify-loader!shaders/libs/simplexNoise4
 
 import { useControls } from "leva";
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
-import { Bvh, CameraControls, DragControls } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
+import { Bvh, CameraControls, DragControls, useKTX2 } from "@react-three/drei";
+import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import CSM from "three-custom-shader-material";
 
 const Experience = (props) => {
@@ -59,7 +59,8 @@ const Experience = (props) => {
         // setMousePosition(pos);
         uniforms.uMouseWorldPosition.value.copy(pos);
     })
-
+    const normalMap = useLoader(THREE.TextureLoader, "/assets/textures/paintedPlaterWall/painted_plaster_wall_nor_gl_4k.png");
+    // const KTX2NormalMap = useKTX2(normalMap);
 
 
     const { geometry, triangleDataTexture, triangleCount } = useMemo(() => {
@@ -152,7 +153,7 @@ const Experience = (props) => {
         uVel: new THREE.Uniform(0),
         deltaTime: new THREE.Uniform(0),
         uTriangleData: { type: "t", value: triangleDataTexture },
-        uCollisionRaius: new THREE.Uniform(6.),
+        uCollisionRaius: new THREE.Uniform(4.),
         uTriangleCount: new THREE.Uniform(triangleCount),
     }
 
@@ -182,30 +183,6 @@ const Experience = (props) => {
         }
     })
 
-    // const material = new CustomShaderMaterial({
-    //     // CSM
-    //     baseMaterial: THREE.MeshPhysicalMaterial,
-    //     vertexShader:
-    //         `${simplexNoise4d}
-    //     ${vertexShader}
-    //     `,
-    //     fragmentShader: fragmentShader,
-    //     uniforms: uniforms,
-    //     silent: true,
-
-
-    //     // MeshPhysicalMaterial
-    //     metalness: 0,
-    //     roughness: 0.5,
-    //     color: '#ffffff',
-    //     transmission: 0,
-    //     ior: 1.5,
-    //     thickness: 1.5,
-    //     transparent: true,
-    //     wireframe: false
-    // })
-
-
     return (
         <>
             <Bvh firstHitOnly>
@@ -220,25 +197,16 @@ const Experience = (props) => {
                         `}
                         fragmentShader={fragmentShader}
                         side={THREE.DoubleSide}
-                        uniforms={uniforms} />
-
-                    {/* <shaderMaterial
-                        ref={materialRef}
-                        vertexShader={`${simplexNoise4d}
-                        ${vertexShader}
-                        `}
-                        fragmentShader={fragmentShader}
-                        side={THREE.DoubleSide}
-                        uniforms={uniforms}
-                        // wireframe={true}
-                    /> */}
+                        uniforms={uniforms} 
+                        normalMap={normalMap}
+                        />
                 </mesh>
             </Bvh>
             <mesh ref={dotRef}>
                 {/* <sphereGeometry args={[.1, 16, 16]} /> */}
                 {/* <meshBasicMaterial color={"blue"} /> */}
             </mesh>
-            {/* {BasisGeometry()} */}
+            {BasisGeometry()}
         </>
     )
 }
@@ -247,8 +215,8 @@ const BasisGeometry = () => {
     
     return (
         <mesh>
-            <icosahedronGeometry args={[3.95, 8]} />
-            <meshBasicMaterial color={"cyan"} />
+            <icosahedronGeometry args={[3.95, 16]} />
+            <meshBasicMaterial color={"blue"} wireframe />
         </mesh>
     )
 }
