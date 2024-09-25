@@ -1,12 +1,12 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
-import "./SectionWaveOnClick.scss";
+import "./SectionRippleOnClick.scss";
 import Experience from "./Experience";
 import { useEffect, useRef, useState } from "react";
 import {  Environment } from "@react-three/drei";
 import * as THREE from "three";
 
-const SectionWaveOnClick = () => {
+const SectionRippleOnClick = () => {
   const [renderer, setRenderer] = useState(null)
   const canvasRef = useRef();
   useEffect(() => {
@@ -22,7 +22,7 @@ const SectionWaveOnClick = () => {
   }, [])
 
   return (
-    <div className={"sectionWaveOnClick"}>
+    <div className={"sectionRippleOnClick"}>
       <>
         <Canvas
           ref={canvasRef}
@@ -49,4 +49,4 @@ const SectionWaveOnClick = () => {
   );
 };
 
-export default SectionWaveOnClick;
+export default SectionRippleOnClick;
