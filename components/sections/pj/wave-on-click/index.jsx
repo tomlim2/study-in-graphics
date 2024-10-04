@@ -42,8 +42,6 @@ const SectionWaveOnClick = () => {
               "/assets/environmentMaps/2/nz.jpg",
             ]}
           ></Environment>
-          {/* <directionalLight castShadow intensity={1.1} position={[10, 0, 10]} color={"white"} />   */}
-          {/* <directionalLight castShadow intensity={1.} position={[-10, 0, 10]} />   */}
           <Experience renderer={renderer} />
         </Canvas>
       </>
