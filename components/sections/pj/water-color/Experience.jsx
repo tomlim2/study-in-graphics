@@ -13,51 +13,101 @@ const Plane = () => {
         resolution: { value: new THREE.Vector2() },
         pointer: { value: new THREE.Vector2() },
     };
-    const { render, scene, camera } = useThree()
+    const { gl, scene, camera,raycaster } = useThree()
 
     const setupPipeline = () => {
-        console.log('hi');
         const sourceTarget = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight);
+        const targetA = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight);
+        const targetB = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight);
 
         const fboScene = new THREE.Scene();
-        const fboCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        const fboCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1000);
+        fboCamera.zoom = 1000;
+
         const fboMaterial = new THREE.ShaderMaterial({
-            uniforms: uniforms,
+            uniforms: {
+                uTDiffuse: { value: null },
+                tPrev: { value: null },
+                uResolution: { value: new THREE.Vector4(window.innerWidth, window.innerHeight, 1, 1) },
+            },
             vertexShader,
             fragmentShader: fbo
         })
+
+        const fboQuad = new THREE.Mesh(
+            new THREE.PlaneGeometry(2, 2),
+            fboMaterial
+        );
+        fboScene.add(fboQuad);
+
+        // final scene
+        const finalScene = new THREE.Scene();
+        const finalQuad = new THREE.Mesh(
+            new THREE.PlaneGeometry(2, 2),
+            new THREE.MeshBasicMaterial({
+                map: targetA.texture
+            })
+        );
+        finalScene.add(finalQuad);
+
+
+        // pipeline loop
+        // ping pong
+        gl.setRenderTarget(targetA);
+        gl.render(fboScene, fboCamera);
+        fboMaterial.uniforms.uTDiffuse.value = sourceTarget.texture;
+        fboMaterial.uniforms.tPrev.value = targetA.texture;
+
+        // final out
+        finalQuad.material.map = targetA.texture;
+        gl.setRenderTarget(targetA);
+        gl.render(finalScene, fboCamera);
     }
 
-
     useEffect(() => {
-
-        const raycast = new THREE.Raycaster();
         const raycastPlane = new THREE.Mesh(
-            new THREE.PlaneGeometry(100, 100),
-            new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide })
+            new THREE.PlaneGeometry(2, 2),
+            new THREE.MeshBasicMaterial({
+                color: 0xf0f0f0,
+                side: THREE.DoubleSide,
+            })
+            // new THREE.ShaderMaterial({
+            //     // uniforms: {},
+            //     vertexShader: vertexShader,
+            //     fragmentShader: fragmentShader,
+            //     side: THREE.DoubleSide,
+            // })
         );
 
         const dummy = new THREE.Mesh(
-            new THREE.SphereGeometry(1, 20, 20),
-            new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+            new THREE.SphereGeometry(.05, 20, 20),
+            new THREE.MeshToonMaterial({ color: 0xff0000 })
         );
 
         window.addEventListener('mousemove', (event) => {
             uniforms.pointer.value.x = (event.clientX / window.innerWidth) * 2 - 1;
             uniforms.pointer.value.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-            raycast.setFromCamera(uniforms.pointer.value, camera);
+            raycaster.setFromCamera(uniforms.pointer.value, camera);
 
-            const intersects = raycast.intersectObject(raycastPlane);
+            const intersects = raycaster.intersectObject(raycastPlane);
             if (intersects.length > 0) {
                 dummy.position.copy(intersects[0].point);
                 console.log(intersects[0].point);
             }
+            
         })
 
         scene.add(raycastPlane, dummy);
 
-        setupPipeline();
+        const tempScene = new THREE.Scene();
+        const tempCamera = camera;
+
+        tempScene.add(raycastPlane, dummy);
+        gl.render(tempScene, tempCamera);
+        
+
+        // setupPipeline();
 
         return () => {
 
