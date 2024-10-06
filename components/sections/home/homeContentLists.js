@@ -3,6 +3,13 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
+        name: "render target",
+        url: "/pj/render-target",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "in progress",
+        tags: [""]
+      },
+      {
         name: "water color",
         url: "/pj/water-color",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
