@@ -1,80 +1,77 @@
 "use client";
-import { Canvas, createPortal, useFrame, useThree } from "@react-three/fiber";
-import "./SectionRenderTarget.scss";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { Canvas, useThree } from "@react-three/fiber";
+import { useMemo, useRef } from "react";
+import { createPortal } from "react-dom";
 import * as THREE from 'three';
-import { PerspectiveCamera, OrbitControls, TorusKnot, Box, Environment } from "@react-three/drei";
-import vertexShader from 'raw-loader!glslify-loader!shaders/water-color/vertex.glsl';
-import fragmentShader from 'raw-loader!glslify-loader!shaders/water-color/fragment.glsl';
-import fbo from 'raw-loader!glslify-loader!shaders/water-color/fbo.glsl';
-
-function SpinningThing() {
-  const mesh = useRef()
-  useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y = mesh.current.rotation.z += 0.01))
-  return (
-    <>
-      <Environment
-        background={true}
-        files={[
-          "/assets/environmentMaps/2/px.jpg",
-          "/assets/environmentMaps/2/nx.jpg",
-          "/assets/environmentMaps/2/py.jpg",
-          "/assets/environmentMaps/2/ny.jpg",
-          "/assets/environmentMaps/2/pz.jpg",
-          "/assets/environmentMaps/2/nz.jpg",
-        ]}
-      />
-      <mesh ref={mesh}>
-        <torusKnotGeometry args={[1, 0.4, 100, 64]} />
-        <meshNormalMaterial />
-      </mesh>
-    </>
-  )
-}
+import "./SectionRenderTarget.scss";
 
 function Cube() {
-  const cam = useRef()
-  const [scene, target] = useMemo(() => {
-    const scene = new THREE.Scene()
-    scene.background = new THREE.Color('orange')
-    const target = new THREE.RenderTarget(1024, 1024, {
-      format: THREE.RGBAFormat,
-      stencilBuffer: false
-    })
-    target.samples = 8
-    return [scene, target]
-  }, [])
+    const [scene, target] = useMemo(() => {
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color('orange');
+        const target = new THREE.RenderTarget(1024, 1024, {
+            format: THREE.RGBAFormat,
+            stencilBuffer: false
+        });
+        target.samples = 8;
 
-  useFrame((state) => {
-    cam.current.position.z = 5 + Math.sin(state.clock.getElapsedTime() * 1.5) * 2
-    state.gl.setRenderTarget(target)
-    state.gl.render(scene, cam.current)
-    state.gl.setRenderTarget(null)
-  })
-
-  return (
-    <>
-      <PerspectiveCamera ref={cam} position={[0, 0, 3]} />
-      {createPortal(<SpinningThing />, scene)}
-      <Box args={[2, 2, 2]}>
-        <meshBasicMaterial attach="material" map={target.texture} />
-      </Box>
-    </>
-  )
+        return [scene, target];
+    }, []);
+    return (
+        <>
+            <PerspectiveCamera />
+            {createPortal(<DrawingThing />, scene)}
+            <mesh>
+                <boxGeometry args={[2, 2, 2]} />
+                <meshBasicMaterial color="red" />
+            </mesh>
+        </>
+    );
 }
 
+function DrawingThing() {
+    const { camera } = useThree();
+    const sphereRef = useRef();
+    const planeRef = useRef();
+    const moveOnPlane = (event) => {
+        const { clientX, clientY } = event;
+        const { innerWidth, innerHeight } = window;
+        const x = (clientX / innerWidth) * 2 - 1;
+        const y = -(clientY / innerHeight) * 2 + 1;
+
+        const raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera({ x, y }, camera);
+        const intersects = raycaster.intersectObjects([planeRef.current]);
+        if (intersects.length > 0) {
+            const { point } = intersects[0];
+            sphereRef.current.position.copy(point);
+        }
+    }
+
+    return (
+        <>
+            <mesh ref={sphereRef}>
+                <sphereGeometry args={[.08, 32, 32]} />
+                <meshBasicMaterial color="white" />
+            </mesh>
+            <mesh ref={planeRef} onPointerMove={moveOnPlane}>
+                <planeGeometry args={[5, 5, 1]} />
+                <meshBasicMaterial color="black" />
+            </mesh>
+        </>
+    );
+}
 
 const SectionRenderTarget = () => {
-  const canvasRef = useRef();
-
-  return (
-    <div className={"sectionRenderTarget"}>
-      <Canvas>
-        <Cube />
-        <OrbitControls />
-      </Canvas>
-    </div>
-  );
-};
+    return (
+        <div className={"sectionRenderTarget"}>
+            <Canvas >
+                <DrawingThing />
+                <OrbitControls />
+            </Canvas>
+        </div>
+    );
+}
 
 export default SectionRenderTarget;

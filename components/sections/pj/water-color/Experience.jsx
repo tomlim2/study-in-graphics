@@ -13,7 +13,7 @@ const Plane = () => {
         resolution: { value: new THREE.Vector2() },
         pointer: { value: new THREE.Vector2() },
     };
-    const { gl, scene, camera,raycaster } = useThree()
+    const { gl, scene, camera, raycaster } = useThree()
 
     const setupPipeline = () => {
         const sourceTarget = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight);
@@ -95,7 +95,6 @@ const Plane = () => {
                 dummy.position.copy(intersects[0].point);
                 console.log(intersects[0].point);
             }
-            
         })
 
         scene.add(raycastPlane, dummy);
@@ -105,7 +104,7 @@ const Plane = () => {
 
         tempScene.add(raycastPlane, dummy);
         gl.render(tempScene, tempCamera);
-        
+
 
         // setupPipeline();
 
