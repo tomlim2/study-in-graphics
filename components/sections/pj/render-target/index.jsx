@@ -1,34 +1,10 @@
 "use client";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, createPortal, useFrame, useThree } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
-import { createPortal } from "react-dom";
+
 import * as THREE from 'three';
 import "./SectionRenderTarget.scss";
-
-function Cube() {
-    const [scene, target] = useMemo(() => {
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color('orange');
-        const target = new THREE.RenderTarget(1024, 1024, {
-            format: THREE.RGBAFormat,
-            stencilBuffer: false
-        });
-        target.samples = 8;
-
-        return [scene, target];
-    }, []);
-    return (
-        <>
-            <PerspectiveCamera />
-            {createPortal(<DrawingThing />, scene)}
-            <mesh>
-                <boxGeometry args={[2, 2, 2]} />
-                <meshBasicMaterial color="red" />
-            </mesh>
-        </>
-    );
-}
 
 function DrawingThing() {
     const { camera } = useThree();
@@ -63,11 +39,42 @@ function DrawingThing() {
     );
 }
 
+function Cube() {
+    const cam = useRef()
+    const [scene, target] = useMemo(() => {
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color('orange');
+        const target = new THREE.RenderTarget(1024, 1024, {
+            format: THREE.RGBAFormat,
+            stencilBuffer: false
+        });
+        target.samples = 8;
+
+        return [scene, target];
+    }, []);
+    useFrame((state) => {
+        // cam.current.position.z = 5 + Math.sin(state.clock.getElapsedTime() * 1.5) * 2
+        state.gl.setRenderTarget(target)
+        state.gl.render(scene, cam.current)
+        state.gl.setRenderTarget(null)
+      })
+    return (
+        <>
+            <PerspectiveCamera ref={cam} position={[0, 0, 3]} />
+            {createPortal(<DrawingThing />, scene)}
+            <mesh>
+                <planeGeometry args={[5, 5, 2]} />
+                <meshBasicMaterial color="red" map={target.texture} />
+            </mesh>
+        </>
+    );
+}
+
 const SectionRenderTarget = () => {
     return (
         <div className={"sectionRenderTarget"}>
             <Canvas >
-                <DrawingThing />
+                <Cube />
                 <OrbitControls />
             </Canvas>
         </div>
