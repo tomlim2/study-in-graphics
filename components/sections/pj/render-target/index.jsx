@@ -1,10 +1,14 @@
 "use client";
-import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { Environment, OrbitControls, OrthographicCamera, PerspectiveCamera } from "@react-three/drei";
 import { Canvas, createPortal, useFrame, useThree } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import fbo from 'raw-loader!glslify-loader!shaders/water-color/fbo.glsl';
+import vertexShader from 'raw-loader!glslify-loader!shaders/water-color/vertex.glsl';
 
 import * as THREE from 'three';
 import "./SectionRenderTarget.scss";
+
+let ZOOM = 200
 
 function DrawingThing() {
     const { camera } = useThree();
@@ -27,12 +31,13 @@ function DrawingThing() {
 
     return (
         <>
+            {/* <OrthographicCamera makeDefault near={0} far={1000} zoom={1} /> */}
             <mesh ref={sphereRef}>
                 <sphereGeometry args={[.08, 32, 32]} />
                 <meshBasicMaterial color="white" />
             </mesh>
             <mesh ref={planeRef} onPointerMove={moveOnPlane}>
-                <planeGeometry args={[5, 5, 1]} />
+                <planeGeometry args={[4, 4, 1]} />
                 <meshBasicMaterial color="black" />
             </mesh>
         </>
@@ -40,31 +45,43 @@ function DrawingThing() {
 }
 
 function Cube() {
-    const cam = useRef()
+    const { camera } = useThree();
     const [scene, target] = useMemo(() => {
         const scene = new THREE.Scene();
         scene.background = new THREE.Color('orange');
+        // const { innerWidth, innerHeight } = window;
         const target = new THREE.RenderTarget(1024, 1024, {
             format: THREE.RGBAFormat,
-            stencilBuffer: false
+            stencilBuffer: true,
         });
         target.samples = 8;
 
         return [scene, target];
     }, []);
     useFrame((state) => {
-        // cam.current.position.z = 5 + Math.sin(state.clock.getElapsedTime() * 1.5) * 2
         state.gl.setRenderTarget(target)
-        state.gl.render(scene, cam.current)
+        state.gl.render(scene, camera)
         state.gl.setRenderTarget(null)
-      })
+    })
+
+    const { innerWidth, innerHeight } = window;
+    const aspectRatio = innerWidth / innerHeight;
+    const planeWidth = innerWidth / ZOOM;
+    const planeHeight = planeWidth / aspectRatio;
+
     return (
         <>
-            <PerspectiveCamera ref={cam} position={[0, 0, 3]} />
             {createPortal(<DrawingThing />, scene)}
             <mesh>
-                <planeGeometry args={[5, 5, 2]} />
-                <meshBasicMaterial color="red" map={target.texture} />
+                <planeGeometry args={[planeWidth, planeHeight, 1]} />
+                <shaderMaterial
+                    vertexShader={vertexShader}
+                    fragmentShader={fbo}
+                    uniforms={{
+                        uTDiffuse: {
+                            value: target.texture
+                        }
+                    }} />
             </mesh>
         </>
     );
@@ -73,9 +90,13 @@ function Cube() {
 const SectionRenderTarget = () => {
     return (
         <div className={"sectionRenderTarget"}>
-            <Canvas >
+            <Canvas
+                orthographic={true}
+                camera={{ zoom: ZOOM }}
+            >
                 <Cube />
-                <OrbitControls />
+                {/* <DrawingThing /> */}
+                {/* <OrbitControls /> */}
             </Canvas>
         </div>
     );
