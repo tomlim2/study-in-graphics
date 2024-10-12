@@ -10,7 +10,7 @@ import { Environment } from "@react-three/drei";
 
 const ZOOM = 1000
 
-function SourceTarget() {
+function SourceScene() {
     const { camera } = useThree();
     const sphereRef = useRef();
     const planeRef = useRef();
@@ -73,21 +73,6 @@ function FboScene() {
     const shaderMaterialRef = useRef();
     const { camera } = useThree();
 
-    useFrame((state) => {
-        state.gl.setRenderTarget(sourceTarget)
-        state.gl.render(sourceScene, camera)
-        // state.gl.setRenderTarget(null)
-        // state.gl.setRenderTarget(sectarget)
-        // state.gl.setRenderTarget(sectarget)
-        // state.gl.render(secScene, camera)
-        shaderMaterialRef.current.uniforms.uTDiffuse.value = sourceTarget.texture;
-        // shaderMaterialRef.current.uniforms.uTPrev.value = sectarget.texture;
-
-
-        state.gl.setRenderTarget(null)
-        // state.gl.render(thirdScene, camera)
-    })
-
     const { innerWidth, innerHeight } = window;
     const aspectRatio = innerWidth / innerHeight;
     const planeWidth = innerWidth / ZOOM;
@@ -95,30 +80,16 @@ function FboScene() {
 
     return (
         <>
-            {/* {createPortal(<SourceTarget />, sourceScene)} */}
-            {/* {createPortal(<SecScene />, secScene)} */}
-            {/* {createPortal(<ThridScene targetSource={sectarget} />, thirdScene)}  */}
             <mesh>
-                <planeGeometry args={[planeWidth, planeHeight, 1]} />
-                <shaderMaterial
-                    ref={shaderMaterialRef}
-                    vertexShader={vertexShader}
-                    fragmentShader={fbo}
-                    uniforms={{
-                        uTDiffuse: {
-                            value: null
-                        },
-                        uTPrev: {
-                            value: null
-                        }
-                    }} />
+                <planeGeometry args={[.1, .1, 1]} />
             </mesh>
         </>
     );
 }
 
 const FinalScene = () => {
-    const { camera } = useThree();
+    const shaderMaterialRef = useRef()
+    const { scene, camera } = useThree();
 
     const [sourceScene, sourceTarget] = useMemo(() => {
         const sourceScene = new THREE.Scene();
@@ -133,18 +104,16 @@ const FinalScene = () => {
         return [sourceScene, sourceTarget];
     }, []);
 
-    // const [fboScene, fboTarget] = useMemo(() => {
-    //     const fboScene = new THREE.Scene();
-    //     // scene.background = new THREE.Color('orange');
-    //     // { createPortal(<SecScene />, secScene) }
-    //     const fboTarget = new THREE.RenderTarget(512, 512, {
-    //         format: THREE.RGBAFormat,
-    //         stencilBuffer: false,
-    //     });
-    //     fboTarget.samples = 8;
+    const [fboScene, fboTarget] = useMemo(() => {
+        const fboScene = new THREE.Scene();
+        const fboTarget = new THREE.RenderTarget(512, 512, {
+            format: THREE.RGBAFormat,
+            stencilBuffer: false,
+        });
+        fboTarget.samples = 8;
 
-    //     return [fboScene, fboTarget];
-    // }, []);
+        return [fboScene, fboTarget];
+    }, []);
 
     const { innerWidth, innerHeight } = window;
     const aspectRatio = innerWidth / innerHeight;
@@ -154,17 +123,38 @@ const FinalScene = () => {
     useFrame((state) => {
         state.gl.setRenderTarget(sourceTarget)
         state.gl.render(sourceScene, camera)
-        // state.gl.render(fboScene, camera)
+        shaderMaterialRef.current.uniforms.uTDiffuse.value = sourceTarget.texture;
+
+        state.gl.setRenderTarget(fboTarget)
+        
+        state.gl.render(fboScene, camera)
+        shaderMaterialRef.current.uniforms.uTPrev.value = fboTarget.texture;
+
+        state.gl.render(scene, camera)
+        
         state.gl.setRenderTarget(null)
     })
 
     return (
         <>
         {/* <SourceTarget /> */}
-            {createPortal(<SourceTarget />, sourceScene)}
+            {createPortal(<SourceScene />, sourceScene)}
+            {createPortal(<FboScene />, fboScene)}
             <mesh>
                 <planeGeometry args={[planeWidth, planeHeight, 1]} />
-                <meshBasicMaterial map={sourceTarget.texture} />
+                <shaderMaterial
+                    ref={shaderMaterialRef}
+                    vertexShader={vertexShader}
+                    fragmentShader={fbo}
+                    uniforms={{
+                        uTDiffuse: {
+                            value: null
+                        },
+                        uTPrev: {
+                            value: null
+                        }
+                    }} />
+                {/* <meshBasicMaterial map={sourceTarget.texture} /> */}
             </mesh>
         </>
     );
