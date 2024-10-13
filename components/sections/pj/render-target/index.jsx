@@ -43,31 +43,6 @@ function SourceScene() {
         </>
     );
 }
-function SecScene() {
-    const planeRef = useRef();
-
-    return (
-        <>
-            <mesh ref={planeRef} visible={false}>
-                <planeGeometry args={[4, 4, 1]} />
-                <meshBasicMaterial map={targetSource.texture} />
-            </mesh>
-        </>
-    );
-}
-
-function ThridScene({ targetSource }) {
-    const planeRef = useRef();
-
-    return (
-        <>
-            <mesh ref={planeRef} visible={false}>
-                <planeGeometry args={[4, 4, 1]} />
-                <meshBasicMaterial map={targetSource.texture} />
-            </mesh>
-        </>
-    );
-}
 
 function FboScene() {
     const shaderMaterialRef = useRef();
@@ -81,7 +56,7 @@ function FboScene() {
     return (
         <>
             <mesh>
-                <planeGeometry args={[.1, .1, 1]} />
+                <planeGeometry args={[.4, .4, 1]} />
             </mesh>
         </>
     );
@@ -123,14 +98,14 @@ const FinalScene = () => {
     useFrame((state) => {
         state.gl.setRenderTarget(sourceTarget)
         state.gl.render(sourceScene, camera)
-        shaderMaterialRef.current.uniforms.uTDiffuse.value = sourceTarget.texture;
-
+        
         state.gl.setRenderTarget(fboTarget)
         
         state.gl.render(fboScene, camera)
-        shaderMaterialRef.current.uniforms.uTPrev.value = fboTarget.texture;
+        // shaderMaterialRef.current.uniforms.uTDiffuse.value = sourceTarget.texture;
+        // shaderMaterialRef.current.uniforms.uTPrev.value = fboTarget.texture;
 
-        state.gl.render(scene, camera)
+        state.gl.render(fboScene, camera)
         
         state.gl.setRenderTarget(null)
     })
@@ -142,7 +117,7 @@ const FinalScene = () => {
             {createPortal(<FboScene />, fboScene)}
             <mesh>
                 <planeGeometry args={[planeWidth, planeHeight, 1]} />
-                <shaderMaterial
+                {/* <shaderMaterial
                     ref={shaderMaterialRef}
                     vertexShader={vertexShader}
                     fragmentShader={fbo}
@@ -153,8 +128,8 @@ const FinalScene = () => {
                         uTPrev: {
                             value: null
                         }
-                    }} />
-                {/* <meshBasicMaterial map={sourceTarget.texture} /> */}
+                    }} /> */}
+                <meshBasicMaterial map={sourceTarget.texture} />
             </mesh>
         </>
     );
