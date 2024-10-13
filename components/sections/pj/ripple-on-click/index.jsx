@@ -69,7 +69,7 @@ const SectionRippleOnClick = () => {
             "/assets/environmentMaps/2/pz.jpg",
             "/assets/environmentMaps/2/nz.jpg",
           ]}
-        ></Environment>
+        />
         <Experience />
       </Canvas>
     </div>
