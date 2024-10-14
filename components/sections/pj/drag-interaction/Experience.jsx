@@ -12,9 +12,16 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useDrag } from "@use-gesture/react";
 
 
+function RandomPosObjects() {
+    return (
+        <mesh>
+            <boxGeometry />
+            <meshBasicMaterial />
+        </mesh>
+    )
+}
 
-// Main Scene
-const Experience = () => {
+function InteractiveMesh() {
     const [mouseWorldPosition, setMouseWorldPosition] = useState(new THREE.Vector3(0, 0, 0));
     const draggableObjRef = useRef();
     const mouse = { x: 0, y: 0 };
@@ -95,6 +102,17 @@ const Experience = () => {
                 <sphereGeometry args={[4, 32, 32]} />
                 <meshBasicMaterial color="orange" side={THREE.DoubleSide} wireframe={true} />
             </mesh>
+        </>
+    )
+}
+
+
+// Main Scene
+const Experience = () => {
+    return (
+        <>
+            <RandomPosObjects />
+            <InteractiveMesh />
         </>
     );
 }
