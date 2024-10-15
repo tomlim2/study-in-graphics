@@ -22,17 +22,12 @@ function RandomPosObjects() {
 }
 
 function InteractiveMesh() {
-    const [mouseWorldPosition, setMouseWorldPosition] = useState(new THREE.Vector3(0, 0, 0));
     const draggableObjRef = useRef();
     const mouse = { x: 0, y: 0 };
 
     const { camera } = useThree();
     const [isPonterDown, setIsPointerDown] = useState(false);
     const [offset, setOffset] = useState(new THREE.Vector3());
-
-    const pointEvents = (event) => {
-
-    }
 
     const onPointerDown = (event) => {
         let check = true;
@@ -80,12 +75,6 @@ function InteractiveMesh() {
         setIsPointerDown(false);
     }
 
-
-    useFrame((state) => {
-        // console.log('useFrame');
-
-    })
-
     return (
         <>
             <mesh onPointerMove={onPointerMove}>
@@ -95,9 +84,6 @@ function InteractiveMesh() {
             <mesh ref={draggableObjRef}
                 onPointerDown={onPointerDown}
                 onPointerUp={onPointerUp}
-            // onPointerMove={onPointerMove}
-            // onPointerOut={onPointerUp}
-            // onPointerLeave={onPointerUp}
             >
                 <sphereGeometry args={[4, 32, 32]} />
                 <meshBasicMaterial color="orange" side={THREE.DoubleSide} wireframe={true} />
