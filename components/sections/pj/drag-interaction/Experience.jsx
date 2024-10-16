@@ -1,5 +1,5 @@
 import * as THREE from "three"
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import fragmentShader from "raw-loader!glslify-loader!shaders/wave-on-click/fragmentShader.glsl";
 import vertexShader from "raw-loader!glslify-loader!shaders/wave-on-click/vertexShader.glsl";
@@ -13,11 +13,41 @@ import { useDrag } from "@use-gesture/react";
 
 
 function RandomPosObjects() {
+
+    const [meshesTransforms] = useMemo(() => {
+        const meshesTransforms = []
+        for (let i = 0; i < 10; i++) {
+            const offset = 20;
+            const x = Math.random() * offset - offset / 2;
+            const y = Math.random() * offset - offset / 2;
+            const z = 0;
+            const scaleX = 1 + Math.random() * 2;
+            const scaleY = 1 + Math.random() * 2;
+            const scaleZ = 1 + Math.random() * 2;
+            const rotX = Math.random() * Math.PI;
+            const rotY = Math.random() * Math.PI;
+            const rotZ = Math.random() * Math.PI;
+            meshesTransforms.push({
+                position: [x, y, z],
+                scale: [scaleX, scaleY, scaleZ],
+                rotation: [rotX, rotY, rotZ]
+            });
+        }
+        return [meshesTransforms]
+    }, []);
+
     return (
-        <mesh>
-            <boxGeometry />
-            <meshBasicMaterial />
-        </mesh>
+        <>
+            {meshesTransforms.map((meshTransform, index) => {
+                return (
+                    <mesh key={index} position={meshTransform.position} scale={meshTransform.scale} rotation={meshTransform.rotation}>
+                        <boxGeometry args={[1, 1, 1]} />
+                        <meshBasicMaterial color="red" wireframe={true} />
+                    </mesh>
+                )
+            })}
+        </>
+
     )
 }
 
@@ -77,7 +107,7 @@ function InteractiveMesh() {
 
     return (
         <>
-            <mesh onPointerMove={onPointerMove}>
+            <mesh onPointerMove={onPointerMove} visible={false}>
                 <planeGeometry args={[100, 100]} />
                 <meshBasicMaterial color="black" side={THREE.DoubleSide} />
             </mesh>
