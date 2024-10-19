@@ -11,10 +11,12 @@
   "dependencies": {
     "@lottiefiles/lottie-player": "^2.0.2",
     "@lottiefiles/react-lottie-player": "^3.5.3",
+    "@react-three/cannon": "^6.6.0",
     "@react-three/drei": "^9.92.5",
-    "@react-three/fiber": "^8.15.12",
+    "@react-three/fiber": "^8.17.10",
     "@react-three/rapier": "^1.1.1",
     "@types/three": "^0.160.0",
+    "@use-gesture/react": "^10.3.1",
     "axios": "^1.6.7",
     "eslint": "8.49.0",
     "eslint-config-next": "^13.5.1",

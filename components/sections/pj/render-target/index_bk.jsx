@@ -37,7 +37,7 @@ function Cube() {
   const cam = useRef()
   const [scene, target] = useMemo(() => {
     const scene = new THREE.Scene()
-    scene.background = new THREE.Color('orange')
+    scene.background = new THREE.Color('blue')
     const target = new THREE.RenderTarget(1024, 1024, {
       format: THREE.RGBAFormat,
       stencilBuffer: false
