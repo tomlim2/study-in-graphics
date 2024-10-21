@@ -3,8 +3,8 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
-        name: "drag interaction",
-        url: "/pj/drag-interaction",
+        name: "get vrm metadata",
+        url: "/pj/get-vrm-metadata",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
         status: "in progress",
         tags: [""]
