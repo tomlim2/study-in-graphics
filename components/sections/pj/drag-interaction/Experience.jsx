@@ -2,17 +2,11 @@ import * as THREE from "three"
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useFrame, useThree } from "@react-three/fiber";
-import { Physics, useBox } from "@react-three/cannon";
+import { Physics, RigidBody } from "@react-three/rapier";
 
 function Box(props) {
-    const [ref] = useBox(() => ({
-        mass: 1000,
-        angularVelocity: [0, 0, 0],
-        linearVelocity: [0, 0, 0],
-        ...props
-    }));
     return (
-        <mesh ref={ref} position={props.position} scale={props.scale} rotation={props.rotation}>
+        <mesh position={props.position} scale={props.scale} rotation={props.rotation}>
             <boxGeometry args={[1, 1, 1]} />
             <meshBasicMaterial color="red" wireframe={true} />
         </mesh>
@@ -46,7 +40,9 @@ function RandomPosObjects() {
         <>
             {meshesTransforms.map((meshTransform, index) => {
                 return (
-                    <Box key={index} {...meshTransform} />
+                    <RigidBody key={index}>
+                        <Box {...meshTransform} />
+                    </RigidBody>
                 )
             })}
 
@@ -57,6 +53,7 @@ function RandomPosObjects() {
 
 function InteractiveMesh() {
     const draggableObjRef = useRef();
+    const rigidBodyRef = useRef();
     const mouse = { x: 0, y: 0 };
 
     const { camera } = useThree();
@@ -100,24 +97,17 @@ function InteractiveMesh() {
         console.log(offset);
 
         const newPos = pos.add(offset);
-        draggableObjRef.current.position.copy(newPos);
+        rigidBodyRef.current.setTranslation(newPos, true);
+        // draggableObjRef.current.position.copy(newPos);
     }
 
     const onPointerUp = (event) => {
-        console.log('onPointerUp');
-
         setIsPointerDown(false);
     }
 
-    const [ref, api] = useBox(() => ({
-        mass: 1,
-        position: [0, 0, 0],
-        type: "Static"
-    }));
-
     useFrame(() => {
         if (isPonterDown && draggableObjRef.current) {
-            api.position.copy(draggableObjRef.current.position);
+            // api.position.copy(draggableObjRef.current.position);
         }
     });
 
@@ -127,17 +117,16 @@ function InteractiveMesh() {
                 <planeGeometry args={[100, 100]} />
                 <meshBasicMaterial color="black" side={THREE.DoubleSide} />
             </mesh>
-            <mesh 
-                ref={(mesh) => {
-                    draggableObjRef.current = mesh;
-                    ref.current = mesh;
-                }}
-                onPointerDown={onPointerDown}
-                onPointerUp={onPointerUp}
-            >
-                <sphereGeometry args={[4, 32, 32]} />
-                <meshBasicMaterial color="orange" side={THREE.DoubleSide} wireframe={true} />
-            </mesh>
+            <RigidBody ref={rigidBodyRef} type="fixed">
+                <mesh
+                    ref={draggableObjRef}
+                    onPointerDown={onPointerDown}
+                    onPointerUp={onPointerUp}
+                >
+                    <sphereGeometry args={[4, 32, 32]} />
+                    <meshBasicMaterial color="orange" side={THREE.DoubleSide} wireframe={true} />
+                </mesh>
+            </RigidBody>
         </>
     )
 }

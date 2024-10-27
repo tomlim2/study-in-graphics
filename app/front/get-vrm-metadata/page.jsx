@@ -1,5 +1,5 @@
 import "./page.scss";
-import SectionVRMMetadata from "@/components/sections/pj/get-vrm-metadata";
+import SectionVRMMetadata from "@/components/sections/front/get-vrm-metadata";
 
 
 export const metadata = {
@@ -10,7 +10,7 @@ export const metadata = {
 const PageVRMMetadata = () => {
   return (
     <main className="page">
-      <SectionVRMMetadata/>
+      <SectionVRMMetadata />
     </main>
   );
 };
