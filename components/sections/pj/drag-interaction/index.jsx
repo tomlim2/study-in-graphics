@@ -26,10 +26,11 @@ const SectionDragInteraction = () => {
       <>
         <Canvas
           ref={canvasRef}
+          orthographic={false}
           camera={{
             fov: 15,
             near: 0.1,
-            position: [0, 0, 80],
+            position: [0, 0, 360],
           }}>
           <Experience  />
         </Canvas>

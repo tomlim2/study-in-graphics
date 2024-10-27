@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { RigidBody } from "@react-three/rapier";
+import { InstancedRigidBodies, RigidBody } from "@react-three/rapier";
 
 
 function Box(props) {
@@ -14,8 +14,8 @@ function Box(props) {
 export default function RandomMeshes() {
     const [meshesTransforms] = useMemo(() => {
         const meshesTransforms = []
-        for (let i = 0; i < 10; i++) {
-            const offset = 20;
+        for (let i = 0; i < 100; i++) {
+            const offset = 60;
             const x = Math.random() * offset - offset / 2;
             const y = Math.random() * offset - offset / 2;
             const z = 0;
