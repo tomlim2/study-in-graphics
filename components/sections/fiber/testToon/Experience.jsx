@@ -47,7 +47,6 @@ const PointLight = () => {
       <pointLight
         ref={lightRef}
         intensity={30}
-
       />
     </group>
   )

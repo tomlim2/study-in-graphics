@@ -3,8 +3,29 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
+        name: "physics in box",
+        url: "/fiber/physics-in-box",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "in progress",
+        tags: [""]
+      },
+      {
+        name: "drag interaction",
+        url: "/pj/drag-interaction",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "in progress",
+        tags: [""]
+      },
+      {
+        name: "p5 nest 01",
+        url: "/pj/p5/nest-01",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "in progress",
+        tags: [""]
+      },
+      {
         name: "get vrm metadata",
-        url: "/pj/get-vrm-metadata",
+        url: "/front/get-vrm-metadata",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
         status: "in progress",
         tags: [""]
