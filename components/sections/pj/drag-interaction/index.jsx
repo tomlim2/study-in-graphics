@@ -14,24 +14,27 @@ const SectionDragInteraction = () => {
       })
       setRenderer(WebGLRenderer)
     }
-  
+
     return () => {
-      
+
     }
   }, [])
   console.log('Released');
-  
+
   return (
     <div className={"sectionDragInteraction"}>
       <>
         <Canvas
           ref={canvasRef}
+          orthographic={false}
           camera={{
             fov: 15,
             near: 0.1,
-            position: [0, 0, 80],
+            position: [0, 0, 180],
           }}>
-          <Experience  />
+          <ambientLight intensity={2.5} />
+          <directionalLight position={[10, 10, 5]} intensity={5} />
+          <Experience />
         </Canvas>
       </>
     </div>

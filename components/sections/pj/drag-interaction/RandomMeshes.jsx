@@ -1,12 +1,12 @@
 import { useMemo } from "react";
-import { RigidBody } from "@react-three/rapier";
+import { InstancedRigidBodies, RigidBody } from "@react-three/rapier";
 
 
 function Box(props) {
     return (
         <mesh position={props.position} scale={props.scale} rotation={props.rotation}>
-            <boxGeometry args={[1, 1, 1]} />
-            <meshBasicMaterial color="red" wireframe={true} />
+            <sphereGeometry args={[.5, 32, 32]} />
+            <meshToonMaterial color="red" />
         </mesh>
     )
 }
@@ -14,14 +14,15 @@ function Box(props) {
 export default function RandomMeshes() {
     const [meshesTransforms] = useMemo(() => {
         const meshesTransforms = []
-        for (let i = 0; i < 10; i++) {
-            const offset = 20;
+        for (let i = 0; i < 100; i++) {
+            const offset = 60;
             const x = Math.random() * offset - offset / 2;
             const y = Math.random() * offset - offset / 2;
             const z = 0;
-            const scaleX = 1 + Math.random() * 2;
-            const scaleY = 1 + Math.random() * 2;
-            const scaleZ = 1 + Math.random() * 2;
+            let scale = 1 + Math.random() * 2;
+            const scaleX = scale;
+            const scaleY = scale;
+            const scaleZ = scale;
             const rotX = Math.random() * Math.PI;
             const rotY = Math.random() * Math.PI;
             const rotZ = Math.random() * Math.PI;

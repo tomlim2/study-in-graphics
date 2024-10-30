@@ -14,10 +14,8 @@ export default function DraggableMesh() {
 
     const onPointerDown = (event) => {
         let check = true;
-        console.log('onPointerDown');
-        setIsPointerDown(check);
-        console.log(check, 'check');
 
+        setIsPointerDown(check);
 
         if (!draggableObjRef.current) return;
 
@@ -29,7 +27,8 @@ export default function DraggableMesh() {
         const dir = vector.sub(camera.position).normalize();
         const distance = -camera.position.z / dir.z;
         const pos = camera.position.clone().add(dir.multiplyScalar(distance));
-        const posObjOffset = new THREE.Vector3().subVectors(draggableObjRef.current.position, pos);
+        const posObjOffset = new THREE.Vector3().subVectors(rigidBodyRef.current.translation(), pos);
+
         setOffset(posObjOffset);
     }
 
@@ -41,12 +40,11 @@ export default function DraggableMesh() {
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-        const vector = new THREE.Vector3(mouse.x, mouse.y, 0.5);
+        const vector = new THREE.Vector3(mouse.x, mouse.y, 0);
         vector.unproject(camera);
         const dir = vector.sub(camera.position).normalize();
         const distance = -camera.position.z / dir.z;
         const pos = camera.position.clone().add(dir.multiplyScalar(distance));
-        console.log(offset);
 
         const newPos = pos.add(offset);
         rigidBodyRef.current.setTranslation(newPos, true);
@@ -66,17 +64,17 @@ export default function DraggableMesh() {
     return (
         <>
             <mesh onPointerMove={onPointerMove} visible={false}>
-                <planeGeometry args={[100, 100]} />
-                <meshBasicMaterial color="black" side={THREE.DoubleSide} />
+                <planeGeometry args={[200, 200]} />
+                <meshToonMaterial color="black" side={THREE.DoubleSide} />
             </mesh>
-            <RigidBody ref={rigidBodyRef} type="fixed">
+            <RigidBody ref={rigidBodyRef} type="fixed" onPointerDown={onPointerDown}
+                onPointerUp={onPointerUp}>
                 <mesh
                     ref={draggableObjRef}
-                    onPointerDown={onPointerDown}
-                    onPointerUp={onPointerUp}
+
                 >
                     <sphereGeometry args={[4, 32, 32]} />
-                    <meshBasicMaterial color="orange" side={THREE.DoubleSide} wireframe={true} />
+                    <meshToonMaterial color="orange" side={THREE.DoubleSide}  />
                 </mesh>
             </RigidBody>
         </>
