@@ -7,14 +7,15 @@ import { useThree } from "@react-three/fiber";
 
 function Bounds() {
     const useWireframe = false;
-    const [boundsPos, setBoundsPos] = useState({ x: window.innerWidth / 100, y: window.innerHeight / 100, z: 0 });
+    const offsetPos = 40
+    const [boundsPos, setBoundsPos] = useState({ x: window.innerWidth / offsetPos, y: window.innerHeight / offsetPos, z: 0 });
     const { camera } = useThree();
     useEffect(() => {
         const handleResize = () => {
             console.log("Window resized to", window.innerWidth, window.innerHeight);
             const dir = camera.position;
             const distance = -camera.position.z / dir.z;
-            setBoundsPos({ x: window.innerWidth / 100*distance, y: window.innerHeight / 100*distance, z: 0 });
+            setBoundsPos({ x: window.innerWidth / offsetPos, y: window.innerHeight / offsetPos, z: 0 });
 
 
         };

@@ -5,7 +5,7 @@ import { InstancedRigidBodies, RigidBody } from "@react-three/rapier";
 function Box(props) {
     return (
         <mesh position={props.position} scale={props.scale} rotation={props.rotation}>
-            <sphereGeometry args={[1, 32, 32]} />
+            <sphereGeometry args={[.5, 32, 32]} />
             <meshToonMaterial color="red" />
         </mesh>
     )
