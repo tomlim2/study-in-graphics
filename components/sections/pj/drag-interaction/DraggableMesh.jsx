@@ -65,7 +65,7 @@ export default function DraggableMesh() {
         <>
             <mesh onPointerMove={onPointerMove} visible={false}>
                 <planeGeometry args={[200, 200]} />
-                <meshBasicMaterial color="black" side={THREE.DoubleSide} />
+                <meshToonMaterial color="black" side={THREE.DoubleSide} />
             </mesh>
             <RigidBody ref={rigidBodyRef} type="fixed" onPointerDown={onPointerDown}
                 onPointerUp={onPointerUp}>
@@ -74,7 +74,7 @@ export default function DraggableMesh() {
 
                 >
                     <sphereGeometry args={[4, 32, 32]} />
-                    <meshBasicMaterial color="orange" side={THREE.DoubleSide} wireframe={true} />
+                    <meshToonMaterial color="orange" side={THREE.DoubleSide}  />
                 </mesh>
             </RigidBody>
         </>
