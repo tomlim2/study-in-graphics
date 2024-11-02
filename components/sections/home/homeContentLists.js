@@ -17,10 +17,18 @@ export const inProgressList = [
         tags: [""]
       },
       {
-        name: "p5 nest 01",
+        name: "p5 flower drawing",
+        url: "/pj/p5/nest-02",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "done",
+        tags: [""],
+        description: ""
+      },
+      {
+        name: "p5 face",
         url: "/pj/p5/nest-01",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-        status: "in progress",
+        status: "done",
         tags: [""]
       },
       {
