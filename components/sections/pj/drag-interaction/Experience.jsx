@@ -29,17 +29,17 @@ function Bounds() {
             second
         }
     }, [])
-
+    let zOffset = 4;
     return (
         <>
             <RigidBody type="fixed">
-                <mesh position={[0, 0, 8]}>
+                <mesh position={[0, 0, zOffset]}>
                     <boxGeometry args={[100, 100, 4]} />
                     <meshToonMaterial wireframe={useWireframe} color="lightblue" visible={false} />
                 </mesh>
             </RigidBody>
             <RigidBody type="fixed">
-                <mesh position={[0, 0, -8]}>
+                <mesh position={[0, 0, -zOffset]}>
                     <boxGeometry args={[100, 100, 4]} />
                     <meshToonMaterial wireframe={useWireframe} color="lightblue" />
                 </mesh>
