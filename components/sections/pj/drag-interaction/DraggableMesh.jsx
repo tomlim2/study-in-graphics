@@ -73,7 +73,7 @@ export default function DraggableMesh() {
                     ref={draggableObjRef}
 
                 >
-                    <sphereGeometry args={[4, 32, 32]} />
+                    <sphereGeometry args={[6, 32, 32]} />
                     <meshToonMaterial color="orange" side={THREE.DoubleSide}  />
                 </mesh>
             </RigidBody>
