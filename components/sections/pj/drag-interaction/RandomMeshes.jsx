@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { InstancedRigidBodies, RigidBody } from "@react-three/rapier";
+import { useFrame } from "@react-three/fiber";
 
 
 function Box(props) {
@@ -34,6 +35,11 @@ export default function RandomMeshes() {
         }
         return [meshesTransforms]
     }, []);
+
+    useFrame((state) => {
+        console.log(state);
+        
+    }, [])
 
     return (
         <>

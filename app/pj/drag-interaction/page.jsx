@@ -1,15 +1,13 @@
-import SectionRippleOnClick from "@/components/sections/pj/ripple-on-click";
 import "./page.scss";
-import SectionWaveOnClick from "@/components/sections/pj/wave-on-click";
 import SectionDragInteraction from "@/components/sections/pj/drag-interaction";
 
 
 export const metadata = {
-  title: "Drag interaction | Fiber | yslim",
+  title: "Towards center | Fiber | yslim",
   description: "My playground",
 };
 
-const RippleOnClick = () => {
+const TowardsCenter = () => {
   return (
     <main className="page">
       <SectionDragInteraction/>
@@ -17,4 +15,4 @@ const RippleOnClick = () => {
   );
 };
 
-export default RippleOnClick;
+export default TowardsCenter;
