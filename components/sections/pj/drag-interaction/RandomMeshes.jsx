@@ -4,6 +4,8 @@ import { useFrame } from "@react-three/fiber";
 
 
 function Box(props) {
+    
+
     return (
         <mesh position={props.position} scale={props.scale} rotation={props.rotation}>
             <sphereGeometry args={[.5, 32, 32]} />

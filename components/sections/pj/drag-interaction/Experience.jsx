@@ -77,7 +77,7 @@ const Experience = () => {
         <>
             {/* <OrbitControls /> */}
             <Physics gravity={[0, 0, 0]}>
-                <Bounds />
+                {/* <Bounds /> */}
                 <RandomMeshes />
                 <DraggableMesh />
             </Physics>
