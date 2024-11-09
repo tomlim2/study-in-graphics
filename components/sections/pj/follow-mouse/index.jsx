@@ -12,6 +12,10 @@ const SectionFollowMouse = () => {
     <div className={"sectionFollowMouse"}>
       <Canvas
         ref={canvasRef}
+        orthographic
+        camera={{
+          zoom: 100,
+        }}
       >
         <Experience />
       </Canvas>
