@@ -1,16 +1,17 @@
+import SectionFollowMouse from "@/components/sections/pj/follow-mouse";
 import "./page.scss";
 import SectionDragInteraction from "@/components/sections/pj/drag-interaction";
 
 
 export const metadata = {
-  title: "Towards center | Fiber | yslim",
+  title: "Follow mouse | Fiber | yslim",
   description: "My playground",
 };
 
 const TowardsCenter = () => {
   return (
     <main className="page">
-      <SectionDragInteraction/>
+      <SectionFollowMouse />
     </main>
   );
 };

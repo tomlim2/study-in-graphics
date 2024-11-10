@@ -1,8 +1,11 @@
 import { useMemo } from "react";
 import { InstancedRigidBodies, RigidBody } from "@react-three/rapier";
+import { useFrame } from "@react-three/fiber";
 
 
 function Box(props) {
+    
+
     return (
         <mesh position={props.position} scale={props.scale} rotation={props.rotation}>
             <sphereGeometry args={[.5, 32, 32]} />
@@ -34,6 +37,11 @@ export default function RandomMeshes() {
         }
         return [meshesTransforms]
     }, []);
+
+    useFrame((state) => {
+        console.log(state);
+        
+    }, [])
 
     return (
         <>

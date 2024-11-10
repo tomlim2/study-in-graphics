@@ -3,6 +3,27 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
+        name: "to do",
+        url: "/front/to-do",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "in progress",
+        tags: [""],
+      },
+      {
+        name: "follow mouse",
+        url: "/pj/follow-mouse",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "in progress",
+        tags: [""],
+      },
+      {
+        name: "towards center",
+        url: "/pj/towards-center",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "in progress",
+        tags: [""],
+      },
+      {
         name: "physics in box",
         url: "/fiber/physics-in-box",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
