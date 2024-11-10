@@ -1,4 +1,4 @@
-import SectionRenderTarget from "@/components/sections/pj/render-target";
+import SectionRenderTarget from "@/components/sections/pj/render-target/index";
 import "./page.scss";
 
 export const metadata = {
