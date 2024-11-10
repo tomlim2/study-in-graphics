@@ -3,6 +3,13 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
+        name: "p5 the map",
+        url: "/pj/p5/nest-03",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "in progress",
+        tags: [""],
+      },
+      {
         name: "to do",
         url: "/front/to-do",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
