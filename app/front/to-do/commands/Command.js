@@ -1,11 +1,43 @@
-class Command{
-    execute(){
-        throw new Error("Execute method should be implemented");
-    }
+// commands.js
+export class IncrementCommand {
+  constructor(counter) {
+    this.counter = counter;
+  }
 
-    undo(){
-        throw new Error("Undo method should be implemented");
-    }
+  execute() {
+    this.counter.increment();
+  }
+
+  undo() {
+    this.counter.decrement();
+  }
 }
 
-export default Command;
+export class DecrementCommand {
+  constructor(counter) {
+    this.counter = counter;
+  }
+
+  execute() {
+    this.counter.decrement();
+  }
+
+  undo() {
+    this.counter.increment();
+  }
+}
+
+export class ResetCommand {
+  constructor(counter, previousValue) {
+    this.counter = counter;
+    this.previousValue = previousValue; // Store the previous value to restore on undo
+  }
+
+  execute() {
+    this.counter.reset();
+  }
+
+  undo() {
+    this.counter.setValue(this.previousValue);
+  }
+}
