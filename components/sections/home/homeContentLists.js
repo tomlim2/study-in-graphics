@@ -3,6 +3,13 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
+        name: "follow mouse component",
+        url: "/pj/follow-mouse-component",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "in progress",
+        tags: [""],
+      },
+      {
         name: "to do",
         url: "/front/to-do",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",

@@ -25,7 +25,7 @@ const Experience = () => {
   return (
     <>
       <Perf position="bottom-right" />
-      <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} />
+      {/* <CameraControls makeDefault maxDistance={35} dollySpeed={0.25} /> */}
       <Stage />
       <mesh position={[0, 1, 0]} scale={[1, 1, 1]}>
         <planeGeometry args={[1, 3, 16, 32]} />
