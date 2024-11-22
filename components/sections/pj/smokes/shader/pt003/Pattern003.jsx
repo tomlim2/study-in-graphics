@@ -1,8 +1,9 @@
 import { extend, useFrame, useLoader } from '@react-three/fiber'
 import fragmentShader from 'raw-loader!glslify-loader!./fragment.glsl'
 import vertexShader from 'raw-loader!glslify-loader!./vertex.glsl'
-import { DoubleSide, RepeatWrapping, TextureLoader } from "three";
+import { DoubleSide, RepeatWrapping, SRGBColorSpace, TextureLoader } from "three";
 import { useRef } from "react";
+import * as THREE from 'three';
 
 export default function Pattern003() {
     const materialRef = useRef()
