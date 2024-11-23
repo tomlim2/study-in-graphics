@@ -38,6 +38,22 @@ export const inProgressList = [
         tags: [""],
       },
       {
+        name: "p5 clapping ml5",
+        url: "/pj/p5/nest-05",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "done",
+        tags: [""],
+        description: "",
+      },
+      {
+        name: "p5 mic",
+        url: "/pj/p5/nest-06",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "done",
+        tags: [""],
+        description: "",
+      },
+      {
         name: "p5 flower drawing",
         url: "/pj/p5/nest-02",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
