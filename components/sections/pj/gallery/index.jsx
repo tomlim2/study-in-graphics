@@ -5,9 +5,10 @@ import { Leva } from "leva";
 
 import { useRecoilState } from "recoil";
 import { isDebuggerState } from "@/stores/storeFiber"
+import { Stage } from "@react-three/drei";
 
 
-const SectionSmokes = () => {
+const SectionGallery = () => {
   const [isDebugger, setIsDebugger] = useRecoilState(isDebuggerState)
 
   return (
@@ -15,16 +16,19 @@ const SectionSmokes = () => {
       <Leva hidden={!isDebugger} />
       <Canvas
         shadows
+        orthographic
         camera={{
-          fov: 45,
+          fov: 35,
           near: 0.1,
           far: 50,
+          zoom: 100,
         }}
       >
         <Experience />
+        <Stage />
       </Canvas>
     </>
   );
 };
 
-export default SectionSmokes;
+export default SectionGallery;

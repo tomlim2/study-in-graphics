@@ -3,8 +3,22 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
+        name: "gallery",
+        url: "/pj/gallery",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "in progress",
+        tags: [""],
+      },
+      {
         name: "to do",
         url: "/front/to-do",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "in progress",
+        tags: [""],
+      },
+      {
+        name: "follow mouse acc",
+        url: "/pj/follow-mouse-acc",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
         status: "in progress",
         tags: [""],
@@ -106,13 +120,6 @@ export const inProgressList = [
       {
         name: "wave on click",
         url: "/pj/wave-on-click",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-        status: "in progress",
-        tags: [""],
-      },
-      {
-        name: "smokes",
-        url: "/pj/smokes",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
         status: "in progress",
         tags: [""],
