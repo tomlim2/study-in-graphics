@@ -8,7 +8,7 @@ import { isDebuggerState } from "@/stores/storeFiber"
 import { Stage } from "@react-three/drei";
 
 
-const SectionSmokes = () => {
+const SectionGallery = () => {
   const [isDebugger, setIsDebugger] = useRecoilState(isDebuggerState)
 
   return (
@@ -31,4 +31,4 @@ const SectionSmokes = () => {
   );
 };
 
-export default SectionSmokes;
+export default SectionGallery;

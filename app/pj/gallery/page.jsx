@@ -1,13 +1,13 @@
 import "./page.scss";
-import SectionSmokes from "@/components/sections/pj/smokes";
+import SectionSmokes from "@/components/sections/pj/gallery";
 
 
 export const metadata = {
-  title: "smokes | Fiber | yslim",
+  title: "Gallery | Fiber | yslim",
   description: "My playground",
 };
 
-const PageSmokes = () => {
+const PageGallery = () => {
   return (
     <main className="page">
       <SectionSmokes/>
@@ -15,4 +15,4 @@ const PageSmokes = () => {
   );
 };
 
-export default PageSmokes;
+export default PageGallery;

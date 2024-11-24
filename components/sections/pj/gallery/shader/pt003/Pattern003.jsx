@@ -10,7 +10,6 @@ export default function Pattern003() {
     const perlinTexture = useLoader(TextureLoader, "/coffeeSmoke/perlin.png")
     perlinTexture.wrapS = RepeatWrapping
     perlinTexture.wrapT = RepeatWrapping
-    console.log(perlinTexture);
     useFrame((state, delta) => {
         if (materialRef.current) {
             materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
