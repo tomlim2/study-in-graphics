@@ -13,10 +13,13 @@ export default function Pattern004 () {
     perlinTexture.wrapT = RepeatWrapping
     console.log(perlinTexture);
     useFrame((state, delta) => {
-         
-        let target = new THREE.Vector3(state.pointer.x, state.pointer.y, 0);
+        const { pointer } = state;
+        let x = pointer.x * (innerWidth / 200);
+        let y = pointer.y * (innerHeight / 200);
+        let target = new THREE.Vector3(x, y, 0);
+        
         if(coneRef.current) {
-            coneRef.current.rotation;
+            coneRef.current.position.copy(target)
         }
         if (materialRef.current) {
             materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
@@ -25,7 +28,7 @@ export default function Pattern004 () {
     });
     return (
         <>
-            <mesh ref={coneRef} position={[3, 0, 0]} scale={[1, 1, 1]}>
+            <mesh ref={coneRef} position={[0, 0, 0]} scale={[1, 1, 1]}>
                 <coneGeometry args={[1, 2, 32]} />
                 <shaderMaterial
                     ref={materialRef}

@@ -18,14 +18,11 @@ const SectionGallery = () => {
         shadows
         orthographic
         camera={{
-          fov: 35,
-          near: 0.1,
-          far: 50,
           zoom: 100,
         }}
       >
         <Experience />
-        <Stage />
+        {/* <Stage /> */}
       </Canvas>
     </>
   );
