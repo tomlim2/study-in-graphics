@@ -3,8 +3,8 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
-        name: "p5 the map",
-        url: "/pj/p5/nest-03",
+        name: "gallery",
+        url: "/pj/gallery",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
         status: "in progress",
         tags: [""],
@@ -12,6 +12,13 @@ export const inProgressList = [
       {
         name: "to do",
         url: "/front/to-do",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "in progress",
+        tags: [""],
+      },
+      {
+        name: "follow mouse acc",
+        url: "/pj/follow-mouse-acc",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
         status: "in progress",
         tags: [""],
@@ -43,6 +50,22 @@ export const inProgressList = [
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
         status: "in progress",
         tags: [""],
+      },
+      {
+        name: "p5 clapping ml5",
+        url: "/pj/p5/nest-05",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "done",
+        tags: [""],
+        description: "",
+      },
+      {
+        name: "p5 mic",
+        url: "/pj/p5/nest-06",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "done",
+        tags: [""],
+        description: "",
       },
       {
         name: "p5 flower drawing",
@@ -97,13 +120,6 @@ export const inProgressList = [
       {
         name: "wave on click",
         url: "/pj/wave-on-click",
-        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
-        status: "in progress",
-        tags: [""],
-      },
-      {
-        name: "smokes",
-        url: "/pj/smokes",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
         status: "in progress",
         tags: [""],

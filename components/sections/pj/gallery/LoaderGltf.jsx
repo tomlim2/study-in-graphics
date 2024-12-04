@@ -1,6 +1,7 @@
 import { useControls } from "leva";
 import { useGLTF } from "@react-three/drei";
 import { useState, useRef } from "react";
+import * as THREE from "three";
 
 export default function LoaderGltf() {
     const { color } = useControls("standard material", {
@@ -9,13 +10,17 @@ export default function LoaderGltf() {
     const part6 = useRef()
     const group = useRef()
     const suzanne = useGLTF(
-        "/assets/models/hamburger.glb"
+        "/coffeeSmoke/bakedModel.glb"
     );
-    console.log(suzanne);
     return (
         <>
-            <group position={[0,-2.3,0]} scale={[.35,.35,.35]}>
+            <group position={[0,-1,0]} scale={[.35,.35,.35]}>
                 <primitive object={suzanne.scene} />
+                {suzanne.scene.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material = new THREE.MeshToonMaterial({ color:"orange" });
+                    }
+                })}
             </group>
         </>
     );
