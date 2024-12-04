@@ -1,12 +1,11 @@
 "use client";
 
-import TodoList from "./TodoList";
+import Todo from "./TodoList";
 
 const PageTodo = () => {
   return (
-    <div>
-      <h1>Todo</h1>
-      <TodoList />
+    <div style={{ padding: "40px" }}>
+      <Todo />
     </div>
   );
 }

@@ -1,72 +1,46 @@
-// components/TodoList.js
+// pages/index.js
 import { useState } from 'react';
-import CommandInvoker from './commands/CommandInvoker';
-import AddTaskCommand from './commands/AddTaskCommand';
-import DeleteTaskCommand from './commands/DeleteTaskCommand';
-import CompleteTaskCommand from './commands/CompleteTaskCommand';
 
-const TodoList = () => {
-  const [tasks, setTasks] = useState([]);
-  const invoker = new CommandInvoker();
+export default function Todo() {
+  const [todos, setTodos] = useState([]);
+  const [history, setHistory] = useState([]);
+  const [redoStack, setRedoStack] = useState([]);
+  const [text, setText] = useState('');
 
-  const addTask = (task) => {
-    const command = new AddTaskCommand({ add: addTaskDirect, remove: removeTaskDirect }, task);
-    invoker.executeCommand(command);
-    console.log('addTask', tasks);
-  };
-
-  const deleteTask = (taskId) => {
-    const command = new DeleteTaskCommand({ remove: removeTaskDirect, add: addTaskDirect }, taskId);
-    invoker.executeCommand(command);
-  };
-
-  const toggleTaskCompletion = (taskId) => {
-    const command = new CompleteTaskCommand({ toggleComplete: toggleCompleteDirect }, taskId);
-    invoker.executeCommand(command);
+  const addTodo = (todo) => {
+    const newTodos = [...todos, todo];
+    setHistory([...history, todos]);
+    setTodos(newTodos);
+    setRedoStack([]);
   };
 
   const undo = () => {
-    invoker.undo();
-    setTasks([...tasks]);
+    if (history.length === 0) return;
+    const previousTodos = history[history.length - 1];
+    setHistory(history.slice(0, -1));
+    setRedoStack([...redoStack, todos]);
+    setTodos(previousTodos);
   };
 
   const redo = () => {
-    invoker.redo();
-    setTasks([...tasks]);
-  };
-
-  // Direct task manipulation methods
-  const addTaskDirect = (task) => setTasks((prevTasks) => [...prevTasks, task]);
-  const removeTaskDirect = (taskId) => setTasks((prevTasks) => prevTasks.filter(task => task.id !== taskId));
-  const toggleCompleteDirect = (taskId) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task
-      )
-    );
+    if (redoStack.length === 0) return;
+    const nextTodos = redoStack[redoStack.length - 1];
+    setRedoStack(redoStack.slice(0, -1));
+    setHistory([...history, todos]);
+    setTodos(nextTodos);
   };
 
   return (
-    <div>
-      <h1>To-Do List</h1>
-      <button onClick={() => addTask({ id: Date.now(), text: "New Task", completed: false })}>
-        Add Task
-      </button>
+    <>
+      <input type="text" id="new-todo" onInput={(e) => setText(e)} />
+      <button onClick={() => addTodo(document.getElementById('new-todo').value)}>Add Todo</button>
       <button onClick={undo}>Undo</button>
       <button onClick={redo}>Redo</button>
       <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            <span style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>
-              {task.text}
-            </span>
-            <button onClick={() => toggleTaskCompletion(task.id)}>Complete</button>
-            <button onClick={() => deleteTask(task.id)}>Delete</button>
-          </li>
+        {todos.map((todo, index) => (
+          <li key={index}>{todo}</li>
         ))}
       </ul>
-    </div>
+    </>
   );
-};
-
-export default TodoList;
+}
