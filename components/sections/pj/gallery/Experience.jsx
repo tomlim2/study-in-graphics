@@ -5,6 +5,8 @@ import Pattern000 from "./shader/pt000/Pattern000";
 import Pattern001 from "./shader/pt001/Pattern001";
 import Pattern002 from "./shader/pt002/Pattern002";
 import Pattern003 from "./shader/pt003/Pattern003";
+import Pattern004 from "./shader/pt004/Pattern004";
+import Pattern005 from "./shader/pt005/Pattern005";
 
 
 
@@ -19,6 +21,8 @@ const Experience = () => {
       <Pattern001 />
       <Pattern002 />
       <Pattern003 />
+      <Pattern004 />
+      <Pattern005 />
       <LoaderGltf />
     </>
   );
