@@ -31,6 +31,13 @@ export const inProgressList = [
         tags: [""],
       },
       {
+        name: "follow mouse modules",
+        url: "/pj/follow-mouse-modules",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "in progress",
+        tags: [""],
+      },
+      {
         name: "towards center",
         url: "/pj/towards-center",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
