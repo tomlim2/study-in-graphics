@@ -17,6 +17,13 @@ export const inProgressList = [
         tags: [""],
       },
       {
+        name: "follow mouse acc modules",
+        url: "/pj/follow-mouse-acc-modules",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "in progress",
+        tags: [""],
+      },
+      {
         name: "follow mouse acc",
         url: "/pj/follow-mouse-acc",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",

@@ -53,7 +53,6 @@ const Experience = () => {
         })
         setInfos(newArray)
         // console.log("geometries", geometries);
-
     })
     return (
         <>
