@@ -2,6 +2,8 @@ import { OrbitControls, useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from 'three';
+import BouncingBall from "./BouncingBall";
+
 
 const Experience = () => {
     const meshRef = useRef();
@@ -60,6 +62,7 @@ const Experience = () => {
         <>
             <ambientLight intensity={1.5} />
             <pointLight ref={lightRef} intensity={80} position={[0, 0, 4]} distance={0} />
+            <BouncingBall />
             <mesh ref={meshRef}>
                 <sphereGeometry args={[.5, 16, 16]} />
                 <meshToonMaterial color="forestgreen" gradientMap={imgGradientMap} />
