@@ -3,6 +3,13 @@ export const inProgressList = [
     categoryName: "In progress",
     urlList: [
       {
+        name: "class component",
+        url: "/front/class-component",
+        thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
+        status: "in progress",
+        tags: [""],
+      },
+      {
         name: "gallery",
         url: "/pj/gallery",
         thumbnail: "/assets/images/thumbnails/img_thumbnail_default.png",
